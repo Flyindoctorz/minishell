@@ -1,0 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_quotes.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 14:54:38 by cgelgon           #+#    #+#             */
+/*   Updated: 2025/02/21 12:51:01 by cgelgon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/lexer.h"
+
+// lit et tokenize le content sous quotes
+// gere double quotes et single quotes
+// renvoie le token cree
+t_token	*read_quotes(t_lexer *lexer)
+{
+	char	quote_type;
+	int		start_pos;
+	int		len;
+	t_token *token;
+
+	if (!lexer || !is_quote(lexer->curr_char))
+	{
+		handle_error(MNSHL_ERR_ARGS, "read_quotes : null lexer");
+		return (NULL);
+	}
+	quote_type = lexer->curr_char;
+	if (!check_quote_end(lexer, quote_type))
+		return (NULL);
+	advance_lexer(lexer);
+	start_pos = lexer->pos;
+	len = get_quote_len(lexer, quote_type);
+	token = create_quote_token(lexer, len, start_pos);
+	if (!token)
+		return (NULL);
+	if (lexer->curr_char == quote_type)
+		advance_lexer(lexer);
+	return (token);
+}

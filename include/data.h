@@ -1,0 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   data.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/16 14:53:16 by cgelgon           #+#    #+#             */
+/*   Updated: 2025/03/17 14:42:40 by cgelgon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef DATA_H
+# define DATA_H
+
+#include "minishell.h"
+
+typedef struct s_data
+{
+	int			ac; // Gère les arguments passés au shell.
+	char		**av; // Gère les arguments passés au shell.
+	char		**envp; // Contient les variables d'environnement globales.
+	char		*cwd; // Suit le répertoire de travail actuel.
+	int			exit; // Stocke le code de sortie de la dernière commande.
+	int			nodenb; // Suit le nombre de nœuds (commandes ou opérateurs)
+	int			prev_pipe_read_end;// Facilite la gestion des pipelines (|).
+}	t_data;
+
+int				init_environment(t_data *data, char **envp);
+int				init_working_directory(t_data *data);
+t_data			*init_data(int ac, char **av, char **envp);
+char	 		**dup_env(char **envp);
+char 			*init_cwd(void);
+// cleanup functions
+void			free_env(char **env);
+void    		free_data(t_data *data);
+
+#endif
+
+

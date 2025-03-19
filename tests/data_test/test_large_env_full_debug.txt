@@ -1,0 +1,84 @@
+test_large_env_full_debug.txt
+
+// VERSION TEST
+int test_large_env(int ac, char **av)
+{
+	t_data *data;
+	char **large_env;
+	int success;
+
+	printf("\n=== Tests avec environnement très large ===\n");
+	fflush(stdout);
+	printf("Debug: Tentative de création de l'environnement large...\n");
+	fflush(stdout);
+	large_env = create_large_env();
+	if (!large_env)
+	{
+		printf("Debug: Échec de create_large_env - Retourne NULL\n");
+		fflush(stdout);
+		return (0);
+	}
+	printf("Debug: Environnement large créé avec succès\n");
+	fflush(stdout);
+	printf("Debug: Vérification de la structure de l'environnement...\n");
+	fflush(stdout);
+	if (!verify_large_env(large_env))
+	{
+		printf("Debug: Échec de la vérification - Structure invalide\n");
+		int i = 0;
+		while (large_env[i])
+		{
+			size_t len = ft_strlen(large_env[i]);
+			if (len != 199) // 199 est la nouvelle taille attendue
+			{
+				printf("Debug: Variable[%d] = '%s'\n", i, large_env[i]);
+				printf("Debug: Longueur = %zu (attendu 199)\n", len);
+				fflush(stdout);
+				break;
+			}
+			i++;
+		}
+		clean_test_env(large_env);
+		return (0);
+	}
+	printf("Debug: Tentative d'initialisation des données avec l'environnement...\n");
+	fflush(stdout);
+	data = init_data(ac, av, large_env);
+	if (!data)
+	{
+		printf("Debug: Échec de init_data avec l'environnement large\n");
+		fflush(stdout);
+		clean_test_env(large_env);
+		return (0);
+	}
+	printf("Debug: Vérification de la copie de l'environnement...\n");
+	fflush(stdout);
+	if (!test_env(large_env, data->envp))
+	{
+		printf("Debug: La copie de l'environnement n'est pas conforme\n");
+		int i = 0;
+		while (large_env[i] && data->envp[i])
+		{
+			if (ft_strcmp(large_env[i], data->envp[i]) != 0)
+			{
+				printf("Debug: Différence à l'index %d:\n", i);
+				printf("Debug: Original : '%s'\n", large_env[i]);
+				printf("Debug: Copie    : '%s'\n", data->envp[i]);
+				fflush(stdout);
+				break;
+			}
+			i++;
+		}
+		success = 0;
+	}
+	else
+	{
+		printf("Debug: Copie de l'environnement validée\n");
+		fflush(stdout);
+		success = 1;
+	}
+	print_test("Test grand environnement", success);
+	free_data(data);
+	clean_test_env(large_env);
+	return (success);
+}

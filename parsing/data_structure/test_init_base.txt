@@ -1,0 +1,41 @@
+init_base_test.txt
+
+/* COMMENTED VERSION FOR TEST
+t_data *init_data(int ac, char **av, char **envp)
+{
+	t_data *data;int statu
+	printf("Debug: Début de l'initialisation avec:\n");
+	printf("  - ac: %d\n", ac);
+	printf("  - av: %p\n", (void*)av);
+	printf("  - envp: %p\n", (void*)envp);
+	fflush(stdout);
+	data = validate_args(ac, av);
+	if (!data)
+	{
+	    printf("Debug: Échec de validate_args - Impossible de créer la structure\n");
+	     fflush(stdout);
+	     return (NULL);
+	}
+	printf("Debug: validate_args réussi - Structure créée\n");
+	fflush(stdout);status = init_environment(data, envp);
+	if (status != MNSHL_SUCCESS)
+	{    
+	printf("Debug: Échec de init_environment avec status %d\n", status);
+	    fflush(stdout);    free_data(data);
+	     return (NULL);
+	}
+	printf("Debug: init_environment réussi\n");fflush(stdout);
+	status = init_working_directory(data);
+	 if (status != MNSHL_SUCCESS)
+	{    
+		printf("Debug: Échec de init_working_directory avec status %d\n", status);
+	    fflush(stdout);
+		free_data(data);
+		return (NULL);
+	}
+	printf("Debug: init_working_directory réussi\n");
+	fflush(stdout);
+	printf("Debug: Initialisation complète réussie\n");
+	fflush(stdout);
+	return (data);
+} /*
