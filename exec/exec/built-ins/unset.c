@@ -1,0 +1,74 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 02:23:18 by lmokhtar          #+#    #+#             */
+/*   Updated: 2025/03/27 02:23:20 by lmokhtar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+int	ft_unset(t_data *minishell, char **arg)
+{
+	int	i;
+
+	minishell->state = 0;
+	i = 1;
+	if (!arg[1])
+		return (minishell->state);
+	while (arg[i])
+	{
+		if (!delete_node(&minishell->env, arg[i]))
+			i++;
+		else
+			i++;
+	}
+	return (minishell->state);
+}
+
+bool	delete_node(t_env **env, char *to_delete)
+{
+	int	flag;
+	int	len;
+
+	len = count_env(*env);
+	flag = search_env(*env, to_delete);
+	if (flag == 0)
+		return (0);
+	if (flag == 1)
+		remove_first(env);
+	else if (flag == len + 1)
+		remove_last(*env);
+	else
+		remove_node(*env, to_delete);
+	return (1);
+}
+
+void	ft_tabupdate(t_data *minishell)
+{
+	t_env	*env;
+	t_env	*tmp;
+	int		i;
+
+	env = minishell->env;
+	tmp = env;
+	i = 1;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	minishell->envp = malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (env)
+	{
+		minishell->envp[i] = ft_strjoin3(env->key, "=", env->value);
+		i++;
+		env = env->next;
+	}
+	minishell->envp[i] = 0;
+}
