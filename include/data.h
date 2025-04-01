@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:53:16 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/17 14:42:40 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/01 14:07:59 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ typedef struct s_data
 	t_token		*token; // For tokenized input
 	t_cmd_list	*command; // For parsed commands
 	int			state; // For shell state
+	t_env		*env; // Liste des variables d'environnement
+	t_parsing	*parsing; // État actuel du parsing
+	char		*input; // Input brut de l'utilisateur
+	pid_t		pid; // Process ID for command execution
+	int			pipe_fd[2]; // Pipe file descriptors
+	int			last_exit_status; // Last command exit status
+	bool		is_child; // Flag to indicate if current process is a child
 }	t_data;
 
 int				init_environment(t_data *data, char **envp);

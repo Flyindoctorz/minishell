@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 00:06:29 by zakchouc          #+#    #+#             */
-/*   Updated: 2025/03/31 18:29:32 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:40:08 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,15 @@ void    ft_envclear(t_env **env);
 # include "lexer.h"
 # include "readline.h"
 # include "parser.h"
+
+typedef struct s_command {
+    char **arguments;
+    t_redir *redir;
+    pid_t pid;
+    struct s_command *next;
+} t_command;
+
+// Alias t_command as t_cmd_list for compatibility
+typedef t_command t_cmd_list;
 
 #endif

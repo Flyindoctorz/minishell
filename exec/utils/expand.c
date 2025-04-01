@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 18:30:00 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/03/31 18:57:15 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:09:13 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,12 @@ static t_data *init_test_data(int ac, char **av, char **envp) {
     data->cwd = NULL;
     data->nodenb = 0;
     data->prev_pipe_read_end = -1;
+    data->token = NULL;
+    data->command = NULL;
+    data->state = 0;
+    data->env = NULL;
+    data->parsing = NULL;
+    data->input = NULL;
     return data;
 }
 
@@ -158,6 +164,16 @@ static void free_test_data(t_data *data) {
     if (!data)
         return;
     // Don't free envp as it's owned by the system
+    if (data->token)
+        ft_tokenclear(&data->token);
+    if (data->command)
+        ft_commandclear(&data->command);
+    if (data->env)
+        ft_envclear(&data->env);
+    if (data->parsing)
+        free(data->parsing);
+    if (data->input)
+        free(data->input);
     free(data);
 }
 

@@ -3,23 +3,6 @@
 
 # include "minishell.h"
 
-typedef struct s_redir {
-    int type;
-    char *file;
-    char **heredoc_content;
-    struct s_redir *next;
-} t_redir;
-
-typedef struct s_command {
-    char **arguments;
-    t_redir *redir;
-    pid_t pid;
-    struct s_command *next;
-} t_command;
-
-// Alias t_command as t_cmd_list for compatibility
-typedef t_command t_cmd_list;
-
 // Parser function declarations
 t_cmd_list *parse_tokens(t_token *tokens, t_data *data);
 void ft_tokenclear(t_token **token);
@@ -49,6 +32,6 @@ void free_all_heredoc(t_command *cmd);
 
 // Signal handling
 void set_signal_child(void);
-extern int g_signal;
+extern volatile sig_atomic_t g_signal;
 
 #endif

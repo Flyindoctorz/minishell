@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_base.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 12:32:42 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/01/30 12:30:34 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/01 14:08:06 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,17 @@ static t_data	*create_empty_data(void)
 		return (NULL);
 	}
 	data->prev_pipe_read_end = -1;
+	data->token = NULL;
+	data->command = NULL;
+	data->state = 0;
+	data->env = NULL;
+	data->parsing = NULL;
+	data->input = NULL;
+	data->pid = 0;
+	data->pipe_fd[0] = -1;
+	data->pipe_fd[1] = -1;
+	data->last_exit_status = 0;
+	data->is_child = false;
 	return (data);
 }
 

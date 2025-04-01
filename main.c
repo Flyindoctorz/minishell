@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main?.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 19:00:00 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/03/31 18:59:26 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:12:02 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ int	main_loop(t_data *minishell)
 int	main(int ac, char **av, char **env)
 {
 	t_data	minishell;
-
+	
+	(void)ac;
+	(void)av;
 	if (!isatty(0))
 		return (printf("minishell: tty required\n"), 1);
 	init_shell(&minishell, env);
