@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:45:52 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/19 13:53:24 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/01 14:51:06 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ bool	is_heredoc_token(t_token *token)
 {
 	if (!token || token->toktype != TOKEN_HEREDOC)
 		return (false);
-	TOKEN_HEREDOC = true;
 	return (true);
 }
 bool	is_valide_heredoc_delimiter(char *delimiter)
@@ -54,18 +53,18 @@ bool	process_heredoc_tok(t_cmd_list *cmd, t_token *token, t_data *data)
 
 	if (!cmd || !token || !data)
 	{
-		handle_error("process_heredoc_tok", "Invalid argument");
+		handle_error(MNSHL_ERR_ARGS, "process_heredoc_tok");
 		return (false);
 	}
 	delimiter = extract_heredoc_delim(token);
 	if (!delimiter)
 	{
-		handle_error("process_heredoc_tok", "Failed to extract delimiter");
+		handle_error(MNSHL_ERR_MEMORY, "process_heredoc_tok"););
 		return (false);
 	}
 	if (!is_valide_heredoc_delimiter(delimiter))
 	{
-		handle_error("process_heredoc_tok", "Invalid delimiter");
+		handle_error("process_heredoc_tok :Invalid delimiter");
 		free(delimiter);
 		return (false);
 	}
@@ -79,23 +78,23 @@ bool	process_all_heredoc(t_cmd_list *cmd, t_token *token, t_data *data)
 	t_cmd_list	*current_cmd;
 
 	if (!cmd || !token || !data)
-	{
-		handle_error("process_all_heredoc", "Invalid argument");
 		return (false);
-	}
 	curr = token;
 	current_cmd = cmd;
 	while (curr)
 	{
-		if (current_cmd == TOKEN_PIPE && curr->next)
+		if (curr== TOKEN_PIPE && curr->next)
+		{
+			if (!current_cmd->next)
+				return (false);
 			current_cmd = current_cmd->next;
-		else
-			return (false)
-	}
-	else if (is_heredoc_token(curr))
-	{
-		if (!process_heredoc_tok(current_cmd, curr, data))
-			return (false);
+		}
+		else if (is_heredoc_token(curr))
+		{
+			if (!process_heredoc_tok(current_cmd, curr, data))
+				return (false);
+		}
+		curr = curr->next;
 	}
 	return (true);
 }

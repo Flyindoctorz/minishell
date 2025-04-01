@@ -6,9 +6,12 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 13:56:14 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/18 14:27:04 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/01 14:40:01 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef COMMAND_LIST_H
+# define COMMAND_LIST_H
 
 #include "minishell.h"
 
@@ -28,3 +31,4 @@ typedef struct s_cmd_list
     struct s_cmd_list *next;      // Commande suivante
 } t_cmd_list;
 
+#endif

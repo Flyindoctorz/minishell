@@ -6,9 +6,12 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 13:57:40 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/19 15:09:59 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/01 14:40:48 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef HEREDOC_H
+# define HEREDOC_H
 
 #include "minishell.h"
 
@@ -31,6 +34,7 @@ bool write_content_to_pipe(int fd, char *content);
 t_heredoc *init_heredoc(char *delimiter, bool expand);
 void free_heredoc(t_heredoc *heredoc);
 
+#endif
 
 
 

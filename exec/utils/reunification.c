@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.h                                           :+:      :+:    :+:   */
+/*   reunification.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 13:56:47 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/01 14:40:38 by cgelgon          ###   ########.fr       */
+/*   Created: 2025/04/01 14:15:47 by cgelgon           #+#    #+#             */
+/*   Updated: 2025/04/01 14:18:11 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPAND_H
-# define EXPAND_H
 #include "minishell.h"
 
-typedef struct s_expand
-{
-    char *content;                // Contenu original
-    char *expanded;               // Contenu après expansion
-    int exit_code;                // Dernier code de sortie pour $?
-} t_expand;
+volatile sig_atomic_t	g_signal = 0;
 
-#endif
+int	main(int ac, char **av, char **envp)
+{
+	t_data	*data;
+
+	(void)ac;
+	(void)av;
+
+	data = init_data(ac, av, envp);
+	if (!data)
+		return (1);
+	setup_signal();
+	
+}
