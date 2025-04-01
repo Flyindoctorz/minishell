@@ -1,5 +1,4 @@
-
-#include "minishell.h"
+#include "../../include/string_utils.h"
 
 int	ft_isspace(char c)
 {

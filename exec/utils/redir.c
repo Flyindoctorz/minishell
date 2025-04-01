@@ -1,5 +1,4 @@
-
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 int	get_heredoc(t_redir *redir, t_data *minishell)
 {

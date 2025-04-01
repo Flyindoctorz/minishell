@@ -1,5 +1,4 @@
-
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	ft_commandaddback(t_command **head, t_command *new)
 {

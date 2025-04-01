@@ -6,11 +6,11 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:13 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/03/27 02:23:14 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/03/31 18:23:11 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../include/minishell.h"
 
 int	ft_pwd(t_data *minishell, char **arg)
 {

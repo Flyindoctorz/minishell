@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:22:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/03/27 02:22:15 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/03/31 18:17:53 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+
+# include "string_utils.h"
+# include "env_utils.h"
+# include "data.h"
+# include "lexer.h"
+# include "readline.h"
 
 // token
 extern volatile sig_atomic_t	g_signal;
@@ -112,15 +118,9 @@ int								good_flag(const char *str);
 
 int								ft_env(t_data *minishell, char **arg);
 
-void							env_print(t_env *env);
-
 int								ft_exit(t_data *minishell, char **arg);
 
 int								ft_export(t_data *minishell, char **arg);
-
-void							export_print(t_env *env);
-
-char							*get_exportkey(char *str);
 
 void							export_create(t_data *minishell, char *arg);
 
@@ -144,79 +144,8 @@ char							*cmd_finder(char **cmd, char **env);
 
 // utils
 
-int								ft_isspace(char c);
-
-bool							is_env_valid(char c, bool start);
-
-char							*ft_strjoin3(char *s1, char *s2, char *s3);
-
-char							*ft_strjoin(char *s1, char *s2);
-
-void							ft_putendl_fd(char *s, int fd);
-
-char							**ft_split(char const *s, char c);
-
-size_t							ft_strlcpy(char *dst, char *src, size_t size);
-
-char							*get_key(char *str);
-
-int								ft_atoi(char *str);
-
-char							*get_value_env(char *key, t_env *env);
-
-int								ft_strlen(char *str);
-
-char							*ft_strdup(char *str);
-
 void							ft_signal(void);
 
-char							*ft_substr(char *s, unsigned int start,
-									int len);
-
-int								ft_strcmp(char *s1, char *s2);
-
-int								ft_strncmp(char *s1, char *s2, int n);
-
-void							ft_strncat(char *dst, const char *src,
-									size_t size);
-
-void							ft_putstr_fd(char *str, int fd);
-
-bool							is_space(char c);
-
-bool							is_not_word(char c);
-
-char							**add_argument(char **tab, char *str);
-
-void							*ft_memset(void *s, int c, size_t n);
-
-void							free_tab(char **tab);
-
-bool							ft_isalpha(char c);
-
-void							export_print(t_env *env);
-
-int								search_env(t_env *env, char *key);
-
-int								ft_strchr(char *str, char c);
-
-bool							delete_node(t_env **env, char *to_delete);
-
-char							*ft_itoa(int n);
-
-void							remove_first(t_env **env);
-
-void							remove_last(t_env *env);
-
-void							remove_node(t_env *env, char *to_delete);
-
-void							modify_value(t_env *env, char *key,
-									char *value);
-
-void							free_node(t_env *env);
-
-int								count_env(t_env *env);
-
-bool							ft_isnum(char c);
+bool							print_test(char *test_name, bool test_result);
 
 #endif

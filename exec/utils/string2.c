@@ -1,5 +1,4 @@
-
-#include "minishell.h"
+#include "../../include/string_utils.h"
 
 void	ft_strncat(char *dst, const char *src, size_t size)
 {

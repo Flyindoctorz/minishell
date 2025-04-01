@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 00:06:29 by zakchouc          #+#    #+#             */
-/*   Updated: 2025/03/18 15:19:22 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/03/31 18:29:32 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <errno.h>
+# include <fcntl.h>
 # include <limits.h>
 # include <linux/limits.h>
 # include <readline/history.h>
@@ -31,7 +32,13 @@
 # include <unistd.h>
 # include "../libft/libft.h"
 
-struct						s_data;
+typedef struct s_env {
+    char *key;
+    char *value;
+    struct s_env *next;
+} t_env;
+
+struct					s_data;
 struct						s_lexer;
 struct						s_token;
 struct						s_parsing;
@@ -48,6 +55,22 @@ typedef struct s_expand		t_expand;
 typedef struct s_cmd_list	t_cmd_list;
 typedef struct s_env		t_env;
 typedef struct s_heredoc	t_heredoc;
+
+typedef enum e_redir_type
+{
+    IN,
+    OUT,
+    HEREDOC,
+    APPEND,
+} t_redir_type;
+
+typedef struct s_redir
+{
+    char            *file;
+    t_redir_type    type;
+    char            **heredoc_content;
+    struct s_redir  *next;
+} t_redir;
 
 //code ERRATUM
 typedef enum e_error_num
@@ -80,9 +103,14 @@ typedef enum e_error_num
 
 void    handle_error(t_error_num, const char *custom_msg);
 bool	print_test(char *test_name, bool test_result);
-
+char	*expand(char *str, t_data *minishell);
+void    ft_envaddback(t_env **head, t_env *new);
+t_env   *ft_envnew(char *key, char *value);
+t_env   *ft_envlast(t_env *head);
+void    ft_envclear(t_env **env);
 # include "data.h"
 # include "lexer.h"
 # include "readline.h"
+# include "parser.h"
 
 #endif

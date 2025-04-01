@@ -1,5 +1,4 @@
-
-#include "minishell.h"
+#include "../../include/env_utils.h"
 
 // (address: env) -> (address: node) -> [heap]
 

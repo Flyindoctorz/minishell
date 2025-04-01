@@ -1,5 +1,4 @@
-
-#include "minishell.h"
+#include "../../include/env_utils.h"
 
 void	ft_envaddback(t_env **head, t_env *new)
 {

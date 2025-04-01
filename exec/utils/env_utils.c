@@ -1,5 +1,4 @@
-
-#include "minishell.h"
+#include "../../include/env_utils.h"
 
 char	*get_value(char *str)
 {

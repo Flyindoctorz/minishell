@@ -6,11 +6,11 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:39 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/03/27 02:23:42 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/03/31 18:27:56 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	open_input(t_redir *redir, t_data *minishell)
 {
@@ -98,3 +98,4 @@ int	open_redirections(t_command *cmd, t_data *minishell)
 	}
 	return (EXIT_SUCCESS);
 }
+

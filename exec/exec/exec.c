@@ -6,11 +6,11 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:29 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/03/27 02:23:31 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/03/31 18:23:11 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	execut_me(t_command *cmd, t_data *shell, int save[2], int fd[2])
 {

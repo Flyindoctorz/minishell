@@ -1,119 +1,106 @@
-NAME = minishell
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/03/31 19:10:00 by lmokhtar           #+#    #+#              #
+#    Updated: 2025/03/31 19:10:00 by lmokhtar          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# Colors
+BLUE = \033[0;34m
+GREEN = \033[0;32m
+RED = \033[0;31m
+YELLOW = \033[0;33m
+RESET = \033[0m
+BOLD = \033[1m
+
+# Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
-RM = rm -f
+CFLAGS = -Wall -Wextra -Werror -I./include -I./libft/include
+LDFLAGS = -L./libft -lft -lreadline
 
-# Library paths
-LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
-
-# Include paths
-INCLUDE_DIR = include
-INCLUDES = -I$(INCLUDE_DIR) -I$(LIBFT_DIR)
-
-# Main components
-DATA_DIR = parsing/data_structure
+# Directories
+SRC_DIR = .
+EXEC_DIR = exec/exec
+BUILTINS_DIR = exec/exec/built-ins
+UTILS_DIR = exec/utils
 LEXER_DIR = parsing/lexer
-PARSER_DIR = parsing/parser
-READLINE_DIR = parsing/readline
+OBJ_DIR = obj
 
-# Source files by component
-DATA_SRC = $(DATA_DIR)/exit_free.c \
-           $(DATA_DIR)/init_base.c \
-           $(DATA_DIR)/init_environment.c
-
-LEXER_SRC = $(LEXER_DIR)/expand_utils.c \
-            $(LEXER_DIR)/init_lexer.c \
-            $(LEXER_DIR)/lexer_main.c \
-            $(LEXER_DIR)/quotes_utils.c \
-            $(LEXER_DIR)/read_expand.c \
-            $(LEXER_DIR)/read_operator.c \
-            $(LEXER_DIR)/read_quotes.c \
-            $(LEXER_DIR)/read_word.c \
-            $(LEXER_DIR)/shrinker.c \
-            $(LEXER_DIR)/shrinker_two.c \
-            $(LEXER_DIR)/shrinker_three.c \
-            $(LEXER_DIR)/utils_lexer.c
-
-READLINE_SRC = $(READLINE_DIR)/readline_interface.c \
-               $(READLINE_DIR)/readline_main.c \
-               $(READLINE_DIR)/readline_prompter.c \
-               $(READLINE_DIR)/readline_prompt_utils.c.c
-
-# Include error handling
-COMMON_SRC = $(INCLUDE_DIR)/error.c
-
-# Main source
-MAIN_SRC = parsing_main.c
-
-# All source files combined
-SRC = $(DATA_SRC) $(LEXER_SRC) $(READLINE_SRC) $(COMMON_SRC) $(MAIN_SRC)
+# Source files
+SRCS = main.c
+EXEC_SRCS = exec.c exec_builtins.c pipex.c signals.c redir_utils.c
+BUILTINS_SRCS = cd.c echo.c env.c exit.c export.c pwd.c unset.c
+UTILS_SRCS = command.c env.c env_utils.c expand.c redir.c string.c string2.c \
+	string3.c string4.c tab.c token.c
+LEXER_SRCS = expand_utils.c init_lexer.c lexer_main.c quotes_utils.c \
+	read_expand.c read_operator.c read_quotes.c read_word.c shrinker.c \
+	shrinker_three.c shrinker_two.c utils_lexer.c
 
 # Object files
-OBJ_DIR = obj
-OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+EXEC_OBJS = $(addprefix $(OBJ_DIR)/, $(EXEC_SRCS:.c=.o))
+BUILTINS_OBJS = $(addprefix $(OBJ_DIR)/, $(BUILTINS_SRCS:.c=.o))
+UTILS_OBJS = $(addprefix $(OBJ_DIR)/, $(UTILS_SRCS:.c=.o))
+LEXER_OBJS = $(addprefix $(OBJ_DIR)/, $(LEXER_SRCS:.c=.o))
 
-# Create object file directories
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
+# Target
+NAME = minishell
 
-# Rules to create object files from source files
-$(OBJ_DIR)/%.o: $(DATA_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(OBJ_DIR)/%.o: $(LEXER_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(OBJ_DIR)/%.o: $(PARSER_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(OBJ_DIR)/%.o: $(READLINE_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(OBJ_DIR)/%.o: $(INCLUDE_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-# Main build rules
+# Rules
 all: $(NAME)
 
-$(LIBFT):
-	@echo "Building libft..."
-	@make -C $(LIBFT_DIR)
+$(NAME): $(OBJS) $(EXEC_OBJS) $(BUILTINS_OBJS) $(UTILS_OBJS) $(LEXER_OBJS)
+	@echo "$(BLUE)Building libft...$(RESET)"
+	@make -C libft
+	@echo "$(BLUE)Linking $(NAME)...$(RESET)"
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+	@echo "$(GREEN)✨ $(NAME) is ready!$(RESET)"
 
-$(NAME): $(LIBFT) $(OBJ_DIR) $(OBJ)
-	@echo "Linking $(NAME)..."
-	$(CC) $(OBJ) -o $(NAME) -L$(LIBFT_DIR) -lft -lreadline
-	@echo "$(NAME) successfully built!"
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@echo "$(YELLOW)Compiling: $<$(RESET)"
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# Testing rules
-test: test-data test-lexer
+$(OBJ_DIR)/%.o: $(EXEC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@echo "$(YELLOW)Compiling: $<$(RESET)"
+	$(CC) $(CFLAGS) -c $< -o $@
 
-test-data:
-	@echo "Running data structure tests..."
-	@make -C tests/data_test
+$(OBJ_DIR)/%.o: $(BUILTINS_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@echo "$(YELLOW)Compiling: $<$(RESET)"
+	$(CC) $(CFLAGS) -c $< -o $@
 
-test-lexer:
-	@echo "Running lexer tests..."
-	@make -C tests/lexer_test
+$(OBJ_DIR)/%.o: $(UTILS_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@echo "$(YELLOW)Compiling: $<$(RESET)"
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# Cleaning rules
+$(OBJ_DIR)/%.o: $(LEXER_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@echo "$(YELLOW)Compiling: $<$(RESET)"
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	@echo "Cleaning object files..."
-	@rm -rf $(OBJ_DIR)
-	@make -C $(LIBFT_DIR) clean
-	@make -C tests/data_test clean
-	@make -C tests/lexer_test clean
+	@echo "$(RED)Cleaning object files...$(RESET)"
+	@make clean -C libft
+	rm -rf $(OBJ_DIR)
+	@echo "$(GREEN)✨ Cleaned!$(RESET)"
 
 fclean: clean
-	@echo "Cleaning executables..."
-	@rm -f $(NAME)
-	@make -C $(LIBFT_DIR) fclean
-	@make -C tests/data_test fclean
-	@make -C tests/lexer_test fclean
+	@echo "$(RED)Removing $(NAME)...$(RESET)"
+	@make fclean -C libft
+	rm -f $(NAME)
+	@echo "$(GREEN)✨ Everything cleaned!$(RESET)"
+
+leak : all
+	@valgrind --leak-check=full --show-below-main=no --show-leak-kinds=all --track-fds=yes    --trace-children=yes  ./minishell
 
 re: fclean all
 
-.PHONY: all clean fclean re test test-data test-lexer
+.PHONY: all clean fclean re

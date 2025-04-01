@@ -24,6 +24,9 @@ typedef struct s_data
 	int			exit; // Stocke le code de sortie de la dernière commande.
 	int			nodenb; // Suit le nombre de nœuds (commandes ou opérateurs)
 	int			prev_pipe_read_end;// Facilite la gestion des pipelines (|).
+	t_token		*token; // For tokenized input
+	t_cmd_list	*command; // For parsed commands
+	int			state; // For shell state
 }	t_data;
 
 int				init_environment(t_data *data, char **envp);
