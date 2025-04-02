@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:45:52 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/01 14:51:06 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/02 14:47:26 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,32 +18,25 @@ bool	is_heredoc_token(t_token *token)
 		return (false);
 	return (true);
 }
-bool	is_valide_heredoc_delimiter(char *delimiter)
+bool	is_valid_heredoc_delimiter(char *delimiter)
 {
-	if (!delimiter || !ft_strlen(delimiter) == 0);
+	if (!delimiter || !ft_strlen(delimiter) == 0)
 		return (false);
-	return (true);
-
 	if (ft_strchr (delimiter, ' ') || ft_strchr(delimiter, '\t')
 		|| ft_strchr(delimiter, '\n') || ft_strchr(delimiter, '<')
 		|| ft_strchr(delimiter, '>') || ft_strchr(delimiter, '|'))
 		return (false);
 	return (true);
 }
-char	*extract_heredoc_delim(t_token *token)
+char *extract_heredoc_delim(t_token *token)
 {
-	char *delimiter;
-
-	if (!token || !token->toktype != TOKEN_HEREDOC || !token->value)
-		return (NULL);
-	if (token->shrinked = TOKEN_WORD)
-		return (ft_strdup(token->value));
-	if (!token->next || token->next->toktype != TOKEN_WORD)
-		return (NULL);
-	delimiter = ft_strdup(token->next->value);
-	if (!delimiter)
-		return (NULL);
-	return (delimiter);
+    if (!token || token->toktype != TOKEN_HEREDOC)
+        return (NULL);
+    if (token->shrinked == TOKEN_WORD && token->value)
+        return (ft_strdup(token->value));
+    if (!token->next || token->next->toktype != TOKEN_WORD)
+        return (NULL);
+    return (ft_strdup(token->next->value));
 }
 
 bool	process_heredoc_tok(t_cmd_list *cmd, t_token *token, t_data *data)
@@ -59,12 +52,12 @@ bool	process_heredoc_tok(t_cmd_list *cmd, t_token *token, t_data *data)
 	delimiter = extract_heredoc_delim(token);
 	if (!delimiter)
 	{
-		handle_error(MNSHL_ERR_MEMORY, "process_heredoc_tok"););
+		handle_error(MNSHL_ERR_MEMORY, "process_heredoc_tok");
 		return (false);
 	}
 	if (!is_valide_heredoc_delimiter(delimiter))
 	{
-		handle_error("process_heredoc_tok :Invalid delimiter");
+		handle_error(MNSHL_ERR_SYNTAX, "invalid delimiter");
 		free(delimiter);
 		return (false);
 	}
@@ -72,7 +65,7 @@ bool	process_heredoc_tok(t_cmd_list *cmd, t_token *token, t_data *data)
 	free(delimiter);
 	return (res);
 }
-bool	process_all_heredoc(t_cmd_list *cmd, t_token *token, t_data *data)
+bool	process_all_heredocs(t_cmd_list *cmd, t_token *token, t_data *data)
 {
 	t_token	*curr;
 	t_cmd_list	*current_cmd;
@@ -83,7 +76,7 @@ bool	process_all_heredoc(t_cmd_list *cmd, t_token *token, t_data *data)
 	current_cmd = cmd;
 	while (curr)
 	{
-		if (curr== TOKEN_PIPE && curr->next)
+		if (curr->toktype == TOKEN_PIPE && curr->next)
 		{
 			if (!current_cmd->next)
 				return (false);

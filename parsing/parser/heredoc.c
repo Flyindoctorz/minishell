@@ -6,75 +6,94 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:54:33 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/01 14:41:43 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/02 14:48:30 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/heredoc.h"
+#include <signal.h>
 
-//ecrit dans fd
-bool	write_content_to_pipe(int fd, char *content)
+bool	setup_heredoc_redir(t_cmd_list *cmd, t_heredoc *heredoc)
 {
-	size_t	len;
-
-	if (fd < 0 || !content)
+	if (!cmd || !heredoc || heredoc->fd < 0)
 		return (false);
-	len = ft_strlen(content);
-	if (write(fd, content, len) != (ssize_t)len)
-		return (false);
-	if (write(fd, "\n", 1) != 1)
+	if (cmd->fd_in != STDIN_FILENO)
+		close(cmd->fd_in);
+	cmd->fd_in = heredoc->fd;
+	cmd->heredoc = (true);
+	if (cmd->delimiter)
+	{
+		free(cmd->delimiter);
+		cmd->delimiter = NULL;
+	}
+	cmd->delimiter = ft_strdup(heredoc->delimiter);
+	if (!cmd->delimiter)
 		return (false);
 	return (true);
+	
+}
+bool	should_expand_heredoc(char *delimiter)
+{
+	int	i;
+	int	quote_count;
+
+	if (!delimiter)
+		return (true);
+	i = 0;
+	quote_count = 0;
+	while (delimiter[i])
+	{
+		if (delimiter[i] == '\'' || delimiter[i] == '"')
+			quote_count++;
+		i++;
+	}
+	return (quote_count % 2 == 0);
 }
 
-t_heredoc	*init_heredoc(char *delimiter, bool expand)
+
+void	*save_and_set_signals(void)
+{
+	struct sigaction	sa;
+	struct sigaction	old_sa;
+
+	ft_memset(&sa, 0, sizeof(sa));
+	sa.sa_handler = SIG_IGN;
+	sigaction(SIGINT, &sa, &old_sa);
+	return ((void *)old_sa.sa_handler);
+}
+void	restore_signals(void *old_handler)
+{
+	struct sigaction	sa;
+
+	ft_memset(&sa, 0, sizeof(sa));
+	sa.sa_handler = old_handler;
+	sigaction(SIGINT, &sa, NULL);
+}
+// if TOKEN_HEREDOC, 
+bool	handle_heredoc(t_cmd_list *cmd, char *delimiter, t_data *data)
 {
 	t_heredoc	*heredoc;
-	int			pipefd[2];
+	bool		expand;
+	bool		success;
+	void		*old_sigint;
 	
-	if (!delimiter)
-		return (NULL);
-	heredoc = (t_heredoc *)malloc(sizeof(t_heredoc));
-	if (!heredoc)
-		return (NULL);
-	heredoc->delimiter = ft_strdup(delimiter);
-	if (!heredoc->delimiter)
-	{
-		free(heredoc);
-		return (NULL);
-	}
-	heredoc->content = NULL;
-	heredoc->expand = expand;
-	if (pipe(pipefd) < 0)
-	{
-		free(heredoc->delimiter);
-		free(heredoc);
-		return (NULL);
-	}
-	heredoc->fd = pipefd[0];
-	close(pipefd[1]);
-	return (heredoc);
-}
-
-bool	read_heredoc_content(t_heredoc *heredoc, t_data *data)
-{
-	char 	*line;
-	int		pipe_fd[2];
-
-	if (pipe(pipe_fd) < 0)
+	if (!cmd || !delimiter || !data)
 		return (false);
-	
+	expand = should_expand_heredoc(delimiter);
+	heredoc = init_heredoc(delimiter, expand);
+	if (!heredoc)
+		return (false);
+	old_sigint = save_and_set_signals();
+	success = read_heredoc_content(heredoc, data);
+	restore_signals(old_sigint);
+	if (!success)
+	{
+		free_heredoc(heredoc);
+		return (false);
+	}
+	success = setup_heredoc_redir(cmd, heredoc);
+	heredoc->fd = -1;
+	free_heredoc(heredoc);
+	return (success);
 }
 
-void	free_heredoc(t_heredoc *heredoc)
-{
-	if (!heredoc)
-		return ;
-	if (heredoc->delimiter)
-		free(heredoc->delimiter);
-	if (heredoc->content)
-		free(heredoc->content);
-	if (heredoc->fd >= 0)
-		close(heredoc->fd);
-	free(heredoc);
-}
