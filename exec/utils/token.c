@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:44:05 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 16:15:12 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:47:08 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_token	*ft_tokennew(char *str, t_token_type type)
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
-	token->value= str;
+	token->value = str;
 	token->toktype = type;
 	token->next = NULL;
 	return (token);

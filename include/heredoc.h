@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 13:57:40 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/02 16:35:26 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:52:03 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,13 @@
 
 # include "minishell.h"
 
-typedef struct s_redir_type
-{
-	IN;
-	OUT;
-	HEREDOC;
-	APPEND;
-}			t_redir_type;
-
 typedef struct s_heredoc
 {
 	char *delimiter;        // Délimiteur
 	int fd;                 // Descripteur de fichier
 	char *content;          // Contenu collecté
 	bool expand;            // Si l'expansion doit être effectuée
-	t_redir_type type;      // Type de redirection
+	t_token_type type;      // Type de redirection
 	struct s_heredoc *next; // Prochain heredoc
 }			t_heredoc;
 

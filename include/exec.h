@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:57:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 16:48:48 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:57:53 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define EXEC_H
 
 # include "minishell.h"
+
+extern volatile sig_atomic_t	g_signal;
 
 int								exec_builtins(t_data *minishell, char **arg);
 int								builtins(t_data *minishell, t_cmd_list *cmd);
@@ -47,7 +49,6 @@ void							set_signal_child(void);
 int								sig_event(void);
 void							signal_handler(int sig);
 void							ft_signal(void);
-extern volatile sig_atomic_t	g_signal;
 
 int								ft_cd(t_data *minishell, char **arg);
 int								ft_echo(t_data *minishell, char **arg);
@@ -55,6 +56,7 @@ int								ft_env(t_data *minishell, char **arg);
 int								ft_export(t_data *minishell, char **arg);
 int								ft_pwd(t_data *minishell, char **arg);
 int								ft_unset(t_data *minishell, char **arg);
+char							*trim_spaces(char *str);
 int								ft_exit(t_data *minishell, char **arg);
 
 void							ft_cmd_listaddback(t_cmd_list **head,
@@ -75,14 +77,6 @@ t_env							*ft_envlast(t_env *head);
 void							ft_envclear(t_env **env);
 bool							init_env(char **env, t_data *minishell);
 
-static size_t					get_max_var_len(char **envp);
-static char						*get_env_value(char **envp, char *key);
-static char						*handle_special_vars(char *var,
-									t_data *minishell);
-static char						*expand_var(char *str, size_t *i,
-									t_data *minishell);
-char							*expand(char *str, t_data *minishell);
-
 int								search_env(t_env *env, char *key);
 void							export_print(t_env *env);
 void							modify_value(t_env *env, char *key,
@@ -97,7 +91,6 @@ t_heredoc						*ft_redirnew(char *str, t_heredoc type,
 									t_data *minishell);
 t_heredoc						*ft_redirlast(t_heredoc *head);
 void							ft_redirclear(t_heredoc *redir);
-
 
 void							ft_strncat(char *dst, const char *src,
 									size_t size);

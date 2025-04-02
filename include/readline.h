@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:05:49 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/17 14:45:22 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/02 17:51:29 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <minishell.h>
 
 // gestion du signal
-int	get_signal_status(void);
+int		get_signal_status(void);
 void	setup_signal(void);
 void	reset_sig_to_default(void);
 // prompt utils

@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 00:06:29 by zakchouc          #+#    #+#             */
-/*   Updated: 2025/04/02 16:42:03 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:58:48 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ typedef struct s_token		t_token;
 typedef struct s_parsing	t_parsing;
 typedef struct s_expand		t_expand;
 typedef struct s_cmd_list	t_cmd_list;
-typedef struct s_env		t_env;
 typedef struct s_heredoc	t_heredoc;
 
 # include "data.h"
+# include "exec.h"
 # include "lexer.h"
 # include "readline.h"
-# include "exec.h"
 
 // code ERRATUM
 typedef enum e_error_num

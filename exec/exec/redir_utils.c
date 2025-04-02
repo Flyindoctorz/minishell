@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:39 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 16:35:57 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:21:03 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	open_output(t_heredoc *redir, t_data *minishell)
 {
 	int	fd;
 
-	if (redir->type == OUT)
+	if (redir->type == TOKEN_REDIR_OUT)
 		fd = open(redir->delimiter, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (redir->type == APPEND)
+	if (redir->type == TOKEN_APPEND)
 		fd = open(redir->delimiter, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
@@ -51,8 +51,8 @@ void	free_all_heredoc(t_cmd_list *cmd)
 {
 	while (cmd)
 	{
-		if (cmd->redir && cmd->redir->heredoc_content)
-			free_tab(cmd->redir->heredoc_content);
+		if (cmd->redir && cmd->redir->content)
+			free_tab(cmd->redir->content);
 		cmd = cmd->next;
 	}
 }
@@ -72,9 +72,9 @@ void	open_heredoc(t_heredoc *redir, t_data *minishell)
 		ft_end(minishell);
 		exit(-1);
 	}
-	while (redir->heredoc_content && redir->heredoc_content[i])
+	while (redir->content && redir->content[i])
 	{
-		ft_putendl_fd(redir->heredoc_content[i], fd[1]);
+		ft_putendl_fd(redir->content[i], fd[1]);
 		i++;
 	}
 	close(fd[1]);
@@ -90,9 +90,9 @@ int	open_redirections(t_cmd_list *cmd, t_data *minishell)
 	redir = cmd->redir;
 	while (redir != NULL)
 	{
-		if (redir->type == HEREDOC)
+		if (redir->type == TOKEN_HEREDOC)
 			open_heredoc(redir, minishell);
-		else if (redir->type == IN)
+		else if (redir->type == TOKEN_REDIR_IN)
 			open_input(redir, minishell);
 		else
 			open_output(redir, minishell);

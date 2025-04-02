@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:22:38 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 15:41:15 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:47:50 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	print_args(char **args, int start)
 
 int	ft_echo(t_data *minishell, char **arg)
 {
-	int flag;
-	int i;
+	int	flag;
+	int	i;
 
 	minishell->state = 0;
 	flag = 0;

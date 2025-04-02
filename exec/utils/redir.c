@@ -6,11 +6,12 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:42:54 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 16:39:09 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:23:50 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
+#include "../../include/heredoc.h"
 
 int	get_heredoc(t_heredoc *redir, t_data *minishell)
 {
@@ -21,7 +22,7 @@ int	get_heredoc(t_heredoc *redir, t_data *minishell)
 		line = readline("heredoc> ");
 		if (g_signal != 0)
 		{
-			free_tab(redir->heredoc_content);
+			free_tab(redir->content);
 			free(line);
 			minishell->state = g_signal;
 			g_signal = 0;
@@ -32,10 +33,9 @@ int	get_heredoc(t_heredoc *redir, t_data *minishell)
 			printf("minishell: warning: heredoc delimited by end-of-file \n");
 			break ;
 		}
-		if (ft_strcmp(line, redir->file) == 0)
+		if (ft_strcmp(line, redir->delimiter) == 0)
 			break ;
-		redir->heredoc_content = add_argument(redir->heredoc_content,
-				expand(line, minishell));
+		redir->content = add_argument(redir->content, expand(line, minishell));
 		free(line);
 	}
 	return (EXIT_SUCCESS);
@@ -51,7 +51,7 @@ void	ft_rediraddback(t_heredoc **head, t_heredoc *new)
 		*head = new;
 }
 
-t_heredoc	*ft_redirnew(char *str, t_heredoc_type type, t_data *minishell)
+t_heredoc	*ft_redirnew(char *str, t_token_type type, t_data *minishell)
 {
 	t_heredoc	*redir;
 
@@ -60,10 +60,10 @@ t_heredoc	*ft_redirnew(char *str, t_heredoc_type type, t_data *minishell)
 	redir = malloc(sizeof(t_heredoc));
 	if (!redir)
 		return (NULL);
-	redir->heredoc_content = NULL;
+	redir->content = NULL;
 	redir->type = type;
-	redir->file = str;
-	if (type == HEREDOC)
+	redir->delimiter = str;
+	if (type == TOKEN_HEREDOC)
 	{
 		if (get_heredoc(redir, minishell) == EXIT_FAILURE)
 		{
@@ -89,7 +89,7 @@ void	ft_redirclear(t_heredoc *redir)
 	while (redir)
 	{
 		tmp = redir->next;
-		free(redir->file);
+		free(redir->delimiter);
 		free(redir);
 		redir = tmp;
 	}

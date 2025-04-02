@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 19:00:00 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 16:49:49 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:02:04 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main_loop(t_data *minishell)
 int	main(int ac, char **av, char **env)
 {
 	t_data	minishell;
-	
+
 	(void)ac;
 	(void)av;
 	if (!isatty(0))

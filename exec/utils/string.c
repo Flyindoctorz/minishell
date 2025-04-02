@@ -6,12 +6,11 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:43:22 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 16:47:39 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:46:50 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
-
 
 char	*ft_substr(char *s, unsigned int start, int len)
 {
@@ -36,7 +35,6 @@ char	*ft_substr(char *s, unsigned int start, int len)
 	str[j] = 0;
 	return (str);
 }
-
 
 char	*ft_strdup(char *str)
 {

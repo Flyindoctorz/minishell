@@ -6,12 +6,12 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:22:55 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 16:38:07 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:19:45 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/exec.h"
 #include "../../../include/minishell.h"
+#include "../../../include/exec.h"
 
 int	ft_env(t_data *minishell, char **arg)
 {

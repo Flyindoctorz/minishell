@@ -6,22 +6,12 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:41:01 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 16:06:25 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:46:23 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
-
-// Other includes and definitions
-
-typedef struct s_env
-{
-    char *key;
-    char *value;
-    struct s_env *next;
-} t_env;
-
-
+#include "../../include/minishell.h"
 
 void	ft_envaddback(t_env **head, t_env *new)
 {
@@ -77,8 +67,8 @@ bool	init_env(char **env, t_data *minishell)
 	{
 		env_t = ft_envnew(get_key(env[i]), get_value(env[i]));
 		if (!env_t)
-			return (ft_envclear(&minishell->env), 0);
-		ft_envaddback(&(minishell->env), env_t);
+			return (ft_envclear(&minishell->envp), 0);
+		ft_envaddback(&(minishell->envp), env_t);
 		i++;
 	}
 	return (1);
