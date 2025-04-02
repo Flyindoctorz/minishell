@@ -6,11 +6,12 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:25 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/03/31 18:23:11 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:18:20 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/exec.h"
+#include "../../include/command_list.h"
 
 int	exec_builtins(t_data *minishell, char **arg)
 {
@@ -30,7 +31,7 @@ int	exec_builtins(t_data *minishell, char **arg)
 		return (0);
 }
 
-int	builtins(t_data *minishell, t_command *cmd)
+int	builtins(t_data *minishell, t_cmd_list *cmd)
 {
 	int	save[2];
 	int	status;
@@ -38,15 +39,15 @@ int	builtins(t_data *minishell, t_command *cmd)
 	save[STDIN_FILENO] = dup(STDIN_FILENO);
 	save[STDOUT_FILENO] = dup(STDOUT_FILENO);
 	open_redirections(cmd, minishell);
-	if (ft_strcmp("exit", cmd->arguments[0]) == 0)
+	if (ft_strcmp("exit", cmd->av[0]) == 0)
 	{
 		dup2(save[STDIN_FILENO], STDIN_FILENO);
 		dup2(save[STDOUT_FILENO], STDOUT_FILENO);
 		(close(save[0]), close(save[1]));
 		free_all_heredoc(minishell->command);
-		return (ft_exit(minishell, cmd->arguments));
+		return (ft_exit(minishell, cmd->av));
 	}
-	status = exec_builtins(minishell, cmd->arguments);
+	status = exec_builtins(minishell, cmd->av);
 	dup2(save[STDIN_FILENO], STDIN_FILENO);
 	dup2(save[STDOUT_FILENO], STDOUT_FILENO);
 	(close(save[0]), close(save[1]));

@@ -6,11 +6,11 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:33 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/03/31 18:23:11 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:41:39 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/exec.h"
 
 char	*cmd_finder(char **cmd, char **env)
 {

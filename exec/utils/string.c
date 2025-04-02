@@ -1,14 +1,17 @@
-#include "../../include/string_utils.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   string.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/02 15:43:22 by lmokhtar          #+#    #+#             */
+/*   Updated: 2025/04/02 16:47:39 by lmokhtar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	ft_strlen(char *str)
-{
-	int	i;
+#include "../../include/exec.h"
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 char	*ft_substr(char *s, unsigned int start, int len)
 {
@@ -34,29 +37,6 @@ char	*ft_substr(char *s, unsigned int start, int len)
 	return (str);
 }
 
-int	ft_strncmp(char *s1, char *s2, int n)
-{
-	int	i;
-
-	if (!n)
-		return (0);
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n)
-		i++;
-	if (i == n)
-		return (0);
-	return (s1[i] - s2[i]);
-}
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
-}
 
 char	*ft_strdup(char *str)
 {

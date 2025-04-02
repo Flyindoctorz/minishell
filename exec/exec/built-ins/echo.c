@@ -6,11 +6,11 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:22:38 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/03/31 18:23:11 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:41:15 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "../../../include/exec.h"
 
 int	good_flag(const char *str)
 {

@@ -6,20 +6,22 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:39 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/03/31 18:27:56 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:35:57 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/command_list.h"
+#include "../../include/exec.h"
+#include "../../include/heredoc.h"
 
-void	open_input(t_redir *redir, t_data *minishell)
+void	open_input(t_heredoc *redir, t_data *minishell)
 {
 	int	fd;
 
-	fd = open(redir->file, O_RDONLY);
+	fd = open(redir->delimiter, O_RDONLY);
 	if (fd == -1)
 	{
-		perror(redir->file);
+		perror(redir->delimiter);
 		ft_end(minishell);
 		exit(EXIT_FAILURE);
 	}
@@ -27,17 +29,17 @@ void	open_input(t_redir *redir, t_data *minishell)
 	close(fd);
 }
 
-void	open_output(t_redir *redir, t_data *minishell)
+void	open_output(t_heredoc *redir, t_data *minishell)
 {
 	int	fd;
 
 	if (redir->type == OUT)
-		fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		fd = open(redir->delimiter, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (redir->type == APPEND)
-		fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		fd = open(redir->delimiter, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		perror(redir->file);
+		perror(redir->delimiter);
 		ft_end(minishell);
 		exit(EXIT_FAILURE);
 	}
@@ -45,7 +47,7 @@ void	open_output(t_redir *redir, t_data *minishell)
 	close(fd);
 }
 
-void	free_all_heredoc(t_command *cmd)
+void	free_all_heredoc(t_cmd_list *cmd)
 {
 	while (cmd)
 	{
@@ -55,11 +57,11 @@ void	free_all_heredoc(t_command *cmd)
 	}
 }
 
-void	open_heredoc(t_redir *redir, t_data *minishell)
+void	open_heredoc(t_heredoc *redir, t_data *minishell)
 {
 	int			fd[2];
 	int			i;
-	t_command	*cmd;
+	t_cmd_list	*cmd;
 
 	cmd = minishell->command;
 	i = 0;
@@ -80,9 +82,9 @@ void	open_heredoc(t_redir *redir, t_data *minishell)
 	close(fd[0]);
 }
 
-int	open_redirections(t_command *cmd, t_data *minishell)
+int	open_redirections(t_cmd_list *cmd, t_data *minishell)
 {
-	t_redir	*redir;
+	t_heredoc	*redir;
 
 	(void)minishell;
 	redir = cmd->redir;
@@ -98,4 +100,3 @@ int	open_redirections(t_command *cmd, t_data *minishell)
 	}
 	return (EXIT_SUCCESS);
 }
-

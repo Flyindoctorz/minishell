@@ -6,13 +6,14 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:29 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/03/31 18:23:11 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:18:44 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/exec.h"
+#include "../../include/command_list.h"
 
-void	execut_me(t_command *cmd, t_data *shell, int save[2], int fd[2])
+void	execut_me(t_cmd_list *cmd, t_data *shell, int save[2], int fd[2])
 {
 	int	status;
 
@@ -22,23 +23,23 @@ void	execut_me(t_command *cmd, t_data *shell, int save[2], int fd[2])
 	(close(save[0]), close(save[1]));
 	(close(fd[0]), close(fd[1]));
 	open_redirections(cmd, shell);
-	if (cmd->arguments == NULL)
+	if (cmd->av == NULL)
 	{
 		free_all_heredoc(shell->command);
 		ft_end(shell);
 		exit(EXIT_SUCCESS);
 	}
-	if (is_a_builtin(cmd->arguments) == true)
+	if (is_a_builtin(cmd->av) == true)
 	{
 		status = builtins(shell, cmd);
 		ft_end(shell);
 		exit(status);
 	}
 	ft_tabupdate(shell);
-	excute(cmd->arguments, shell->envp, shell);
+	excute(cmd->av, shell->envp, shell);
 }
 
-int	all_cmd(t_data *minishell, int save[2], t_command *cmd)
+int	all_cmd(t_data *minishell, int save[2], t_cmd_list *cmd)
 {
 	int	fd[2];
 
@@ -62,7 +63,7 @@ void	check_signal_exec(t_data *minishell)
 		printf("Quit (core dumped)\n");
 }
 
-void	waiter(t_command *cmd, t_data *minishell)
+void	waiter(t_cmd_list *cmd, t_data *minishell)
 {
 	while (cmd)
 	{
@@ -77,14 +78,14 @@ void	waiter(t_command *cmd, t_data *minishell)
 	}
 }
 
-bool	exec(t_command *cmd, t_data *minishell)
+bool	exec(t_cmd_list *cmd, t_data *minishell)
 {
 	int	save[2];
 
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
-	if (!cmd->next && is_a_builtin(cmd->arguments))
+	if (!cmd->next && is_a_builtin(cmd->av))
 		return (builtins(minishell, cmd), 1);
 	save[STDIN_FILENO] = dup(STDIN_FILENO);
 	save[STDOUT_FILENO] = dup(STDOUT_FILENO);

@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/02 15:44:05 by lmokhtar          #+#    #+#             */
+/*   Updated: 2025/04/02 16:15:12 by lmokhtar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/exec.h"
 
 void	ft_tokenaddback(t_token **head, t_token *new)
 {
@@ -18,8 +29,8 @@ t_token	*ft_tokennew(char *str, t_token_type type)
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
-	token->str = str;
-	token->type = type;
+	token->value= str;
+	token->toktype = type;
 	token->next = NULL;
 	return (token);
 }
@@ -38,8 +49,8 @@ void	ft_tokenclear(t_token **token)
 	while (*token)
 	{
 		tmp = (*token)->next;
-		if ((*token)->type != PIPE)
-			free((*token)->str);
+		if ((*token)->toktype != TOKEN_PIPE)
+			free((*token)->value);
 		free((*token));
 		(*token) = tmp;
 	}

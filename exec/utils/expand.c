@@ -6,11 +6,11 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 18:30:00 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/01 14:09:13 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:42:37 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/exec.h"
 
 static size_t	get_max_var_len(char **envp)
 {

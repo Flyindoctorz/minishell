@@ -1,4 +1,16 @@
-#include "../../include/string_utils.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   string2.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/02 15:43:28 by lmokhtar          #+#    #+#             */
+/*   Updated: 2025/04/02 16:47:19 by lmokhtar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/exec.h"
 
 void	ft_strncat(char *dst, const char *src, size_t size)
 {
@@ -49,27 +61,3 @@ int	ft_strchr(char *str, char c)
 	return (0);
 }
 
-int	ft_atoi(char *str)
-{
-	int	i;
-	int	p;
-	int	n;
-
-	i = 0;
-	p = 1;
-	n = 0;
-	while (ft_isspace(str[i]))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			p *= -1;
-		i++;
-	}
-	while (str[i] >= 48 && str[i] <= 57)
-	{
-		n = n * 10 + (str[i] - 48);
-		i++;
-	}
-	return (n * p);
-}

@@ -1,4 +1,27 @@
-#include "../../include/env_utils.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/02 15:41:01 by lmokhtar          #+#    #+#             */
+/*   Updated: 2025/04/02 16:06:25 by lmokhtar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/exec.h"
+
+// Other includes and definitions
+
+typedef struct s_env
+{
+    char *key;
+    char *value;
+    struct s_env *next;
+} t_env;
+
+
 
 void	ft_envaddback(t_env **head, t_env *new)
 {

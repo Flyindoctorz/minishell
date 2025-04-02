@@ -1,6 +1,18 @@
-#include "../../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redir.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/02 15:42:54 by lmokhtar          #+#    #+#             */
+/*   Updated: 2025/04/02 16:39:09 by lmokhtar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	get_heredoc(t_redir *redir, t_data *minishell)
+#include "../../include/exec.h"
+
+int	get_heredoc(t_heredoc *redir, t_data *minishell)
 {
 	char	*line;
 
@@ -29,7 +41,7 @@ int	get_heredoc(t_redir *redir, t_data *minishell)
 	return (EXIT_SUCCESS);
 }
 
-void	ft_rediraddback(t_redir **head, t_redir *new)
+void	ft_rediraddback(t_heredoc **head, t_heredoc *new)
 {
 	if (!head)
 		return ;
@@ -39,13 +51,13 @@ void	ft_rediraddback(t_redir **head, t_redir *new)
 		*head = new;
 }
 
-t_redir	*ft_redirnew(char *str, t_redir_type type, t_data *minishell)
+t_heredoc	*ft_redirnew(char *str, t_heredoc_type type, t_data *minishell)
 {
-	t_redir	*redir;
+	t_heredoc	*redir;
 
 	if (!str)
 		return (NULL);
-	redir = malloc(sizeof(t_redir));
+	redir = malloc(sizeof(t_heredoc));
 	if (!redir)
 		return (NULL);
 	redir->heredoc_content = NULL;
@@ -63,16 +75,16 @@ t_redir	*ft_redirnew(char *str, t_redir_type type, t_data *minishell)
 	return (redir);
 }
 
-t_redir	*ft_redirlast(t_redir *head)
+t_heredoc	*ft_redirlast(t_heredoc *head)
 {
 	while (head->next)
 		head = head->next;
 	return (head);
 }
 
-void	ft_redirclear(t_redir *redir)
+void	ft_redirclear(t_heredoc *redir)
 {
-	t_redir	*tmp;
+	t_heredoc	*tmp;
 
 	while (redir)
 	{

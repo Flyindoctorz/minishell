@@ -6,11 +6,11 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:22:31 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/03/31 18:58:09 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:41:13 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "../../../include/exec.h"
 
 int	chdir_fail(char *str)
 {
