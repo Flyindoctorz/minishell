@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:17:52 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 19:02:06 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:29:20 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static t_data	*init_shell(char **env)
 static int	process_input(t_data *data, char *input)
 {
 	if (!input)
-		return (0); // EOF (Ctrl+D)
+		return (0);
 	if (g_signal != 0)
 	{
 		data->state = g_signal;

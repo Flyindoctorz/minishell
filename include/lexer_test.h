@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_test.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:06:28 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/05 10:44:03 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/02 19:30:18 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef LEXER_TEST_H
 # define LEXER_TEST_H
 
-#include "minishell.h"
-#include "lexer.h"
-#include "data.h"
+# include "data.h"
+# include "lexer.h"
+# include "minishell.h"
 
 // lexer usefuls to init
 t_data	*create_test_data(void);
@@ -60,33 +59,37 @@ bool	test_quotes_edge_cases(void);
 bool	test_quotes_type(void);
 // expand utils
 bool	init_expand_test(t_data **data, t_lexer **lexer, char *input);
-bool	verify_expand_token(t_token *token, char *expected, t_token_type expected_type);
+bool	verify_expand_token(t_token *token, char *expected,
+			t_token_type expected_type);
 void	cleanup_expand_test(t_token *token, t_lexer *lexer, t_data *data);
-bool	test_expand_content(char *input, char *expected, t_token_type expected_type);
+bool	test_expand_content(char *input, char *expected,
+			t_token_type expected_type);
 // expand tests
 bool	test_expand_basic(void);
 bool	test_expand_isolated(void);
 bool	test_expand_edge_cases(void);
 bool	test_expand_special_cases(void);
 // shrinker tests
-bool    test_is_redir(void);
-bool    test_merge_redir(void);
-bool    test_shrink_simple_redirection(void);
-bool    test_shrink_multiple_redirections(void);
-bool    test_shrink_mixed_tokens(void);
-bool    test_shrink_redir_tokens(void);
+bool	test_is_redir(void);
+bool	test_merge_redir(void);
+bool	test_shrink_simple_redirection(void);
+bool	test_shrink_multiple_redirections(void);
+bool	test_shrink_mixed_tokens(void);
+bool	test_shrink_redir_tokens(void);
 // shrinker test utils
-void    free_test_tokens(t_token *token1, t_token *token2);
-void    free_test_tokens_with_merged(t_token *token1, t_token *token2, t_token *merged);
-bool    verify_shrinked_token(t_token *token, t_token_type expected_type, char *expected_value);
-bool    verify_multiple_tokens(t_token *tokens);
-bool    verify_mixed_tokens(t_token *tokens);
-void    free_cleanup_tokens(t_token *t1, t_token *t2, t_token *t3, t_token *t4);
+void	free_test_tokens(t_token *token1, t_token *token2);
+void	free_test_tokens_with_merged(t_token *token1, t_token *token2,
+			t_token *merged);
+bool	verify_shrinked_token(t_token *token, t_token_type expected_type,
+			char *expected_value);
+bool	verify_multiple_tokens(t_token *tokens);
+bool	verify_mixed_tokens(t_token *tokens);
+void	free_cleanup_tokens(t_token *t1, t_token *t2, t_token *t3, t_token *t4);
 // run tests
 void	run_init_tests(void);
 void	run_utils_tests(void);
 void	run_lexer_test(void);
-bool    run_quotes_tests(void);
+bool	run_quotes_tests(void);
 bool	run_expand_tests(void);
 bool	run_shrinker_tests(void);
 

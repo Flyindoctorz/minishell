@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 18:49:37 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:28:42 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,3 @@ int	ft_export(t_data *minishell, char **arg)
 	}
 	return (minishell->state);
 }
-
