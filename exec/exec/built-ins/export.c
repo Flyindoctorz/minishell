@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 15:41:21 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:49:37 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,6 @@ int	export_rule(char *str)
 		i++;
 	}
 	return (1);
-}
-
-int	ft_export(t_data *minishell, char **arg)
-{
-	int	i;
-
-	minishell->state = 0;
-	if (!arg[1])
-	{
-		export_print(minishell->env);
-		return (minishell->state);
-	}
-	i = 1;
-	while (arg[i])
-	{
-		if (!export_rule(arg[i]))
-		{
-			printf("bash: export: `%s': not a valid identifier\n", arg[i]);
-			i++;
-			minishell->state = 1;
-			continue ;
-		}
-		export_create(minishell, arg[i]);
-		i++;
-	}
-	return (minishell->state);
 }
 
 void	export_create(t_data *minishell, char *arg)
@@ -81,3 +55,30 @@ void	export_create(t_data *minishell, char *arg)
 		modify_value(minishell->env, key, value);
 	}
 }
+
+int	ft_export(t_data *minishell, char **arg)
+{
+	int	i;
+
+	minishell->state = 0;
+	if (!arg[1])
+	{
+		export_print(minishell->env);
+		return (minishell->state);
+	}
+	i = 1;
+	while (arg[i])
+	{
+		if (!export_rule(arg[i]))
+		{
+			printf("bash: export: `%s': not a valid identifier\n", arg[i]);
+			i++;
+			minishell->state = 1;
+			continue ;
+		}
+		export_create(minishell, arg[i]);
+		i++;
+	}
+	return (minishell->state);
+}
+

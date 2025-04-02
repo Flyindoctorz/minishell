@@ -6,20 +6,12 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:22:55 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 17:19:45 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:46:17 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
 #include "../../../include/exec.h"
-
-int	ft_env(t_data *minishell, char **arg)
-{
-	(void)arg;
-	minishell->state = 0;
-	env_print(minishell->env);
-	return (minishell->state);
-}
+#include "../../../include/minishell.h"
 
 void	env_print(t_env *env)
 {
@@ -29,4 +21,12 @@ void	env_print(t_env *env)
 			printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}
+}
+
+int	ft_env(t_data *minishell, char **arg)
+{
+	(void)arg;
+	minishell->state = 0;
+	env_print(minishell->env);
+	return (minishell->state);
 }

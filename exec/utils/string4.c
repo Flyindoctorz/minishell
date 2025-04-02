@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:43:51 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 15:43:55 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:55:41 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,21 @@ void	ft_putendl_fd(char *s, int fd)
 	ft_putstr_fd("\n", fd);
 }
 
-size_t	ft_strlcpy(char *dst, char *src, size_t size)
-{
-	size_t	i;
+// size_t	ft_strlcpy(char *dst, char *src, size_t size)
+// {
+// 	size_t	i;
 
-	i = 0;
-	if (size != 0)
-	{
-		while (src[i] && i < size - 1)
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = 0;
-	}
-	while (src[i])
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	if (size != 0)
+// 	{
+// 		while (src[i] && i < size - 1)
+// 		{
+// 			dst[i] = src[i];
+// 			i++;
+// 		}
+// 		dst[i] = 0;
+// 	}
+// 	while (src[i])
+// 		i++;
+// 	return (i);
+// }

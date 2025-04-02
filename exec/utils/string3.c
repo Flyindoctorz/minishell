@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:43:36 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 15:43:48 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:55:27 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,24 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3)
 	return (ret);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char	*tmp;
-	char	*og_tmp;
+// char	*ft_strjoin(char *s1, char *s2)
+// {
+// 	char	*tmp;
+// 	char	*og_tmp;
 
-	if ((s1 == NULL) || (s2 == NULL))
-		return (NULL);
-	tmp = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (tmp == NULL)
-		return (NULL);
-	og_tmp = tmp;
-	while (*s1)
-		*tmp++ = *s1++;
-	while (*s2)
-		*tmp++ = *s2++;
-	*tmp = '\0';
-	return (og_tmp);
-}
+// 	if ((s1 == NULL) || (s2 == NULL))
+// 		return (NULL);
+// 	tmp = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+// 	if (tmp == NULL)
+// 		return (NULL);
+// 	og_tmp = tmp;
+// 	while (*s1)
+// 		*tmp++ = *s1++;
+// 	while (*s2)
+// 		*tmp++ = *s2++;
+// 	*tmp = '\0';
+// 	return (og_tmp);
+// }
 
 static int	word_count(char const *s, char c)
 {

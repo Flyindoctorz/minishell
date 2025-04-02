@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 12:42:14 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/01 14:33:26 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:04:07 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,23 +106,23 @@ void	free_data(t_data *data)
 	free(data);
 }
 
-void	ft_commandclear(t_cmd_list **cmd)
-{
-	t_cmd_list	*current;
-	t_cmd_list	*next;
+// void	ft_commandclear(t_cmd_list **cmd)
+// {
+// 	t_cmd_list	*current;
+// 	t_cmd_list	*next;
 
-	if (!cmd || !*cmd)
-		return ;
-	current = *cmd;
-	while (current)
-	{
-		next = current->next;
-		if (current->arguments)
-			free_array(current->arguments);
-		if (current->redir)
-			ft_redirclear(current->redir);
-		free(current);
-		current = next;
-	}
-	*cmd = NULL;
-}
+// 	if (!cmd || !*cmd)
+// 		return ;
+// 	current = *cmd;
+// 	while (current)
+// 	{
+// 		next = current->next;
+// 		if (current->arguments)
+// 			free_array(current->arguments);
+// 		if (current->redir)
+// 			ft_redirclear(current->redir);
+// 		free(current);
+// 		current = next;
+// 	}
+// 	*cmd = NULL;
+// }

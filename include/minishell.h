@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 00:06:29 by zakchouc          #+#    #+#             */
-/*   Updated: 2025/04/02 17:58:48 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:26:03 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,6 @@ typedef struct s_expand		t_expand;
 typedef struct s_cmd_list	t_cmd_list;
 typedef struct s_heredoc	t_heredoc;
 
-# include "data.h"
-# include "exec.h"
-# include "lexer.h"
-# include "readline.h"
-
 // code ERRATUM
 typedef enum e_error_num
 {
@@ -68,6 +63,27 @@ typedef enum e_error_num
 	MNSHL_ERR_SYNTAX, // 8
 	MNSHL_ERR_MAX     //
 }							t_error_num;
+
+typedef enum token_type
+{
+	TOKEN_WORD,      //(words)
+	TOKEN_REDIR_IN,  // <
+	TOKEN_REDIR_OUT, // >
+	TOKEN_APPEND,    // >>
+	TOKEN_HEREDOC,   // <<
+	TOKEN_PIPE,      // |
+	TOKEN_DOLLAR,    //  $
+	TOKEN_QUOTES,    // ''
+	TOKEN_DQUOTES,   // ""
+	TOKEN_EXPAND,    // $VAR
+	TOKEN_EOF,       // calcule fin de l'input
+	TOKEN_ERROR,     // gestion d'err + debug
+}							t_token_type;
+
+# include "data.h"
+# include "exec.h"
+# include "lexer.h"
+# include "readline.h"
 
 // Messages d'erreur
 # define ERR_MSG_MEMORY "Memory allocation failed"

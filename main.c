@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/31 19:00:00 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 18:02:04 by lmokhtar         ###   ########.fr       */
+/*   Created: 2025/04/02 18:17:52 by lmokhtar          #+#    #+#             */
+/*   Updated: 2025/04/02 19:02:06 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,85 +14,111 @@
 
 volatile sig_atomic_t	g_signal = 0;
 
-static void	init_shell(t_data *minishell, char **env)
+static int	setup_data_environment(t_data *data, char **env)
 {
-	minishell->ac = 0;
-	minishell->av = NULL;
-	minishell->envp = dup_env(env);
-	minishell->cwd = init_cwd();
-	minishell->exit = 0;
-	minishell->nodenb = 0;
-	minishell->prev_pipe_read_end = -1;
-	minishell->token = NULL;
-	minishell->command = NULL;
-	minishell->state = 0;
-}
-
-static void	cleanup_shell(t_data *minishell)
-{
-	if (minishell->token)
-		ft_tokenclear(&minishell->token);
-	if (minishell->command)
-		ft_commandclear(&minishell->command);
-	if (minishell->envp)
-		free_env(minishell->envp);
-	if (minishell->cwd)
-		free(minishell->cwd);
-}
-
-static int	process_input(t_data *minishell, char *input)
-{
-	if (g_signal != 0)
-	{
-		minishell->state = g_signal;
-		g_signal = 0;
-		return (1);
-	}
-	if (!input)
+	data->token = NULL;
+	data->command = NULL;
+	data->env = NULL;
+	data->state = 0;
+	data->prev_pipe_read_end = -1;
+	data->envp = dup_env(env);
+	if (!data->envp)
 		return (0);
-	if (!*input)
-		return (1);
-	add_history(input);
-	minishell->token = tokenize_input(input, minishell);
-	if (!minishell->token)
-		return (1);
-	minishell->command = parse_tokens(minishell->token, minishell);
-	if (!minishell->command)
+	data->cwd = init_cwd();
+	if (!data->cwd)
 	{
-		ft_tokenclear(&minishell->token);
-		return (1);
+		free_env(data->envp);
+		return (0);
 	}
-	exec(minishell->command, minishell);
-	ft_tokenclear(&minishell->token);
-	ft_commandclear(&minishell->command);
+	if (!init_env(env, data))
+	{
+		free_env(data->envp);
+		free(data->cwd);
+		return (0);
+	}
 	return (1);
 }
 
-int	main_loop(t_data *minishell)
+static t_data	*init_shell(char **env)
+{
+	t_data	*data;
+
+	data = malloc(sizeof(t_data));
+	if (!data)
+		return (NULL);
+	if (!setup_data_environment(data, env))
+	{
+		free(data);
+		return (NULL);
+	}
+	return (data);
+}
+
+static int	process_input(t_data *data, char *input)
+{
+	if (!input)
+		return (0); // EOF (Ctrl+D)
+	if (g_signal != 0)
+	{
+		data->state = g_signal;
+		g_signal = 0;
+		return (1);
+	}
+	if (!*input)
+		return (1);
+	add_history(input);
+	data->token = tokenize_input(input, data);
+	if (!data->token)
+		return (1);
+	if (!data->command)
+	{
+		ft_tokenclear(&data->token);
+		return (1);
+	}
+	exec(data->command, data);
+	ft_tokenclear(&data->token);
+	ft_commandclear(&data->command);
+	return (1);
+}
+
+void	run_shell(t_data *data)
 {
 	char	*input;
+	char	*prompt;
 
 	while (1)
 	{
 		ft_signal();
-		input = readline("$> ");
-		if (!process_input(minishell, input))
+		prompt = get_prompt(data);
+		input = readline(prompt);
+		free(prompt);
+		if (!process_input(data, input))
+		{
+			free(input);
 			break ;
+		}
 		free(input);
 	}
-	return (0);
+	rl_clear_history();
 }
 
 int	main(int ac, char **av, char **env)
 {
-	t_data	minishell;
+	t_data	*data;
+	int		exit_status;
 
 	(void)ac;
 	(void)av;
 	if (!isatty(0))
-		return (printf("minishell: tty required\n"), 1);
-	init_shell(&minishell, env);
-	main_loop(&minishell);
-	cleanup_shell(&minishell);
-	return (minishell.exit);
+	{
+		printf("minishell: tty required\n");
+		return (1);
+	}
+	data = init_shell(env);
+	if (!data)
+		return (1);
+	run_shell(data);
+	exit_status = data->state;
+	ft_end(data);
+	return (exit_status);
 }

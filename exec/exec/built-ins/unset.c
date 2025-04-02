@@ -6,29 +6,12 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:18 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 15:41:34 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:49:51 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/exec.h"
-
-int	ft_unset(t_data *minishell, char **arg)
-{
-	int	i;
-
-	minishell->state = 0;
-	i = 1;
-	if (!arg[1])
-		return (minishell->state);
-	while (arg[i])
-	{
-		if (!delete_node(&minishell->env, arg[i]))
-			i++;
-		else
-			i++;
-	}
-	return (minishell->state);
-}
+#include "../../../include/minishell.h"
 
 bool	delete_node(t_env **env, char *to_delete)
 {
@@ -46,6 +29,24 @@ bool	delete_node(t_env **env, char *to_delete)
 	else
 		remove_node(*env, to_delete);
 	return (1);
+}
+
+int	ft_unset(t_data *minishell, char **arg)
+{
+	int	i;
+
+	minishell->state = 0;
+	i = 1;
+	if (!arg[1])
+		return (minishell->state);
+	while (arg[i])
+	{
+		if (!delete_node(&minishell->env, arg[i]))
+			i++;
+		else
+			i++;
+	}
+	return (minishell->state);
 }
 
 void	ft_tabupdate(t_data *minishell)

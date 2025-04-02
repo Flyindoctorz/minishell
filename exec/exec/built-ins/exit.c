@@ -6,11 +6,12 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:01 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 17:49:58 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:47:42 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/exec.h"
+#include "../../../include/minishell.h"
 
 void	exit_value(t_data *minishell, char *msg)
 {

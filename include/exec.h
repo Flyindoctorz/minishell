@@ -6,13 +6,15 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:57:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 17:57:53 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:16:04 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 
+# include "heredoc.h"
+# include "lexer.h"
 # include "minishell.h"
 
 extern volatile sig_atomic_t	g_signal;
@@ -58,18 +60,19 @@ int								ft_pwd(t_data *minishell, char **arg);
 int								ft_unset(t_data *minishell, char **arg);
 char							*trim_spaces(char *str);
 int								ft_exit(t_data *minishell, char **arg);
+void							ft_tabupdate(t_data *minishell);
 
-void							ft_cmd_listaddback(t_cmd_list **head,
+void							ft_commandaddback(t_cmd_list **head,
 									t_cmd_list *new);
-t_cmd_list						*ft_cmd_listnew(char **tab, t_heredoc *redir);
-t_cmd_list						*ft_cmd_listlast(t_cmd_list *head);
-void							ft_cmd_listclear(t_cmd_list **cmd);
+t_cmd_list						*ft_commandnew(char **tab, t_heredoc *redir);
+t_cmd_list						*ft_commandlast(t_cmd_list *head);
+void							ft_commandclear(t_cmd_list **cmd);
 
 char							*get_value(char *str);
-bool							ft_isalpha1(char c);
-bool							ft_isalnum1(char c);
-bool							ft_isnum1(char c);
-bool							is_env_valid1(char c, bool start);
+// bool							ft_isalpha1(char c);
+// bool							ft_isalnum(char c);
+bool							ft_isnum(char c);
+bool							is_env_valid(char c, bool start);
 
 void							ft_envaddback(t_env **head, t_env *new);
 t_env							*ft_envnew(char *key, char *value);
@@ -87,8 +90,8 @@ int								get_heredoc(t_heredoc *redir,
 									t_data *minishell);
 void							ft_rediraddback(t_heredoc **head,
 									t_heredoc *new);
-t_heredoc						*ft_redirnew(char *str, t_heredoc type,
-									t_data *minishell);
+// t_heredoc						*ft_redirnew(char *str, t_token_type type,
+// t_data *minishell);
 t_heredoc						*ft_redirlast(t_heredoc *head);
 void							ft_redirclear(t_heredoc *redir);
 
@@ -110,7 +113,7 @@ int								tab_len(char **tab);
 char							**add_argument(char **tab, char *arg);
 
 void							ft_tokenaddback(t_token **head, t_token *new);
-t_token							*ft_tokennew(char *str, t_token_type type);
+// t_token							*ft_tokennew(char *str, t_token_type type);
 t_token							*ft_tokenlast(t_token *head);
 void							ft_tokenclear(t_token **token);
 void							ft_end(t_data *minishell);
@@ -120,5 +123,19 @@ void							remove_last(t_env *env);
 void							remove_node(t_env *env, char *to_delete);
 void							free_node(t_env *env);
 int								count_env(t_env *env);
+
+int								change_quote(char quote, int i);
+int								get_value_len(char *key, t_env *env);
+char							*get_value_env(char *key, t_env *env);
+int								get_env_size(char *str, int *i,
+									t_data *minishell);
+int								get_expanded_len(char *str, t_data *minishell);
+void							get_env_value(char *str, char *expanded, int *i,
+									t_data *minishell);
+void							if_expand(t_data *minishell, char *expanded,
+									int *i);
+char							*while_expand(char *str, char *expanded,
+									t_data *minishell);
+char							*expand(char *str, t_data *minishell);
 
 #endif

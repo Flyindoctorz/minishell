@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:39:31 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 16:04:42 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:09:14 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ bool	ft_isalnum1(char c)
 	return (ft_isalpha(c) || (c >= '0' && c <= '9'));
 }
 
-bool	ft_isnum1(char c)
+bool	ft_isnum(char c)
 {
 	return ((c >= '0' && c <= '9'));
 }
 
-bool	is_env_valid1(char c, bool start)
+bool	is_env_valid(char c, bool start)
 {
 	if (start)
 		return (ft_isalpha(c) || c == '_');

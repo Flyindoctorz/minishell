@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:43:28 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 17:47:00 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:55:20 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ void	ft_putstr_fd(char *str, int fd)
 		write(fd, &str[i++], 1);
 }
 
-int	ft_strchr(char *str, char c)
-{
-	int	i;
+// int	ft_strchr(char *str, char c)
+// {
+// 	int	i;
 
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == c)
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
