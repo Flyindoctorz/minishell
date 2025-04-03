@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 00:06:29 by zakchouc          #+#    #+#             */
-/*   Updated: 2025/04/03 16:33:54 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:26:18 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "heredoc.h"
 # include "lexer.h"
 # include "readline.h"
+# include "structure.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>

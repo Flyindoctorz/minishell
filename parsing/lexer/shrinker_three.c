@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shrinker_three.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:00:34 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:28:37 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 17:33:21 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ static bool	init_process_list(t_token **res, t_token **res_tail)
 
 t_token	*process_token_list(t_token *tokens, t_token **res, t_token **res_tail)
 {
-	t_token *current;
-	t_token *new_token;
+	t_token	*current;
+	t_token	*new_token;
 
 	if (!tokens || !init_process_list(res, res_tail))
 		return (NULL);

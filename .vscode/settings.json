@@ -5,6 +5,14 @@
         "functional": "cpp",
         "ranges": "cpp",
         "streambuf": "cpp",
-        "exec.h": "c"
+        "exec.h": "c",
+        "cmath": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "exception": "cpp",
+        "type_traits": "cpp",
+        "limits": "cpp",
+        "new": "cpp",
+        "typeinfo": "cpp"
     }
 }

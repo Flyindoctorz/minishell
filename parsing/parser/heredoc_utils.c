@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:31:40 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:29:05 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 17:30:51 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ bool	process_heredoc_line(char *line, t_heredoc *heredoc, t_data *data,
 	free(line);
 	return (true);
 }
+
 void	handle_heredoc_eof(void)
 {
 	ft_putstr_fd("minishell: warning: here-document", 2);

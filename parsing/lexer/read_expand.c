@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_expand.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:16:56 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:27:59 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 17:34:13 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // Détecte si c'est un $ isolé ou une variable à expandre
 t_token	*read_expand(t_lexer *lexer)
 {
-	int start_pos;
+	int	start_pos;
 
 	if (!lexer || lexer->curr_char != '$')
 	{

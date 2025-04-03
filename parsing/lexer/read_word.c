@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_word.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:16:27 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:28:25 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 17:33:30 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static t_token	*create_word_token_type(t_lexer *lexer, int start_pos,
 	word_token->position = start_pos;
 	return (word_token);
 }
+
 // mot = tout les carac jusqu'au delimiter
 // lit le mot complet et return le mot lu
 t_token	*read_word(t_lexer *lexer)

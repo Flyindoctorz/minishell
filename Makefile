@@ -6,7 +6,7 @@
 #    By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/31 19:10:00 by lmokhtar          #+#    #+#              #
-#    Updated: 2025/04/03 17:03:02 by lmokhtar         ###   ########.fr        #
+#    Updated: 2025/04/03 17:10:20 by lmokhtar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -164,6 +164,10 @@ push:
 	git commit -m "$$commit_message"; \
 	git push; \
 	echo "$(YELLOW)All has been pushed with '$$commit_message' in commit$(END)"
+
+debug:
+	@echo "$(BLUE)Running lldb...$(RESET)"
+	@lldb ./$(NAME)
 
 re: fclean all
 

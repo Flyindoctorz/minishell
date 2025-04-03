@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline_interface.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:28:58 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/12 12:05:17 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 17:30:01 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	handle_signal(int signum)
 		rl_redisplay();
 	}
 }
+
 // renvoie le status du signal et reinit variable globale
 int	get_signal_status(void)
 {

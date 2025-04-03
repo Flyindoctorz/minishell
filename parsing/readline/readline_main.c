@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:04:32 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 16:43:21 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:29:36 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@
 
 int	readline_main(int ac, char **av, char **env)
 {
-	t_data *data;
-	int exit_status;
+	t_data	*data;
+	int		exit_status;
 
 	data = init_data(ac, av, env);
 	if (!data)

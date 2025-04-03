@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:54:33 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:29:15 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 17:31:38 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ bool	setup_heredoc_redir(t_cmd_list *cmd, t_heredoc *heredoc)
 		return (false);
 	return (true);
 }
+
 bool	should_expand_heredoc(char *delimiter)
 {
 	int	i;
@@ -58,6 +59,7 @@ void	*save_and_set_signals(void)
 	sigaction(SIGINT, &sa, &old_sa);
 	return ((void *)old_sa.sa_handler);
 }
+
 void	restore_signals(void *old_handler)
 {
 	struct sigaction	sa;
@@ -66,6 +68,7 @@ void	restore_signals(void *old_handler)
 	sa.sa_handler = old_handler;
 	sigaction(SIGINT, &sa, NULL);
 }
+
 // if TOKEN_HEREDOC,
 bool	handle_heredoc(t_cmd_list *cmd, char *delimiter, t_data *data)
 {

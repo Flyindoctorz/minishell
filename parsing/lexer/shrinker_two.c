@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shrinker_two.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 12:05:31 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:28:40 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 17:33:04 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ t_token	*create_token_copy(t_token *source)
 
 void	free_token_list(t_token *tokens)
 {
-	t_token *current;
-	t_token *next;
+	t_token	*current;
+	t_token	*next;
 
 	current = tokens;
 	while (current)

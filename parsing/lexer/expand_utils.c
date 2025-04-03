@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:13:41 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:27:48 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 17:34:46 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_token	*create_expand_token(t_lexer *lexer, int start_pos)
 // Avance la position du lexer après avoir lu une variable
 void	advance_var_position(t_lexer *lexer, int var_len)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < var_len)

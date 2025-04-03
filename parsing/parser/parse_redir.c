@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:13:45 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/18 15:42:43 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 17:30:15 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,9 @@ bool	setup_redir(t_cmd_list *cmd)
 		if (cmd->fd_out < 0)
 			return (false);
 	}
-	return (true)
+	return (true);
 }
+
 bool	handle_heredoc_input(t_cmd_list *cmd)
 {
 	int		pipe_fd[2];

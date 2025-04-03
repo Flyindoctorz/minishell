@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:20:05 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:27:56 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 17:34:25 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_token_type	get_quote_type(char c)
 		return (TOKEN_DQUOTES);
 	return (TOKEN_ERROR);
 }
+
 // parcours tout les charac pour trouver la fin de la quote
 // s'il trouve = true = valide
 // s'il ne trouve pas = false = erreur
