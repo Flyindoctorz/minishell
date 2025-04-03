@@ -6,7 +6,7 @@
 #    By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/31 19:10:00 by lmokhtar          #+#    #+#              #
-#    Updated: 2025/04/03 16:39:52 by lmokhtar         ###   ########.fr        #
+#    Updated: 2025/04/03 17:03:02 by lmokhtar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -167,4 +167,4 @@ push:
 
 re: fclean all
 
-.PHONY: all clean fclean re leak norm
+.PHONY: all clean fclean re leak norm push
