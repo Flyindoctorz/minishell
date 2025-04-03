@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:45 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 14:31:19 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:45:57 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
-
+#include "../../include/minishell.h"
 
 void	set_signal_child(void)
 {

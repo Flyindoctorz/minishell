@@ -6,14 +6,14 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:58:26 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/02 19:30:06 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:44:52 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_TEST_H
 # define DATA_TEST_H
 
-# include "data.h"
+
 # include "minishell.h"
 
 // code a tester

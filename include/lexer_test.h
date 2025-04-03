@@ -6,15 +6,14 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:06:28 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/02 19:30:18 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:44:46 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_TEST_H
 # define LEXER_TEST_H
 
-# include "data.h"
-# include "lexer.h"
+
 # include "minishell.h"
 
 // lexer usefuls to init
