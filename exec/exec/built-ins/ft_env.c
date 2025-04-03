@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:22:55 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 14:30:33 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 15:52:01 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void	env_print(t_env *env)
+static void	env_print(t_env *env)
 {
 	while (env)
 	{

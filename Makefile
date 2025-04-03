@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+         #
+#    By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/31 19:10:00 by lmokhtar          #+#    #+#              #
-#    Updated: 2025/04/03 15:29:35 by cgelgon          ###   ########.fr        #
+#    Updated: 2025/04/03 16:39:52 by lmokhtar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,15 +42,15 @@ PARSER_DIR = parsing/parser
 # Structure des sources
 SRC_FILES = main.c
 EXEC_FILES = exec.c exec_builtins.c pipex.c signals.c redir_utils.c
-BUILTINS_FILES = cd.c echo.c env.c exit.c exit2.c export.c pwd.c unset.c
+BUILTINS_FILES = cd.c echo.c ft_env.c exit.c exit2.c ft_export.c pwd.c ft_unset.c
 UTILS_FILES = command.c env.c env_utils.c expand.c expand2.c redir.c string.c string2.c \
-	string3.c string4.c tab.c token.c unset.c
+	string3.c string4.c tab.c token.c unset.c export.c
 LEXER_FILES = expand_utils.c init_lexer.c lexer_main.c quotes_utils.c \
 	read_expand.c read_operator.c read_quotes.c read_word.c shrinker.c \
 	shrinker_three.c shrinker_two.c utils_lexer.c
 DATA_FILES = init_base.c exit_free.c init_environment.c
 READLINE_FILES = readline_main.c readline_prompter.c readline_prompt_utils.c readline_interface.c
-PARSER_FILES = parsing_main.c
+# PARSER_FILES = parsing_main.c
 
 # Préfixage des chemins complets
 SRCS = $(addprefix $(ROOT_DIR)/, $(SRC_FILES))

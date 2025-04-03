@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 00:06:29 by zakchouc          #+#    #+#             */
-/*   Updated: 2025/04/03 15:27:56 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 16:33:54 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
+# include "data.h"
+# include "exec.h"
+# include "heredoc.h"
+# include "lexer.h"
+# include "readline.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
@@ -27,22 +32,18 @@
 # include <stdlib.h>
 # include <string.h>
 # include <strings.h>
+# include <structure.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <structure.h>
-# include "data.h"
-# include "readline.h"
-# include "lexer.h"
-# include "heredoc.h"
-# include "exec.h"
 
+extern volatile sig_atomic_t	g_signal;
 
 // Gestion des erreurs
-void						handle_error(t_error_num code,
-								const char *custom_message);
-bool						print_test(char *test_name, bool test_result);
+void							handle_error(t_error_num code,
+									const char *custom_message);
+bool							print_test(char *test_name, bool test_result);
 
 /* ************************************************************************** */
 /*                       DÉFINITIONS DES MACROS                               */

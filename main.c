@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:17:52 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 19:29:20 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:44:04 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	run_shell(t_data *data)
 	{
 		ft_signal();
 		prompt = get_prompt(data);
-		input = readline(prompt);
+		input = readline("$> ");
 		free(prompt);
 		if (!process_input(data, input))
 		{

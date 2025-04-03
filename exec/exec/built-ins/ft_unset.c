@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:18 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 14:30:51 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 16:12:43 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-bool	delete_node(t_env **env, char *to_delete)
+static bool	delete_node(t_env **env, char *to_delete)
 {
 	int	flag;
 	int	len;
