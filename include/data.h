@@ -6,14 +6,14 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:53:16 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:26:49 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:55:46 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_H
 # define DATA_H
 
-# include "minishell.h"
+# include "structure.h"
 
 int					init_environment(t_data *data, char **envp);
 int					init_working_directory(t_data *data);

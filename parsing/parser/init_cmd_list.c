@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 14:23:17 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/18 15:19:41 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 15:14:51 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/structure.h"
 
 t_cmd_list	*init_cmd_list(void)
 {
@@ -26,7 +26,7 @@ t_cmd_list	*init_cmd_list(void)
 	cmd->output_file = NULL;
 	cmd->delimiter = NULL;
 	cmd->fd_in = STDIN_FILENO;
-	cm->fd_out = STDOUT_FILENO;
+	cmd->fd_out = STDOUT_FILENO;
 	cmd->is_pipe = false;
 	cmd->append = false;
 	cmd->heredoc = false;

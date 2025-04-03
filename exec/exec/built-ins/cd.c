@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:22:31 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 14:32:55 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 15:06:20 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 int	chdir_fail(char *str)
 {
