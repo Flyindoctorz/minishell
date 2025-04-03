@@ -15,7 +15,7 @@
 t_heredoc	*init_heredoc(char *delimiter, bool expand)
 {
 	t_heredoc	*heredoc;
-	
+
 	if (!delimiter)
 		return (NULL);
 	heredoc = (t_heredoc *)malloc(sizeof(t_heredoc));
@@ -39,7 +39,7 @@ static bool	heredoc_reader_one(t_heredoc *heredoc, t_data *data, int pipefd[2])
 	bool	keep_reading;
 
 	keep_reading = true;
-	while(keep_reading)
+	while (keep_reading)
 	{
 		line = readline("> ");
 		if (!line)

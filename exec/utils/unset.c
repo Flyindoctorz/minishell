@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 void	remove_first(t_env **env)
 {
 	t_env	*second;

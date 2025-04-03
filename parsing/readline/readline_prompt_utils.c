@@ -49,16 +49,13 @@ char	*create_prompt_base(char *username)
 char	*add_path_to_prompt(char *prompt, char *cwd)
 {
 	char	*result;
-	
+
 	if (!cwd || !prompt)
 		return (prompt);
-	
 	result = ft_strjoin(prompt, cwd);
 	free(prompt);
-	
 	if (!result)
 		return (ft_strdup("minishell>"));
-	
 	return (result);
 }
 
@@ -71,16 +68,9 @@ char	*create_prompt_prefix(t_data *data)
 
 	cwd = get_current_directory(data, &needs_free);
 	username = get_username();
-	
 	prompt = create_prompt_base(username);
 	prompt = add_path_to_prompt(prompt, cwd);
-	
 	if (needs_free && cwd)
 		free(cwd);
-	
 	return (prompt);
 }
-
-
-
-

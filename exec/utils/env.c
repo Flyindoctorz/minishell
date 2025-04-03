@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 void	ft_envaddback(t_env **head, t_env *new)
 {
 	if (!head)

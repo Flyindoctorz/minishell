@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 00:06:29 by zakchouc          #+#    #+#             */
-/*   Updated: 2025/04/03 14:49:47 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 15:27:56 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@
 
 
 // Gestion des erreurs
-void	handle_error(t_error_num code, const char *custom_message);
-bool	print_test(char *test_name, bool test_result);
-
+void						handle_error(t_error_num code,
+								const char *custom_message);
+bool						print_test(char *test_name, bool test_result);
 
 /* ************************************************************************** */
 /*                       DÉFINITIONS DES MACROS                               */

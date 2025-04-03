@@ -21,16 +21,14 @@ static void	process_input(t_data *data, char *input)
 	tokens = tokenize_input(input, data);
 	if (!tokens)
 		return ;
-
 	free_token_list(tokens);
 }
 void	run_shell(t_data *data)
 {
 	char	*input;
-	
+
 	if (!data)
 		return ;
-
 	while (1)
 	{
 		input = read_input(data);
@@ -50,8 +48,8 @@ void	run_shell(t_data *data)
 
 int	main(int ac, char **av, char **env)
 {
-	t_data	*data;
-	int		exit_status;
+	t_data *data;
+	int exit_status;
 
 	data = init_data(ac, av, env);
 	if (!data)

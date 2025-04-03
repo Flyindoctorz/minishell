@@ -14,8 +14,8 @@
 
 t_token	*apply_shrink(t_token *tokens)
 {
-	t_token *shrinked;
-	
+	t_token	*shrinked;
+
 	if (!tokens)
 		return (NULL);
 	shrinked = shrink_redir_tokens(tokens);
@@ -28,14 +28,13 @@ t_token	*apply_shrink(t_token *tokens)
 		free_token_list(tokens);
 	return (shrinked);
 }
-	
 
-//evite les white space et utilise le read adequat
+// evite les white space et utilise le read adequat
 // renvoie le token current
-t_token *tokenize_current(t_lexer *lexer)
+t_token	*tokenize_current(t_lexer *lexer)
 {
-	t_token *token;
-	int start_pos;
+	t_token	*token;
+	int		start_pos;
 
 	if (is_whitespace(lexer->curr_char))
 	{
@@ -53,65 +52,67 @@ t_token *tokenize_current(t_lexer *lexer)
 		token = read_word(lexer);
 	if (!token)
 	{
-		handle_error(MNSHL_ERR_MEMORY, "process_next_token : token creation failed");
+		handle_error(MNSHL_ERR_MEMORY,
+			"process_next_token : token creation failed");
 		return (NULL);
 	}
 	return (token);
 }
 
-static t_lexer *validate_input(char *input, t_data *data)
+static t_lexer	*validate_input(char *input, t_data *data)
 {
-    if (!input || !data)
-    {
-        handle_error(MNSHL_ERR_ARGS, "Tokenize input : null input or data");
-        return NULL;
-    }
+	t_lexer	*lexer;
 
-    t_lexer *lexer = init_lexer(input, data);
-    if (!lexer)
-    {
-        handle_error(MNSHL_ERR_MEMORY, "tokenize_input : lexer creation failed");
-        return NULL;
-    }
-
-    return lexer;
+	if (!input || !data)
+	{
+		handle_error(MNSHL_ERR_ARGS, "Tokenize input : null input or data");
+		return (NULL);
+	}
+	lexer = init_lexer(input, data);
+	if (!lexer)
+	{
+		handle_error(MNSHL_ERR_MEMORY,
+			"tokenize_input : lexer creation failed");
+		return (NULL);
+	}
+	return (lexer);
 }
 
-static void process_token_generation(t_lexer *lexer)
+static void	process_token_generation(t_lexer *lexer)
 {
-    while (lexer->curr_char)
-    {
-        if (lexer->curr_char == '#') 
-        {
-            while (lexer->curr_char && lexer->curr_char != '\n') 
-            {
-                advance_lexer(lexer);
-            }
-            continue;
-        }
-        t_token *token = tokenize_current(lexer);
-        
-        if (token)
-        {
-            add_token(lexer, token);
-        }
-    }
+	t_token	*token;
+
+	while (lexer->curr_char)
+	{
+		if (lexer->curr_char == '#')
+		{
+			while (lexer->curr_char && lexer->curr_char != '\n')
+			{
+				advance_lexer(lexer);
+			}
+			continue ;
+		}
+		token = tokenize_current(lexer);
+		if (token)
+		{
+			add_token(lexer, token);
+		}
+	}
 }
 
-t_token *tokenize_input(char *input, t_data *data)
+t_token	*tokenize_input(char *input, t_data *data)
 {
-	t_lexer *lexer;
-	t_token *eof_token;
+	t_lexer	*lexer;
+	t_token	*eof_token;
+	t_token	*tokens;
 
 	lexer = validate_input(input, data);
-    if (!lexer)
-        return NULL;
-    process_token_generation(lexer);
-    eof_token = create_token(TOKEN_EOF, NULL);
-    add_token(lexer, eof_token);
-    t_token *tokens = lexer->tokens;
-    free_lexer(lexer);
-    return (tokens);
+	if (!lexer)
+		return (NULL);
+	process_token_generation(lexer);
+	eof_token = create_token(TOKEN_EOF, NULL);
+	add_token(lexer, eof_token);
+	tokens = lexer->tokens;
+	free_lexer(lexer);
+	return (tokens);
 }
-
-

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:42:46 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 14:33:49 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:46:34 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"#include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	search_env(t_env *env, char *key)
 {

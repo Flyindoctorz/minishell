@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 char	*cmd_finder(char **cmd, char **env)
 {
 	int		i;

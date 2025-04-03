@@ -6,7 +6,7 @@
 #    By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/31 19:10:00 by lmokhtar          #+#    #+#              #
-#    Updated: 2025/04/03 15:12:25 by cgelgon          ###   ########.fr        #
+#    Updated: 2025/04/03 15:29:35 by cgelgon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -148,6 +148,23 @@ leak: all
 	@valgrind --leak-check=full --show-below-main=no --show-leak-kinds=all \
 		--track-fds=yes --trace-children=yes ./$(NAME)
 
+norm:
+	@echo "$(BLUE)Running norminette check...$(RESET)"
+	@echo "$(YELLOW)Checking source files:$(RESET)"
+	@python3 -m c_formatter_42 $(ROOT_DIR)/*.c $(EXEC_DIR)/*.c $(BUILTINS_DIR)/*.c $(UTILS_DIR)/*.c \
+	    $(LEXER_DIR)/*.c $(DATA_DIR)/*.c $(READLINE_DIR)/*.c $(PARSER_DIR)/*.c
+	@echo "$(YELLOW)Checking header files:$(RESET)"
+	@python3 -m c_formatter_42 $(INCLUDE_DIR)/*.h
+	@echo "$(GREEN)✨ Norminette check complete!$(RESET)"
+
+push:
+	@git add .
+	@echo -n "$(BLUE)Enter your commit message: $(END)"
+	@read commit_message; \
+	git commit -m "$$commit_message"; \
+	git push; \
+	echo "$(YELLOW)All has been pushed with '$$commit_message' in commit$(END)"
+
 re: fclean all
 
-.PHONY: all clean fclean re leak
+.PHONY: all clean fclean re leak norm

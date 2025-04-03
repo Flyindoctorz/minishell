@@ -12,7 +12,8 @@
 
 #include "../../include/minishell.h"
 
-static t_token	*handle_redir_token(t_token *current, t_token *next, t_token **res)
+static t_token	*handle_redir_token(t_token *current, t_token *next,
+		t_token **res)
 {
 	t_token	*new_token;
 
@@ -77,8 +78,8 @@ static bool	init_process_list(t_token **res, t_token **res_tail)
 
 t_token	*process_token_list(t_token *tokens, t_token **res, t_token **res_tail)
 {
-	t_token	*current;
-	t_token	*new_token;
+	t_token *current;
+	t_token *new_token;
 
 	if (!tokens || !init_process_list(res, res_tail))
 		return (NULL);

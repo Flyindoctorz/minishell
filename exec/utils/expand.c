@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 int	change_quote(char quote, int i)
 {
 	if (quote == '\'' && i == 0)

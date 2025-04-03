@@ -18,23 +18,19 @@ char	*add_prompt_suffix(char *prefix)
 
 	if (!prefix)
 		return (ft_strdup("minishell> "));
-	
 	prompt = ft_strjoin(prefix, "$ ");
 	free(prefix);
-	
 	if (!prompt)
 		return (ft_strdup("minishell> "));
-	
 	return (prompt);
 }
 
 char	*get_prompt(t_data *data)
 {
 	char	*prefix;
-	
+
 	if (!data)
 		return (ft_strdup("minishell> "));
-	
 	prefix = create_prompt_prefix(data);
 	return (add_prompt_suffix(prefix));
 }
@@ -42,8 +38,8 @@ char	*get_prompt(t_data *data)
 char	*read_input(t_data *data)
 {
 	char	*input;
-	char 	*prompt;
-		
+	char	*prompt;
+
 	setup_signal();
 	prompt = get_prompt(data);
 	input = readline(prompt);

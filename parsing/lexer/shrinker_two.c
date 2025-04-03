@@ -13,10 +13,10 @@
 #include "../../include/minishell.h"
 
 // res = liste de token / tail = dernier token / new_token = token a ajouter
-void add_to_result(t_token **res, t_token **tail, t_token *new_token)
+void	add_to_result(t_token **res, t_token **tail, t_token *new_token)
 {
 	if (!new_token || !res || !tail)
-		return;
+		return ;
 	new_token->next = NULL;
 	if (!*res)
 	{
@@ -31,17 +31,17 @@ void add_to_result(t_token **res, t_token **tail, t_token *new_token)
 }
 
 // duplique un token source et renvoie le nouveau
-t_token *create_token_copy(t_token *source)
+t_token	*create_token_copy(t_token *source)
 {
-	t_token *copy;
+	t_token	*copy;
 
 	if (!source)
 		return (NULL);
-
 	copy = create_token(source->toktype, source->value);
 	if (!copy)
 	{
-		handle_error(MNSHL_ERR_MEMORY, "create_token_copy : token creation failed");
+		handle_error(MNSHL_ERR_MEMORY,
+			"create_token_copy : token creation failed");
 		return (NULL);
 	}
 	copy->position = source->position;
@@ -49,7 +49,7 @@ t_token *create_token_copy(t_token *source)
 	return (copy);
 }
 
-void free_token_list(t_token *tokens)
+void	free_token_list(t_token *tokens)
 {
 	t_token *current;
 	t_token *next;

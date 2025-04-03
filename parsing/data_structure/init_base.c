@@ -37,7 +37,7 @@ static t_data	*create_empty_data(void)
 	return (data);
 }
 
-//Crée et valide la structure t_data initiale
+// Crée et valide la structure t_data initiale
 static t_data	*validate_args(int ac, char **av)
 {
 	t_data	*data;

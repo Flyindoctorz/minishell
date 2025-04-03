@@ -22,21 +22,21 @@ bool	is_valid_heredoc_delimiter(char *delimiter)
 {
 	if (!delimiter || !ft_strlen(delimiter) == 0)
 		return (false);
-	if (ft_strchr (delimiter, ' ') || ft_strchr(delimiter, '\t')
+	if (ft_strchr(delimiter, ' ') || ft_strchr(delimiter, '\t')
 		|| ft_strchr(delimiter, '\n') || ft_strchr(delimiter, '<')
 		|| ft_strchr(delimiter, '>') || ft_strchr(delimiter, '|'))
 		return (false);
 	return (true);
 }
-char *extract_heredoc_delim(t_token *token)
+char	*extract_heredoc_delim(t_token *token)
 {
-    if (!token || token->toktype != TOKEN_HEREDOC)
-        return (NULL);
-    if (token->shrinked == TOKEN_WORD && token->value)
-        return (ft_strdup(token->value));
-    if (!token->next || token->next->toktype != TOKEN_WORD)
-        return (NULL);
-    return (ft_strdup(token->next->value));
+	if (!token || token->toktype != TOKEN_HEREDOC)
+		return (NULL);
+	if (token->shrinked == TOKEN_WORD && token->value)
+		return (ft_strdup(token->value));
+	if (!token->next || token->next->toktype != TOKEN_WORD)
+		return (NULL);
+	return (ft_strdup(token->next->value));
 }
 
 bool	process_heredoc_tok(t_cmd_list *cmd, t_token *token, t_data *data)
@@ -67,7 +67,7 @@ bool	process_heredoc_tok(t_cmd_list *cmd, t_token *token, t_data *data)
 }
 bool	process_all_heredocs(t_cmd_list *cmd, t_token *token, t_data *data)
 {
-	t_token	*curr;
+	t_token		*curr;
 	t_cmd_list	*current_cmd;
 
 	if (!cmd || !token || !data)
@@ -91,7 +91,3 @@ bool	process_all_heredocs(t_cmd_list *cmd, t_token *token, t_data *data)
 	}
 	return (true);
 }
-
-
-
-

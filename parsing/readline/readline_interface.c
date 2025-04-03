@@ -15,10 +15,10 @@
 // variable globale pour le signal
 // @volatile pour eviter l'optimisation
 // @atomic pour eviter les problemes de concurrence
-static volatile sig_atomic_t g_signal_status = 0;
+static volatile sig_atomic_t	g_signal_status = 0;
 
 // fonction de gestion du signal
-static void handle_signal(int signum)
+static void	handle_signal(int signum)
 {
 	g_signal_status = signum;
 	if (signum == SIGINT)
@@ -32,25 +32,23 @@ static void handle_signal(int signum)
 // renvoie le status du signal et reinit variable globale
 int	get_signal_status(void)
 {
-	int status;
-	
+	int	status;
+
 	status = g_signal_status;
 	g_signal_status = 0;
-	return (status);	
+	return (status);
 }
 
 void	setup_signal(void)
 {
 	struct sigaction	sa;
-	
+
 	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = handle_signal;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
-
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
-	
 }
 
 void	reset_sig_to_default(void)

@@ -22,7 +22,7 @@ t_lexer	*init_lexer(char *input, t_data *data)
 		handle_error(MNSHL_ERR_ARGS, "Lexer init : null input or data");
 		return (NULL);
 	}
-	lexer = malloc(sizeof (t_lexer));
+	lexer = malloc(sizeof(t_lexer));
 	if (!lexer)
 	{
 		handle_error(MNSHL_ERR_MEMORY, "lexer malloc failed");
@@ -41,7 +41,7 @@ t_lexer	*init_lexer(char *input, t_data *data)
 	return (lexer);
 }
 
-// usage : avance dans le lexer 
+// usage : avance dans le lexer
 void	advance_lexer(t_lexer *lexer)
 {
 	if (!lexer)
@@ -112,5 +112,5 @@ void	free_lexer(t_lexer *lexer)
 {
 	if (!lexer)
 		return ;
-	free (lexer);
+	free(lexer);
 }

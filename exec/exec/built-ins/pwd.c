@@ -12,7 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-
 int	ft_pwd(t_data *minishell, char **arg)
 {
 	char	*pwd;

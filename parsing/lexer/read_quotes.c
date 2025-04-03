@@ -20,7 +20,7 @@ t_token	*read_quotes(t_lexer *lexer)
 	char	quote_type;
 	int		start_pos;
 	int		len;
-	t_token *token;
+	t_token	*token;
 
 	if (!lexer || !is_quote(lexer->curr_char))
 	{
