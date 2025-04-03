@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:01 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 18:47:42 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:30:37 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/exec.h"
 #include "../../../include/minishell.h"
 
 void	exit_value(t_data *minishell, char *msg)

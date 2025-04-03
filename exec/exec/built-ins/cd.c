@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:22:31 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 15:41:13 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:32:55 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/exec.h"
+#include "../../include/minishell.h"
 
 int	chdir_fail(char *str)
 {

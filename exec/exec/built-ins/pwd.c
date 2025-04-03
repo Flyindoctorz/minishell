@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:13 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 15:41:32 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:30:47 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/exec.h"
+#include "../../../include/minishell.h"
+
 
 int	ft_pwd(t_data *minishell, char **arg)
 {

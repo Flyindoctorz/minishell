@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   string4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:43:51 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 18:55:41 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:34:05 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
+#include "../../include/minishell.h"
+
 
 int	ft_isspace(char c)
 {

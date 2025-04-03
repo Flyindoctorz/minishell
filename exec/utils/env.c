@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:41:01 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 17:46:23 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:33:45 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
 #include "../../include/minishell.h"
+
 
 void	ft_envaddback(t_env **head, t_env *new)
 {

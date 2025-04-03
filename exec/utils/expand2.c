@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expand2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:34:07 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 17:39:25 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:33:48 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include "../../include/exec.h"
 
 void	get_env_value(char *str, char *expanded, int *i, t_data *minishell)
 {

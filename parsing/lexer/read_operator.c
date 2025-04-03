@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:16:58 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/02/13 12:51:56 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:28:07 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/lexer.h"
+#include "../../include/minishell.h"
 
 // si double op >> <<, les crees, avance de 2 et return le token
 static t_token *double_op_handler(t_lexer *lexer)

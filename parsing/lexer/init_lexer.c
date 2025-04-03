@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:31:51 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/02/28 14:49:47 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:27:50 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/lexer.h"
+#include "../../include/minishell.h"
 
 // simple init des variables de la structure
 t_lexer	*init_lexer(char *input, t_data *data)

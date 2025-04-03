@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:42:54 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 19:14:48 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:33:52 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
-#include "../../include/heredoc.h"
-#include "../../include/lexer.h"
+#include "../../include/minishell.h"
 
 int	get_heredoc(t_heredoc *redir, t_data *minishell)
 {

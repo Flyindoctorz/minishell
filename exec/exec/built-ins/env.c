@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:22:55 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 18:46:17 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:30:33 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/exec.h"
 #include "../../../include/minishell.h"
 
 void	env_print(t_env *env)

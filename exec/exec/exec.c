@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:29 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 16:18:44 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:31:05 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
-#include "../../include/command_list.h"
+#include "../../../include/minishell.h"
+
 
 void	execut_me(t_cmd_list *cmd, t_data *shell, int save[2], int fd[2])
 {

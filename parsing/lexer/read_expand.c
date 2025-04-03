@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:16:56 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/02/26 11:35:11 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:27:59 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/lexer.h"
+#include "../../include/minishell.h"
 
 
 //Lit un symbole d'expansion ($) et crée un token approprié

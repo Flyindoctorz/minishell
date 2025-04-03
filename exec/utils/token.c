@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:44:05 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 18:19:11 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:34:13 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
+#include "../../include/minishell.h"
 
 void	ft_tokenaddback(t_token **head, t_token *new)
 {

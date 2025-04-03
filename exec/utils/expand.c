@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:33:09 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 18:44:44 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:33:43 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
 
 int	change_quote(char quote, int i)
 {

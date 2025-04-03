@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 11:48:41 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/02/13 12:06:42 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:27:12 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/data.h"
+#include "../../include/minishell.h"
 
 int	init_environment(t_data *data, char **envp)
 {

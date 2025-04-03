@@ -3,28 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 13:57:40 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/02 19:30:33 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:25:59 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEREDOC_H
 # define HEREDOC_H
 
-# include "lexer.h"
 # include "minishell.h"
-
-typedef struct s_heredoc
-{
-	char *delimiter;        // Délimiteur
-	int fd;                 // Descripteur de fichier
-	char **content;         // Contenu collecté
-	bool expand;            // Si l'expansion doit être effectuée
-	t_token_type type;      // Type de redirection
-	struct s_heredoc *next; // Prochain heredoc
-}			t_heredoc;
 
 // heredoc utils
 bool		write_content_to_pipe(int fd, char *content);

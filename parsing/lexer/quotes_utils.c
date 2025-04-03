@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:20:05 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/02/26 09:57:00 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:27:56 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/lexer.h"
+#include "../../include/minishell.h"
 
 // defini les quotes
 bool	is_quote(char c)

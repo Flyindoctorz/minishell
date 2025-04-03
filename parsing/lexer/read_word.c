@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:16:27 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/02/28 14:56:31 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:28:25 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/lexer.h"
+#include "../../include/minishell.h"
 
 //renvoi le nombre de charactere dans le mot 
 // et avance la pos en consequence

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:25 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 16:18:20 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:31:01 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
-#include "../../include/command_list.h"
+#include "../../../include/minishell.h"
 
 int	exec_builtins(t_data *minishell, char **arg)
 {

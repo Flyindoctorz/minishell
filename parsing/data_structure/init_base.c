@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_base.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 12:32:42 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/01 14:08:06 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:27:28 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/data.h"
+#include "../../include/minishell.h"
 
 static t_data	*create_empty_data(void)
 {

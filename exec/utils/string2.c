@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   string2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:43:28 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 18:55:20 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:33:56 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
+#include "../../include/minishell.h"
+
 
 void	ft_strncat(char *dst, const char *src, size_t size)
 {

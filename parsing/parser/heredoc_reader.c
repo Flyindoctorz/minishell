@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:55:07 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/02 14:49:58 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:29:01 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/heredoc.h"
+#include "../../include/minishell.h"
 
 t_heredoc	*init_heredoc(char *delimiter, bool expand)
 {

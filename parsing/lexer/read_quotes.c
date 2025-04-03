@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:54:38 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/02/21 12:51:01 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:28:20 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/lexer.h"
+#include "../../include/minishell.h"
 
 // lit et tokenize le content sous quotes
 // gere double quotes et single quotes

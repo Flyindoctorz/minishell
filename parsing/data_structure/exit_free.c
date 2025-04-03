@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 12:42:14 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/02 19:04:07 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:27:31 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/data.h"
+#include "../../include/minishell.h"
 
 // regroupe les fonctions destinees a free/clean
 

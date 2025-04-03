@@ -6,12 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:54:33 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/02 14:48:30 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:29:15 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/heredoc.h"
-#include <signal.h>
+#include "../../include/minishell.h"
 
 bool	setup_heredoc_redir(t_cmd_list *cmd, t_heredoc *heredoc)
 {

@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:28:21 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/11 14:47:57 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:27:53 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/lexer.h"
+#include "../../include/minishell.h"
 
 t_token	*apply_shrink(t_token *tokens)
 {

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   tab.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:43:57 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 15:44:01 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:34:08 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
+#include "../../include/minishell.h"
+
 
 void	free_tab(char **tab)
 {

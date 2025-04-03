@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 12:07:37 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/17 13:21:52 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:28:43 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/lexer.h"
+#include "../../include/minishell.h"
 
 
 // identifie les redir

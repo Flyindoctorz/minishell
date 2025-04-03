@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:18 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 18:49:51 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:30:51 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/exec.h"
 #include "../../../include/minishell.h"
 
 bool	delete_node(t_env **env, char *to_delete)

@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 12:05:31 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/05 11:00:16 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:28:40 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/lexer.h"
+#include "../../include/minishell.h"
 
 // res = liste de token / tail = dernier token / new_token = token a ajouter
 void add_to_result(t_token **res, t_token **tail, t_token *new_token)

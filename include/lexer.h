@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:33:00 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/02 19:25:03 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:26:16 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,6 @@
 
 # include "minishell.h"
 
-typedef struct s_token
-{
-	t_token_type toktype;  // Nature du token
-	char *value;           // texte du TOK quel qu'il soit
-	int position;          // Position dans l'input
-	struct s_token *next;  // pointe vers next tok pour chainer
-	t_token_type shrinked; // utile pour shrink des tokens
-
-}				t_token;
-
-typedef struct s_lexer
-{
-	char *input;       // chaine a analyser. conserve dans memoire
-	size_t input_len;  // evite de strlen en boucle
-	int pos;           // index dans input
-	int read_pos;      // pos +1
-	char curr_char;    // carac en court de lexique. 1 char
-	t_data *data;      // env + donnes globales, cwd
-	t_token *tokens;   // parcourt tout les token
-	t_token *curr_tok; // token en court de manip
-	int token_count;   // nombre de token
-}				t_lexer;
 
 // init functions
 

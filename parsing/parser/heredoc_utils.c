@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:31:40 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/02 14:08:42 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:29:05 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/heredoc.h"
+#include "../../include/minishell.h"
 
 //ecrit dans fd
 bool	write_content_to_pipe(int fd, char *content)

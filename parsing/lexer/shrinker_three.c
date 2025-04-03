@@ -6,11 +6,11 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:00:34 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/05 11:51:29 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:28:37 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/lexer.h"
+#include "../../include/minishell.h"
 
 static t_token	*handle_redir_token(t_token *current, t_token *next, t_token **res)
 {

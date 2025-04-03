@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:57:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 19:16:04 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:18:37 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 
-# include "heredoc.h"
-# include "lexer.h"
 # include "minishell.h"
 
 extern volatile sig_atomic_t	g_signal;

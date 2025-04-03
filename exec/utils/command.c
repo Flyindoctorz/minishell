@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:37:36 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 19:03:19 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:33:38 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
-#include "../../include/command_list.h"
+#include "../../include/minishell.h"
+
 
 void	ft_commandaddback(t_cmd_list **head, t_cmd_list *new)
 {

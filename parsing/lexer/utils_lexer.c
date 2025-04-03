@@ -6,13 +6,13 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:50:35 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/11 14:46:43 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:28:46 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // skip les tab et espaces pour parcourir l'input
 
-#include "../../include/lexer.h"
+#include "../../include/minishell.h"
 
 // defini white space
 bool	is_whitespace(char c)

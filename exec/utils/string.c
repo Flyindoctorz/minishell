@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   string.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:43:22 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 18:55:13 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:33:54 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
+#include "../../include/minishell.h"
+
 
 // char	*ft_substr(char *s, unsigned int start, int len)
 // {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:22:38 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/02 17:47:50 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:33:26 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/exec.h"
+#include "../../../include/minishell.h"
 
 int	good_flag(const char *str)
 {
