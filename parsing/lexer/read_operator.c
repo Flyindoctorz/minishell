@@ -13,9 +13,9 @@
 #include "../../include/minishell.h"
 
 // si double op >> <<, les crees, avance de 2 et return le token
-static t_token *double_op_handler(t_lexer *lexer)
+static t_token	*double_op_handler(t_lexer *lexer)
 {
-	t_token *token;
+	t_token	*token;
 
 	if (lexer->curr_char == '>')
 		token = create_token(TOKEN_APPEND, ">>");
@@ -23,7 +23,8 @@ static t_token *double_op_handler(t_lexer *lexer)
 		token = create_token(TOKEN_HEREDOC, "<<");
 	if (!token)
 	{
-		handle_error(MNSHL_ERR_MEMORY, "double_op_handler : create_token failed");
+		handle_error(MNSHL_ERR_MEMORY,
+			"double_op_handler : create_token failed");
 		return (NULL);
 	}
 	advance_lexer(lexer);
@@ -33,7 +34,7 @@ static t_token *double_op_handler(t_lexer *lexer)
 
 static t_token	*single_op_handler(t_lexer *lexer)
 {
-	t_token *token;
+	t_token	*token;
 
 	if (lexer->curr_char == '|')
 		token = create_token(TOKEN_PIPE, "|");
@@ -47,7 +48,7 @@ static t_token	*single_op_handler(t_lexer *lexer)
 		return (NULL);
 	}
 	advance_lexer(lexer);
-	return (token);		
+	return (token);
 }
 
 static bool	check_op_syntax(t_lexer *lexer)
@@ -70,8 +71,8 @@ static bool	check_op_syntax(t_lexer *lexer)
 		handle_error(MNSHL_ERR_SYNTAX, ERR_MSG_REDIR_SYNTAX);
 		return (false);
 	}
-	if ((lexer->curr_char == '>' && next == '<')
-		|| (lexer->curr_char == '<' && next == '>'))
+	if ((lexer->curr_char == '>' && next == '<') || (lexer->curr_char == '<'
+			&& next == '>'))
 	{
 		handle_error(MNSHL_ERR_SYNTAX, ERR_MSG_CONSEC_SYNTAX);
 		return (false);
@@ -81,21 +82,22 @@ static bool	check_op_syntax(t_lexer *lexer)
 t_token	*read_operator(t_lexer *lexer)
 {
 	t_token *op_token;
-	char	next;
-	int		start_pos;
+	char next;
+	int start_pos;
 
 	if (!check_op_syntax(lexer))
 		return (NULL);
 	next = look_forward(lexer);
 	start_pos = lexer->pos;
-	if ((lexer->curr_char == '>' && next == '>' )
-		|| (lexer->curr_char == '<' && next == '<'))
+	if ((lexer->curr_char == '>' && next == '>') || (lexer->curr_char == '<'
+			&& next == '<'))
 		op_token = double_op_handler(lexer);
 	else
 		op_token = single_op_handler(lexer);
 	if (!op_token)
 	{
-		handle_error(MNSHL_ERR_MEMORY, "read_operator : op_token creation failed");
+		handle_error(MNSHL_ERR_MEMORY,
+			"read_operator : op_token creation failed");
 		return (NULL);
 	}
 	op_token->position = start_pos;

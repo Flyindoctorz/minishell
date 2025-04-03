@@ -15,13 +15,13 @@
 
 # include "minishell.h"
 
-int					init_environment(t_data *data, char **envp);
-int					init_working_directory(t_data *data);
-t_data				*init_data(int ac, char **av, char **envp);
-char				**dup_env(char **envp);
-char				*init_cwd(void);
+int		init_environment(t_data *data, char **envp);
+int		init_working_directory(t_data *data);
+t_data	*init_data(int ac, char **av, char **envp);
+char	**dup_env(char **envp);
+char	*init_cwd(void);
 // cleanup functions
-void				free_env(char **env);
-void				free_data(t_data *data);
+void	free_env(char **env);
+void	free_data(t_data *data);
 
 #endif

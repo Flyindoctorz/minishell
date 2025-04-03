@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-//ecrit dans fd
+// ecrit dans fd
 bool	write_content_to_pipe(int fd, char *content)
 {
 	size_t	len;
@@ -34,10 +34,11 @@ bool	init_heredoc_pipe(int pipefd[2])
 	return (true);
 }
 
-bool	process_heredoc_line(char *line, t_heredoc *heredoc,t_data *data, int pipefd[2])
+bool	process_heredoc_line(char *line, t_heredoc *heredoc, t_data *data,
+		int pipefd[2])
 {
 	char	*expanded_line;
-	
+
 	if (!line || !heredoc || !data || pipefd[1] < 0)
 		return (false);
 	if (heredoc->expand)

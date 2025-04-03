@@ -12,7 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-
 int	export_rule(char *str)
 {
 	int	i;

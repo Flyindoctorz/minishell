@@ -12,12 +12,11 @@
 
 #include "../../include/minishell.h"
 
-
-//Lit un symbole d'expansion ($) et crée un token approprié
-//Détecte si c'est un $ isolé ou une variable à expandre
+// Lit un symbole d'expansion ($) et crée un token approprié
+// Détecte si c'est un $ isolé ou une variable à expandre
 t_token	*read_expand(t_lexer *lexer)
 {
-	int	start_pos;
+	int start_pos;
 
 	if (!lexer || lexer->curr_char != '$')
 	{

@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 // char	*ft_substr(char *s, unsigned int start, int len)
 // {
 // 	char	*str;

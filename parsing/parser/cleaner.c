@@ -13,44 +13,43 @@
 #include "../../include/minishell.h"
 
 /* Free a single command structure */
-void free_command(t_cmd_list *cmd)
+void	free_command(t_cmd_list *cmd)
 {
-    int i;
-    
-    if (!cmd)
-        return;
-    
-    if (cmd->cmd)
-        free(cmd->cmd);    
-    if (cmd->argv)
-    {
-        for (i = 0; i < cmd->argc; i++)
-            free(cmd->argv[i]);
-        free(cmd->argv);
-    }   
-    if (cmd->input_file)
-        free(cmd->input_file);   
-    if (cmd->output_file)
-        free(cmd->output_file);    
-    if (cmd->delimiter)
-        free(cmd->delimiter);    
-    if (cmd->fd_in != STDIN_FILENO)
-        close(cmd->fd_in);
-    if (cmd->fd_out != STDOUT_FILENO)
-        close(cmd->fd_out);   
-    free(cmd);
+	int	i;
+
+	if (!cmd)
+		return ;
+	if (cmd->cmd)
+		free(cmd->cmd);
+	if (cmd->argv)
+	{
+		for (i = 0; i < cmd->argc; i++)
+			free(cmd->argv[i]);
+		free(cmd->argv);
+	}
+	if (cmd->input_file)
+		free(cmd->input_file);
+	if (cmd->output_file)
+		free(cmd->output_file);
+	if (cmd->delimiter)
+		free(cmd->delimiter);
+	if (cmd->fd_in != STDIN_FILENO)
+		close(cmd->fd_in);
+	if (cmd->fd_out != STDOUT_FILENO)
+		close(cmd->fd_out);
+	free(cmd);
 }
 
 /* Free entire command list */
-void free_cmd_list(t_cmd_list *cmd_list)
+void	free_cmd_list(t_cmd_list *cmd_list)
 {
-    t_cmd_list *current;
-    t_cmd_list *next;   
-    current = cmd_list;
-    while (current)
-    {
-        next = current->next;
-        free_command(current);
-        current = next;
-    }
+	t_cmd_list *current;
+	t_cmd_list *next;
+	current = cmd_list;
+	while (current)
+	{
+		next = current->next;
+		free_command(current);
+		current = next;
+	}
 }

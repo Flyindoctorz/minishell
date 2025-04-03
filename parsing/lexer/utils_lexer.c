@@ -23,8 +23,8 @@ bool	is_whitespace(char c)
 
 bool	is_delimiter(char c)
 {
-	return (is_whitespace(c) || c == '\'' || c == '|' || c == '<'
-		|| c == '>' || c == '\"' || c == '$' || c == '\0');
+	return (is_whitespace(c) || c == '\'' || c == '|' || c == '<' || c == '>'
+		|| c == '\"' || c == '$' || c == '\0');
 }
 
 bool	is_operator(char c)
@@ -32,22 +32,23 @@ bool	is_operator(char c)
 	return (c == '|' || c == '<' || c == '>');
 }
 
-t_lexer *validate_input(char *input, t_data *data)
+t_lexer	*validate_input(char *input, t_data *data)
 {
-    if (!input || !data)
-    {
-        handle_error(MNSHL_ERR_ARGS, "Tokenize input : null input or data");
-        return NULL;
-    }
+	t_lexer	*lexer;
 
-    t_lexer *lexer = init_lexer(input, data);
-    if (!lexer)
-    {
-        handle_error(MNSHL_ERR_MEMORY, "tokenize_input : lexer creation failed");
-        return NULL;
-    }
-
-    return lexer;
+	if (!input || !data)
+	{
+		handle_error(MNSHL_ERR_ARGS, "Tokenize input : null input or data");
+		return (NULL);
+	}
+	lexer = init_lexer(input, data);
+	if (!lexer)
+	{
+		handle_error(MNSHL_ERR_MEMORY,
+			"tokenize_input : lexer creation failed");
+		return (NULL);
+	}
+	return (lexer);
 }
 
 // skip tout les white space
@@ -72,7 +73,7 @@ t_token	*create_token(t_token_type type, char *value)
 		handle_error(MNSHL_ERR_MEMORY, "malloc failed in create_token");
 		return (NULL);
 	}
-		token->toktype = type;
+	token->toktype = type;
 	if (value)
 	{
 		token->value = strdup(value);

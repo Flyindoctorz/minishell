@@ -15,7 +15,6 @@
 
 # include "minishell.h"
 
-
 // init functions
 
 t_lexer			*init_lexer(char *input, t_data *data);

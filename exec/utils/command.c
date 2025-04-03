@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 void	ft_commandaddback(t_cmd_list **head, t_cmd_list *new)
 {
 	if (!head)

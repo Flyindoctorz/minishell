@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 void	ft_strncat(char *dst, const char *src, size_t size)
 {
 	size_t	i;

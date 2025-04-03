@@ -29,7 +29,6 @@ bool	setup_heredoc_redir(t_cmd_list *cmd, t_heredoc *heredoc)
 	if (!cmd->delimiter)
 		return (false);
 	return (true);
-	
 }
 bool	should_expand_heredoc(char *delimiter)
 {
@@ -49,7 +48,6 @@ bool	should_expand_heredoc(char *delimiter)
 	return (quote_count % 2 == 0);
 }
 
-
 void	*save_and_set_signals(void)
 {
 	struct sigaction	sa;
@@ -68,14 +66,14 @@ void	restore_signals(void *old_handler)
 	sa.sa_handler = old_handler;
 	sigaction(SIGINT, &sa, NULL);
 }
-// if TOKEN_HEREDOC, 
+// if TOKEN_HEREDOC,
 bool	handle_heredoc(t_cmd_list *cmd, char *delimiter, t_data *data)
 {
 	t_heredoc	*heredoc;
 	bool		expand;
 	bool		success;
 	void		*old_sigint;
-	
+
 	if (!cmd || !delimiter || !data)
 		return (false);
 	expand = should_expand_heredoc(delimiter);
@@ -95,4 +93,3 @@ bool	handle_heredoc(t_cmd_list *cmd, char *delimiter, t_data *data)
 	free_heredoc(heredoc);
 	return (success);
 }
-

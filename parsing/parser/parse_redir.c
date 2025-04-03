@@ -62,9 +62,11 @@ bool	setup_redir(t_cmd_list *cmd)
 	if (cmd->output_file)
 	{
 		if (cmd->append)
-			cmd->fd_out = open(cmd->output_file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			cmd->fd_out = open(cmd->output_file, O_WRONLY | O_CREAT | O_APPEND,
+					0644);
 		else
-			cmd->fd_out = open(cmd->output_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			cmd->fd_out = open(cmd->output_file, O_WRONLY | O_CREAT | O_TRUNC,
+					0644);
 		if (cmd->fd_out < 0)
 			return (false);
 	}
@@ -72,8 +74,8 @@ bool	setup_redir(t_cmd_list *cmd)
 }
 bool	handle_heredoc_input(t_cmd_list *cmd)
 {
-	int pipe_fd[2];
-	char *line;
+	int		pipe_fd[2];
+	char	*line;
 
 	if (!cmd || cmd->delimiter)
 		return (false);

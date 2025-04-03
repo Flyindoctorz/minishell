@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 void	open_input(t_heredoc *redir, t_data *minishell)
 {
 	int	fd;

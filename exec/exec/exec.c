@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 void	execut_me(t_cmd_list *cmd, t_data *shell, int save[2], int fd[2])
 {
 	int	status;
