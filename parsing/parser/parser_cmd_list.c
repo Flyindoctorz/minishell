@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_cmd_list.c                                    :+:      :+:    :+:   */
+/*   parser_cmd_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 14:23:17 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/04 14:06:25 by cgelgon          ###   ########.fr       */
+/*   Created: 2025/04/04 12:43:10 by cgelgon           #+#    #+#             */
+/*   Updated: 2025/04/04 12:44:31 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+// Initialise une nouvelle structure de commande
 t_cmd_list	*init_cmd_list(void)
 {
 	t_cmd_list	*cmd;
@@ -30,11 +31,14 @@ t_cmd_list	*init_cmd_list(void)
 	cmd->is_pipe = false;
 	cmd->append = false;
 	cmd->heredoc = false;
+	cmd->pid = 0;
+	cmd->redir = NULL;
 	cmd->next = NULL;
 	return (cmd);
 }
 
-void	add_new_cmd(t_cmd_list **cmd)
+// Ajoute un mot (commande ou argument) à la commande
+void	add_word_to_cmd(t_cmd_list *cmd, char *word)
 {
 	char	**new_av;
 	int		i;
@@ -42,24 +46,25 @@ void	add_new_cmd(t_cmd_list **cmd)
 	if (!cmd || !word)
 		return ;
 	if (!cmd->cmd)
-	{
 		cmd->cmd = ft_strdup(word);
-	}
 	new_av = (char **)malloc(sizeof(char *) * (cmd->ac + 2));
 	if (!new_av)
 		return ;
-	if (i = 0; i < cmd->ac; i++)
-		new_av[i] = cmd->av[i];
+	i = 0;
+	while (i < cmd->ac)
 	{
-		new_av[cmd->ac] = ft_strdup(word);
-		new_av[cmd->ac + 1] = NULL;
-		if (cmd->av)
-			free(cmd->av);
+		new_av[i] = cmd->av[i];
+		i++;
 	}
+	new_av[i] = ft_strdup(word);
+	new_av[i + 1] = NULL;
+	if (cmd->av)
+		free(cmd->av);
 	cmd->av = new_av;
 	cmd->ac++;
 }
 
+// Gère la création d'une nouvelle commande après un pipe
 t_cmd_list	*handle_pipe(t_cmd_list *cmd)
 {
 	t_cmd_list	*new_cmd;

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:05:49 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/02 17:51:29 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:09:03 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef READLINE_H
 # define READLINE_H
 
-# include <minishell.h>
+# include <structure.h>
 
 // gestion du signal
 int		get_signal_status(void);

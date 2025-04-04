@@ -5,52 +5,65 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 15:13:45 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/03/18 15:42:43 by cgelgon          ###   ########.fr       */
+/*   Created: 2025/04/04 14:31:49 by cgelgon           #+#    #+#             */
+/*   Updated: 2025/04/04 14:58:06 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-bool	set_input_redir(t_cmd_list *cmd, char *filename)
+bool	set_input_file(t_cmd_list *cmd, char *filename)
 {
 	if (!cmd || !filename)
 		return (false);
-	if (cmd->input_redir)
-		free(cmd->input_redir);
-	cmd->input_redir = ft_strdup(filename);
-	if (!cmd->input_redir)
+	if (cmd->input_file)
+		free(cmd->input_file);
+	cmd->input_file = ft_strdup(filename);
+	if (!cmd->input_file)
 		return (false);
 	return (true);
 }
 
-bool	set_output_redir(t_cmd_list *cmd, char *filename)
+bool	set_output_file(t_cmd_list *cmd, char *filename, bool append)
 {
 	if (!cmd || !filename)
 		return (false);
-	if (cmd->output_redir)
-		free(cmd->output_redir);
-	cmd->output_redir = ft_strdup(filename);
-	if (!cmd->output_redir)
+	if (cmd->output_file)
+		free(cmd->output_file);
+	cmd->output_file = ft_strdup(filename);
+	if (!cmd->output_file)
 		return (false);
+	cmd->append = append;
 	return (true);
 }
 
-bool	set_heredoc(t_cmd_list *cmd, char *delimiter)
+bool	handle_redir(t_cmd_list *cmd, t_token *token, t_data *data)
 {
-	if (!cmd || !delimiter)
-		return (false);
-	if (cmd->delimiter)
-		free(cmd->delimiter);
-	cmd->heredoc = ft_strdup(delimiter);
-	if (!cmd->heredoc)
-		return (false);
-	cmd->heredoc = true;
-	return (true);
-}
+	t_token_type	type;
+	char			*filename;
 
+	if (!cmd || !token || !token->next || !token->next->value || !data)
+		return (false);
+	type = token->toktype;
+	filename = token->next->value;
+	if (type == TOKEN_REDIR_IN)
+		return (set_input_file(cmd, filename));
+	else if (type == TOKEN_REDIR_OUT)
+		return (set_output_file(cmd, filename, false));
+	else if (type == TOKEN_APPEND)
+		return (set_output_file(cmd, filename, true));
+	else if (type == TOKEN_HEREDOC)
+	{
+		cmd->heredoc = true;
+		cmd->delimiter = ft_strdup(filename);
+		return (cmd->delimiter != NULL);
+	}
+	return (false);
+}
 bool	setup_redir(t_cmd_list *cmd)
 {
+	int	flags;
+	
 	if (!cmd)
 		return (false);
 	if (cmd->input_file)
@@ -61,41 +74,13 @@ bool	setup_redir(t_cmd_list *cmd)
 	}
 	if (cmd->output_file)
 	{
+		flags = O_WRONLY | O_CREAT;
 		if (cmd->append)
-			cmd->fd_out = open(cmd->output_file, O_WRONLY | O_CREAT | O_APPEND,
-					0644);
+			flags |= O_APPEND;
 		else
-			cmd->fd_out = open(cmd->output_file, O_WRONLY | O_CREAT | O_TRUNC,
-					0644);
+			flags |= O_TRUNC;
+		cmd->fd_out = open(cmd->output_file, flags, 0644);
 		if (cmd->fd_out < 0)
 			return (false);
-	}
-	return (true)
-}
-bool	handle_heredoc_input(t_cmd_list *cmd)
-{
-	int		pipe_fd[2];
-	char	*line;
-
-	if (!cmd || cmd->delimiter)
-		return (false);
-	if (pipe(pipe_fd) < 0)
-		return (false);
-	while (1)
-	{
-		line = readline("> ");
-		if (!line)
-			break ;
-		if (ft_strcmp(line, cmd->delimiter) == 0)
-		{
-			free(line);
-			break ;
-		}
-		write(pipe_fd[1], line, ft_strlen(line));
-		write(pipe_fd[1], "\n", 1);
-		free(line);
-	}
-	close(pipe_fd[1]);
-	cmd->fd_in = pipe_fd[0];
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 00:06:29 by zakchouc          #+#    #+#             */
-/*   Updated: 2025/04/03 15:27:56 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/04 12:03:51 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # include "data.h"
 # include "readline.h"
 # include "lexer.h"
+# include "parser.h"
 # include "heredoc.h"
 # include "exec.h"
 

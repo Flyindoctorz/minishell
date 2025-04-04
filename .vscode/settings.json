@@ -1,9 +1,10 @@
 {
     "files.associations": {
-        "minishell.h": "c",
-        "*.tcc": "cpp",
-        "functional": "cpp",
-        "ranges": "cpp",
-        "streambuf": "cpp"
-    }
+		"minishell.h": "c",
+		"*.tcc": "cpp",
+		"functional": "cpp",
+		"ranges": "cpp",
+		"streambuf": "cpp",
+		"structure.h": "c"
+	}
 }

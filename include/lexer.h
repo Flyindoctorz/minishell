@@ -6,14 +6,14 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:33:00 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:26:16 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/04 12:08:51 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-# include "minishell.h"
+# include "structure.h"
 
 // init functions
 
