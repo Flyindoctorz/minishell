@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:44:22 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 17:32:40 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:15:23 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	free_command(t_cmd_list *cmd)
 		return ;
 	if (cmd->cmd)
 		free(cmd->cmd);
-	if (cmd->argv)
+	if (cmd->av)
 	{
-		for (i = 0; i < cmd->argc; i++)
-			free(cmd->argv[i]);
-		free(cmd->argv);
+		for (i = 0; i < cmd->ac; i++)
+			free(cmd->av[i]);
+		free(cmd->av);
 	}
 	if (cmd->input_file)
 		free(cmd->input_file);

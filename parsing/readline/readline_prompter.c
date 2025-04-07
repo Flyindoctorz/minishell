@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:55:08 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 17:29:42 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:28:08 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*read_input(t_data *data)
 	char	*input;
 	char	*prompt;
 
-	setup_signal();
+	ft_signal();
 	prompt = get_prompt(data);
 	input = readline(prompt);
 	free(prompt);
