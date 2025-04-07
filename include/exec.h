@@ -6,23 +6,27 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:57:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 16:24:17 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:56:56 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 
-# include "minishell.h"
+# include "structure.h"
 
-int			exec_builtins(t_data *minishell, char **arg);
-int			builtins(t_data *minishell, t_cmd_list *cmd);
-bool		is_a_builtin(char **arg);
-void		execut_me(t_cmd_list *cmd, t_data *shell, int save[2], int fd[2]);
-int			all_cmd(t_data *minishell, int save[2], t_cmd_list *cmd);
-void		check_signal_exec(t_data *minishell);
-void		waiter(t_cmd_list *cmd, t_data *minishell);
-bool		exec(t_cmd_list *cmd, t_data *minishell);
+extern volatile sig_atomic_t	g_signal;
+
+int								exec_builtins(t_data *minishell, char **arg);
+int								builtins(t_data *minishell, t_cmd_list *cmd);
+bool							is_a_builtin(char **arg);
+void							execut_me(t_cmd_list *cmd, t_data *shell,
+									int save[2], int fd[2]);
+int								all_cmd(t_data *minishell, int save[2],
+									t_cmd_list *cmd);
+void							check_signal_exec(t_data *minishell);
+void							waiter(t_cmd_list *cmd, t_data *minishell);
+bool							exec(t_cmd_list *cmd, t_data *minishell);
 
 void		excute(char **cmd, char **env, t_data *minishell);
 char		*cmd_finder(char **cmd, char **env);

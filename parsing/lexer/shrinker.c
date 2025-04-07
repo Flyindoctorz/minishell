@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 12:07:37 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:28:43 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/04 12:02:15 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ bool	is_redir(t_token *token)
 {
 	if (!token)
 		return (false);
-	if (token->toktype == TOKEN_REDIR_IN || token->toktype == TOKEN_REDIR_OUT
-		|| token->toktype == TOKEN_APPEND || token->toktype == TOKEN_HEREDOC)
-		return (true);
-	return (false);
+	return (is_redir_token(token->toktype));
 }
 
 // fusionne les redir avec leur target

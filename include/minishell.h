@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 00:06:29 by zakchouc          #+#    #+#             */
-/*   Updated: 2025/04/03 17:26:18 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:57:06 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,14 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <structure.h>
+# include "data.h"
+# include "readline.h"
+# include "lexer.h"
+# include "parser.h"
+# include "heredoc.h"
+# include "exec.h"
 
-extern volatile sig_atomic_t	g_signal;
 
 // Gestion des erreurs
 void							handle_error(t_error_num code,

@@ -6,14 +6,14 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 13:57:40 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:25:59 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/04 12:08:44 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEREDOC_H
 # define HEREDOC_H
 
-# include "minishell.h"
+# include "structure.h"
 
 // heredoc utils
 bool		write_content_to_pipe(int fd, char *content);
