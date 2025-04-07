@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:20:05 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 17:34:25 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/07 13:34:13 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,3 @@ t_token	*create_quote_token(t_lexer *lexer, int len, int start_pos)
 	token->position = start_pos - 1;
 	return (token);
 }
-
-//

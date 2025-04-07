@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:05:49 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/04 12:09:03 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/07 16:14:05 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_prompt(t_data *data);
 char	*read_input(t_data *data);
 void	clear_readline_history(void);
 // main
-void	run_shell(t_data *data);
+// void	run_shell(t_data *data);
 int		main(int ac, char **av, char **env);
 
 #endif

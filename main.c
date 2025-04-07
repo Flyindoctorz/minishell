@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:17:52 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 18:35:33 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:49:37 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,40 @@
 
 volatile sig_atomic_t	g_signal = 0;
 
-// static int	setup_data_environment(t_data *data, char **env)
-// {
-// 	data->token = NULL;
-// 	data->command = NULL;
-// 	data->env = NULL;
-// 	data->state = 0;
-// 	data->prev_pipe_read_end = -1;
-// 	data->envp = dup_env(env);
-// 	if (!data->envp)
-// 		return (0);
-// 	data->cwd = init_cwd();
-// 	if (!data->cwd)
-// 	{
-// 		free_env(data->envp);
-// 		return (0);
-// 	}
-// 	if (!init_env(env, data))
-// 	{
-// 		free_env(data->envp);
-// 		free(data->cwd);
-// 		return (0);
-// 	}
-// 	return (1);
-// }
+static t_data	*init_shell(char **env)
+{
+	t_data	*data;
 
-// static t_data	*init_shell(char **env)
-// {
-// 	t_data	*data;
-
-// 	data = malloc(sizeof(t_data));
-// 	if (!data)
-// 		return (NULL);
-// 	if (!setup_data_environment(data, env))
-// 	{
-// 		free(data);
-// 		return (NULL);
-// 	}
-// 	return (data);
-// }
+	data = malloc(sizeof(t_data));
+	if (!data)
+		return (NULL);
+	data->envp = dup_env(env);
+	if (!data->envp)
+	{
+		free(data);
+		return (NULL);
+	}
+	data->cwd = init_cwd();
+	if (!data->cwd)
+	{
+		free_env(data->envp);
+		free(data);
+		return (NULL);
+	}
+	data->token = NULL;
+	data->command = NULL;
+	data->env = NULL;
+	data->state = 0;
+	data->prev_pipe_read_end = -1;
+	if (!init_env(env, data))
+	{
+		free_env(data->envp);
+		free(data->cwd);
+		free(data);
+		return (NULL);
+	}
+	return (data);
+}
 
 static int	process_input(t_data *data, char *input)
 {
@@ -70,6 +65,7 @@ static int	process_input(t_data *data, char *input)
 	data->token = tokenize_input(input, data);
 	if (!data->token)
 		return (1);
+	data->command = parse_token(data->token, data);
 	if (!data->command)
 	{
 		ft_tokenclear(&data->token);
@@ -81,7 +77,7 @@ static int	process_input(t_data *data, char *input)
 	return (1);
 }
 
-void	run_shell(t_data *data)
+static void	run_shell(t_data *data)
 {
 	char	*input;
 	char	*prompt;
@@ -90,7 +86,7 @@ void	run_shell(t_data *data)
 	{
 		ft_signal();
 		prompt = get_prompt(data);
-		input = readline("$> ");
+		input = readline(prompt);
 		free(prompt);
 		if (!process_input(data, input))
 		{
@@ -114,7 +110,7 @@ int	main(int ac, char **av, char **env)
 		printf("minishell: tty required\n");
 		return (1);
 	}
-	data = init_data(ac, av, env);
+	data = init_shell(env);
 	if (!data)
 		return (1);
 	run_shell(data);

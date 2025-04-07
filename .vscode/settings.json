@@ -5,6 +5,10 @@
 		"functional": "cpp",
 		"ranges": "cpp",
 		"streambuf": "cpp",
-		"structure.h": "c"
+		"structure.h": "c",
+		"wait.h": "c",
+		"unistd.h": "c",
+		"stdbool.h": "c",
+		"exec.h": "c"
 	}
 }

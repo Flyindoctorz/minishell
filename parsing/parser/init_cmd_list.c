@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 14:23:17 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/04 14:06:25 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/07 16:29:39 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,16 @@ void	add_new_cmd(t_cmd_list **cmd)
 	new_av = (char **)malloc(sizeof(char *) * (cmd->ac + 2));
 	if (!new_av)
 		return ;
-	if (i = 0; i < cmd->ac; i++)
-		new_av[i] = cmd->av[i];
+	i = 0;
+	while (i < cmd->ac)
 	{
-		new_av[cmd->ac] = ft_strdup(word);
-		new_av[cmd->ac + 1] = NULL;
-		if (cmd->av)
-			free(cmd->av);
+		new_av[i] = cmd->av[i];
+		i++;
 	}
+	new_av[cmd->ac] = ft_strdup(word);
+	new_av[cmd->ac + 1] = NULL;
+	if (cmd->av)
+		free(cmd->av);
 	cmd->av = new_av;
 	cmd->ac++;
 }

@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:04:32 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 18:31:02 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/07 14:24:19 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,16 @@
 // 	clear_readline_history();
 // }
 
-int	readline_main(int ac, char **av, char **env)
-{
-	t_data	*data;
-	int		exit_status;
+// int	readline_main(int ac, char **av, char **env)
+// {
+// 	t_data	*data;
+// 	int		exit_status;
 
-	data = init_data(ac, av, env);
-	if (!data)
-		return (MNSHL_ERR_MEMORY);
-	run_shell(data);
-	exit_status = data->exit;
-	free_data(data);
-	return (exit_status);
-}
+// 	data = init_data(ac, av, env);
+// 	if (!data)
+// 		return (MNSHL_ERR_MEMORY);
+// 	run_shell(data);
+// 	exit_status = data->exit;
+// 	free_data(data);
+// 	return (exit_status);
+// }

@@ -3,42 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:57:17 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/04 12:27:58 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/07 16:48:05 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-bool is_redir_token(t_token_type type)
+bool	is_redir_token(t_token_type type)
 {
-    return (type == TOKEN_REDIR_IN || type == TOKEN_REDIR_OUT
-        || type == TOKEN_APPEND || type == TOKEN_HEREDOC);
+	return (type == TOKEN_REDIR_IN || type == TOKEN_REDIR_OUT
+		|| type == TOKEN_APPEND || type == TOKEN_HEREDOC);
 }
 
-void free_cmd_list(t_cmd_list *cmd_list)
-{
-    t_cmd_list *temp;
+// void free_cmd_list(t_cmd_list *cmd_list)
+// {
+//     t_cmd_list *temp;
 
-    while (cmd_list)
-    {
-        temp = cmd_list;
-        cmd_list = cmd_list->next;
-        if (temp->cmd)
-            free(temp->cmd);
-        if (temp->av)
-            free_tab(temp->av);
-        if (temp->input_file)
-            free(temp->input_file);
-        if (temp->output_file)
-            free(temp->output_file);
-        if (temp->delimiter)
-            free(temp->delimiter);
-        free(temp);
-    }
-}
+//     while (cmd_list)
+//     {
+//         temp = cmd_list;
+//         cmd_list = cmd_list->next;
+//         if (temp->cmd)
+//             free(temp->cmd);
+//         if (temp->av)
+//             free_tab(temp->av);
+//         if (temp->input_file)
+//             free(temp->input_file);
+//         if (temp->output_file)
+//             free(temp->output_file);
+//         if (temp->delimiter)
+//             free(temp->delimiter);
+//         free(temp);
+//     }
+// }
 void	free_av_array(char **av, int index)
 {
 	int	i;
@@ -58,6 +58,7 @@ char	**create_av_array(t_token *tokens, int ac, t_data *data)
 	int		i;
 	t_token	*current;
 
+	(void)data;
 	av = malloc(sizeof(char *) * (ac + 1));
 	if (!av)
 		return (NULL);
@@ -79,10 +80,12 @@ char	**create_av_array(t_token *tokens, int ac, t_data *data)
 	av[i] = NULL;
 	return (av);
 }
+
 int	count_args(t_token *tokens)
+
 {
-	int		count;
-	t_token	*current;
+	int count;
+	t_token *current;
 
 	count = 0;
 	current = tokens;

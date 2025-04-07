@@ -6,7 +6,7 @@
 #    By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/31 19:10:00 by lmokhtar          #+#    #+#              #
-#    Updated: 2025/04/03 17:10:20 by lmokhtar         ###   ########.fr        #
+#    Updated: 2025/04/07 16:38:42 by lmokhtar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ LEXER_FILES = expand_utils.c init_lexer.c lexer_main.c quotes_utils.c \
 	shrinker_three.c shrinker_two.c utils_lexer.c
 DATA_FILES = init_base.c exit_free.c init_environment.c
 READLINE_FILES = readline_main.c readline_prompter.c readline_prompt_utils.c readline_interface.c
-# PARSER_FILES = parsing_main.c
+PARSER_FILES = parser_utils.c parser_main.c parse_redir.c parser_cmd_list.c cleaner.c \
 
 # Préfixage des chemins complets
 SRCS = $(addprefix $(ROOT_DIR)/, $(SRC_FILES))
