@@ -6,13 +6,33 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:17:52 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/07 16:49:37 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:38:54 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 volatile sig_atomic_t	g_signal = 0;
+
+static int	init_data_resources(t_data *data, char **env)
+{
+	data->envp = dup_env(env);
+	if (!data->envp)
+		return (0);
+	data->cwd = init_cwd();
+	if (!data->cwd)
+	{
+		free_env(data->envp);
+		return (0);
+	}
+	if (!init_env(env, data))
+	{
+		free_env(data->envp);
+		free(data->cwd);
+		return (0);
+	}
+	return (1);
+}
 
 static t_data	*init_shell(char **env)
 {
@@ -21,28 +41,13 @@ static t_data	*init_shell(char **env)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (NULL);
-	data->envp = dup_env(env);
-	if (!data->envp)
-	{
-		free(data);
-		return (NULL);
-	}
-	data->cwd = init_cwd();
-	if (!data->cwd)
-	{
-		free_env(data->envp);
-		free(data);
-		return (NULL);
-	}
 	data->token = NULL;
 	data->command = NULL;
 	data->env = NULL;
 	data->state = 0;
 	data->prev_pipe_read_end = -1;
-	if (!init_env(env, data))
+	if (!init_data_resources(data, env))
 	{
-		free_env(data->envp);
-		free(data->cwd);
 		free(data);
 		return (NULL);
 	}

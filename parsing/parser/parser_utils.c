@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:57:17 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/07 16:48:05 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:41:19 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,9 @@ char	**create_av_array(t_token *tokens, int ac, t_data *data)
 }
 
 int	count_args(t_token *tokens)
-
 {
-	int count;
-	t_token *current;
+	int		count;
+	t_token	*current;
 
 	count = 0;
 	current = tokens;
