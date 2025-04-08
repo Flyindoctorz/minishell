@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:17:52 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/07 17:38:54 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:02:46 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,20 +79,18 @@ static int	process_input(t_data *data, char *input)
 	exec(data->command, data);
 	ft_tokenclear(&data->token);
 	ft_commandclear(&data->command);
+	free((data->token = 0, data->command = 0, NULL));
 	return (1);
 }
 
 static void	run_shell(t_data *data)
 {
 	char	*input;
-	char	*prompt;
 
 	while (1)
 	{
 		ft_signal();
-		prompt = get_prompt(data);
-		input = readline(prompt);
-		free(prompt);
+		input = readline("$>");
 		if (!process_input(data, input))
 		{
 			free(input);
