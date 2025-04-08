@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:44:05 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 14:34:13 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/08 17:36:20 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,7 @@ void	ft_end(t_data *minishell)
 		free_tab(minishell->envp);
 		minishell->envp = NULL;
 	}
+	if (minishell->cwd)
+		free(minishell->cwd);
+	free(minishell);
 }

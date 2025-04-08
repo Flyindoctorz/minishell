@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:37:36 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 14:33:38 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/08 17:09:21 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,61 @@ t_cmd_list	*ft_commandlast(t_cmd_list *head)
 	return (head);
 }
 
+// void	ft_commandclear(t_cmd_list **cmd)
+// {
+// 	t_cmd_list	*tmp;
+
+// 	while (*cmd)
+// 	{
+// 		tmp = (*cmd)->next;
+// 		free_tab((*cmd)->av);
+// 		ft_redirclear((*cmd)->redir);
+// 		free((*cmd));
+// 		(*cmd) = tmp;
+// 	}
+// }
+
+static void	free_cmd_content(t_cmd_list *current)
+{
+	int	i;
+
+	if (current->cmd)
+		free(current->cmd);
+	if (current->av)
+	{
+		i = 0;
+		while (i < current->ac)
+			free(current->av[i++]);
+		free(current->av);
+	}
+	if (current->input_file)
+		free(current->input_file);
+	if (current->output_file)
+		free(current->output_file);
+	if (current->delimiter)
+		free(current->delimiter);
+	if (current->redir)
+		ft_redirclear(current->redir);
+	if (current->fd_in != STDIN_FILENO)
+		close(current->fd_in);
+	if (current->fd_out != STDOUT_FILENO)
+		close(current->fd_out);
+}
+
 void	ft_commandclear(t_cmd_list **cmd)
 {
-	t_cmd_list	*tmp;
+	t_cmd_list	*current;
+	t_cmd_list	*next;
 
-	while (*cmd)
+	if (!cmd || !*cmd)
+		return ;
+	current = *cmd;
+	while (current)
 	{
-		tmp = (*cmd)->next;
-		free_tab((*cmd)->av);
-		ft_redirclear((*cmd)->redir);
-		free((*cmd));
-		(*cmd) = tmp;
+		next = current->next;
+		free_cmd_content(current);
+		free(current);
+		current = next;
 	}
+	*cmd = NULL;
 }

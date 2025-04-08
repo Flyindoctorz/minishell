@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:17:52 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/08 15:02:46 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:14:14 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static t_data	*init_shell(char **env)
 	data->prev_pipe_read_end = -1;
 	if (!init_data_resources(data, env))
 	{
-		free(data);
+		ft_end(data);
 		return (NULL);
 	}
 	return (data);

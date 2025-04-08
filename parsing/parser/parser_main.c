@@ -18,7 +18,7 @@ bool	validate_syntax_part2(t_token *curr, bool *had_word)
 	{
 		if (!*had_word)
 			return (handle_error(MNSHL_ERR_SYNTAX, ERR_MSG_PIPE_SYNTAX), false);
-		if (!curr->next || curr->next->toktype == TOKEN_EOF 
+		if (!curr->next || curr->next->toktype == TOKEN_EOF
 			|| curr->next->toktype == TOKEN_PIPE)
 			return (handle_error(MNSHL_ERR_SYNTAX, ERR_MSG_PIPE_SYNTAX), false);
 		*had_word = false;
@@ -53,7 +53,7 @@ bool	validate_syntax(t_token *tokens)
 }
 
 t_cmd_list	*finalize_parsing(t_cmd_list *cmd_list, t_token *tokens,
-						t_data *data)
+		t_data *data)
 {
 	if (!cmd_list)
 		return (NULL);

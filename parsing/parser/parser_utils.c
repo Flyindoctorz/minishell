@@ -73,7 +73,7 @@ int	count_args(t_token *tokens)
 
 	count = 0;
 	current = tokens;
-	while (current && current->toktype != TOKEN_EOF 
+	while (current && current->toktype != TOKEN_EOF
 		&& current->toktype != TOKEN_PIPE)
 	{
 		if (current->toktype == TOKEN_WORD)

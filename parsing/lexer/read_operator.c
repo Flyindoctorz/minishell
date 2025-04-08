@@ -79,8 +79,6 @@ bool	check_op_syntax(t_lexer *lexer)
 	return (true);
 }
 
-
-
 t_token	*read_operator(t_lexer *lexer)
 {
 	t_token	*op_token;

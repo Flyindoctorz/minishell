@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-char    *expand_line(char *line, t_data *data)
+char	*expand_line(char *line, t_data *data)
 {
-    if (!line || !data)
-        return (NULL);
-    return (expand(line, data));
+	if (!line || !data)
+		return (NULL);
+	return (expand(line, data));
 }
