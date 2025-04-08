@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 13:57:40 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 14:08:29 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/08 14:21:17 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ bool		should_expand_heredoc(char *delimiter);
 void		*save_and_set_signals(void);
 void		restore_signals(void *old_handler);
 bool		handle_heredoc(t_cmd_list *cmd, char *delimiter, t_data *data);
+
+char		*expand_line(char *line, t_data *data);
 
 #endif
