@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:45:52 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 13:49:38 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/08 14:06:15 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ bool	process_all_heredocs(t_cmd_list *cmd, t_token *token, t_data *data)
 		return (false);
 	curr = token;
 	current_cmd = cmd;
-	while (curr)
+	while (curr && curr->toktype != TOKEN_EOF)
 	{
 		if (curr->toktype == TOKEN_PIPE && curr->next)
 		{
@@ -85,7 +85,7 @@ bool	process_all_heredocs(t_cmd_list *cmd, t_token *token, t_data *data)
 				return (false);
 			current_cmd = current_cmd->next;
 		}
-		else if (is_heredoc_token(curr))
+		else if (curr->toktype == TOKEN_EOF)
 		{
 			if (!process_heredoc_tok(current_cmd, curr, data))
 				return (false);
