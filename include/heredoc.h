@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 13:57:40 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 14:18:03 by lmokhtar         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2025/04/08 14:27:01 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef HEREDOC_H
 # define HEREDOC_H
@@ -27,7 +28,6 @@ bool		is_heredoc_token(t_token *token);
 bool		is_valid_heredoc_delimiter(char *delimiter);
 char		*extract_heredoc_delim(t_token *token);
 bool		process_heredoc_tok(t_cmd_list *cmd, t_token *token, t_data *data);
-bool		process_all_heredocs(t_cmd_list *cmd, t_token *token, t_data *data);
 // heredoc reader
 t_heredoc	*init_heredoc(char *delimiter, bool expand);
 bool		heredoc_reader(t_heredoc *heredoc, t_data *data);
@@ -38,6 +38,8 @@ bool		should_expand_heredoc(char *delimiter);
 void		*save_and_set_signals(void);
 void		restore_signals(void *old_handler);
 bool		handle_heredoc(t_cmd_list *cmd, char *delimiter, t_data *data);
+
+char		*expand_line(char *line, t_data *data);
 
 char		*expand_line(char *line, t_data *data);
 

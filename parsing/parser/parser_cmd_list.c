@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:43:10 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 13:18:53 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/08 14:03:51 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,31 +80,4 @@ t_cmd_list	*handle_pipe(t_cmd_list *cmd)
 	cmd->is_pipe = true;
 	cmd->next = new_cmd;
 	return (new_cmd);
-}
-void	free_cmd_list(t_cmd_list *cmd_list)
-{
-	t_cmd_list	*tmp;
-	int			i;
-	
-	while (cmd_list)
-	{
-		tmp = cmd_list;
-		cmd_list = cmd_list->next;
-		if (tmp->cmd)
-			free(tmp->cmd);
-		if (tmp->av)
-		{
-			i = 0;
-			while (tmp->av[i])
-				free(tmp->av[i++]);
-			free(tmp->av);
-		}
-		if (tmp->input_file)
-			free(tmp->input_file);
-		if (tmp->output_file)
-			free(tmp->output_file);
-		if (tmp->delimiter)
-			free(tmp->delimiter);
-		free(tmp);
-	}
 }
