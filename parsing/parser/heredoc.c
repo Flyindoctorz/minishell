@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:54:33 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 17:31:38 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:51:40 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	setup_heredoc_redir(t_cmd_list *cmd, t_heredoc *heredoc)
 	if (cmd->delimiter)
 	{
 		free(cmd->delimiter);
-		cmd->delimiter = NULL;
+		cmd->delimiter = NULL; 
 	}
 	cmd->delimiter = ft_strdup(heredoc->delimiter);
 	if (!cmd->delimiter)
