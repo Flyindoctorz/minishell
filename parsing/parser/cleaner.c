@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:44:22 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 14:26:33 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/08 14:31:55 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ void	free_command(t_cmd_list *cmd)
 }
 
 /* Free entire command list */
-// void	free_cmd_list(t_cmd_list *cmd_list)
-// {
-// 	t_cmd_list	*current;
-// 	t_cmd_list	*next;
+void	free_cmd_list(t_cmd_list *cmd_list)
+{
+	t_cmd_list	*current;
+	t_cmd_list	*next;
 
-// 	current = cmd_list;
-// 	while (current)
-// 	{
-// 		next = current->next;
-// 		free_command(current);
-// 		current = next;
-// 	}
-// }
+	current = cmd_list;
+	while (current)
+	{
+		next = current->next;
+		free_command(current);
+		current = next;
+	}
+}
