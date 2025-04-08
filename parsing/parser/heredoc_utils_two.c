@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils_two.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:32:37 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 13:32:51 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/08 14:17:13 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structure.h"
+#include "minishell.h"
 
 char    *expand_line(char *line, t_data *data)
 {
