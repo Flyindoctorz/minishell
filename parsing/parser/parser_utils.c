@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:57:17 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/07 17:41:19 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/08 13:50:22 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,6 @@ bool	is_redir_token(t_token_type type)
 		|| type == TOKEN_APPEND || type == TOKEN_HEREDOC);
 }
 
-// void free_cmd_list(t_cmd_list *cmd_list)
-// {
-//     t_cmd_list *temp;
-
-//     while (cmd_list)
-//     {
-//         temp = cmd_list;
-//         cmd_list = cmd_list->next;
-//         if (temp->cmd)
-//             free(temp->cmd);
-//         if (temp->av)
-//             free_tab(temp->av);
-//         if (temp->input_file)
-//             free(temp->input_file);
-//         if (temp->output_file)
-//             free(temp->output_file);
-//         if (temp->delimiter)
-//             free(temp->delimiter);
-//         free(temp);
-//     }
-// }
 void	free_av_array(char **av, int index)
 {
 	int	i;
@@ -50,6 +29,12 @@ void	free_av_array(char **av, int index)
 		i++;
 	}
 	free(av);
+}
+
+void	skip_redir_token(t_token **current)
+{
+	if (is_redir_token((*current)->toktype) && (*current)->next)
+		*current = (*current)->next;
 }
 
 char	**create_av_array(t_token *tokens, int ac, t_data *data)
@@ -73,8 +58,8 @@ char	**create_av_array(t_token *tokens, int ac, t_data *data)
 				return (free_av_array(av, i), NULL);
 			i++;
 		}
-		else if (is_redir(current) && current->next)
-			current = current->next;
+		else
+			skip_redir_token(&current);
 		current = current->next;
 	}
 	av[i] = NULL;
@@ -88,11 +73,12 @@ int	count_args(t_token *tokens)
 
 	count = 0;
 	current = tokens;
-	while (current)
+	while (current && current->toktype != TOKEN_EOF 
+		&& current->toktype != TOKEN_PIPE)
 	{
 		if (current->toktype == TOKEN_WORD)
 			count++;
-		else if (is_redir(current) && current->next)
+		else if (is_redir_token(current->toktype) && current->next)
 			current = current->next;
 		current = current->next;
 	}
