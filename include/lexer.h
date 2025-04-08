@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:33:00 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/04 12:08:51 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/08 15:04:21 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,8 @@ t_token			*apply_shrink(t_token *tokens);
 t_token			*tokenize_input(char *input, t_data *data);
 t_token			*tokenize_current(t_lexer *lexer);
 void			free_token_list(t_token *token);
+bool			skip_comment(t_lexer *lexer);
+t_token			*process_token_error(t_lexer *lexer, t_token *token);
+bool			check_op_syntax(t_lexer *lexer);
 
 #endif
