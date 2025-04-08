@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_parser.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:45:52 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 17:31:15 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/08 13:49:38 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool	process_heredoc_tok(t_cmd_list *cmd, t_token *token, t_data *data)
 		handle_error(MNSHL_ERR_MEMORY, "process_heredoc_tok");
 		return (false);
 	}
-	if (!is_valide_heredoc_delimiter(delimiter))
+	if (!is_valid_heredoc_delimiter(delimiter))
 	{
 		handle_error(MNSHL_ERR_SYNTAX, "invalid delimiter");
 		free(delimiter);

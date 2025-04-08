@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   parser_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:29:27 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/07 16:32:41 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/08 13:50:04 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+bool	validate_syntax_part2(t_token *curr, bool *had_word)
+{
+	if (curr->toktype == TOKEN_PIPE)
+	{
+		if (!*had_word)
+			return (handle_error(MNSHL_ERR_SYNTAX, ERR_MSG_PIPE_SYNTAX), false);
+		if (!curr->next || curr->next->toktype == TOKEN_EOF 
+			|| curr->next->toktype == TOKEN_PIPE)
+			return (handle_error(MNSHL_ERR_SYNTAX, ERR_MSG_PIPE_SYNTAX), false);
+		*had_word = false;
+	}
+	else if (is_redir_token(curr->toktype))
+	{
+		if (!curr->next || curr->next->toktype != TOKEN_WORD)
+			return (handle_error(MNSHL_ERR_SYNTAX, ERR_MSG_REDIR_SYNTAX),
+				false);
+	}
+	return (true);
+}
 
 bool	validate_syntax(t_token *tokens)
 {
@@ -23,21 +43,26 @@ bool	validate_syntax(t_token *tokens)
 	had_word = false;
 	while (curr && curr->toktype != TOKEN_EOF)
 	{
-		if (curr->toktype == TOKEN_PIPE && !had_word)
-			return (handle_error(MNSHL_ERR_SYNTAX, ERR_MSG_PIPE_SYNTAX), false);
-		if (is_redir_token(curr->toktype))
-		{
-			if (!curr->next || curr->next->toktype == TOKEN_WORD)
-				return (handle_error(MNSHL_ERR_SYNTAX, ERR_MSG_REDIR_SYNTAX),
-					false);
-		}
+		if (!validate_syntax_part2(curr, &had_word))
+			return (false);
 		if (curr->toktype == TOKEN_WORD)
 			had_word = true;
-		else if (curr->toktype == TOKEN_PIPE)
-			had_word = false;
 		curr = curr->next;
 	}
 	return (true);
+}
+
+t_cmd_list	*finalize_parsing(t_cmd_list *cmd_list, t_token *tokens,
+						t_data *data)
+{
+	if (!cmd_list)
+		return (NULL);
+	if (!process_all_heredocs(cmd_list, tokens, data))
+	{
+		free_cmd_list(cmd_list);
+		return (NULL);
+	}
+	return (cmd_list);
 }
 
 t_cmd_list	*parse_token(t_token *tokens, t_data *data)
@@ -61,5 +86,5 @@ t_cmd_list	*parse_token(t_token *tokens, t_data *data)
 			handle_redir(curr_cmd, curr_token, data);
 		curr_token = curr_token->next;
 	}
-	return (cmd_list);
+	return (finalize_parsing(cmd_list, tokens, data));
 }

@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:43:10 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/04 12:44:31 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/08 13:18:53 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,20 @@ void	add_word_to_cmd(t_cmd_list *cmd, char *word)
 	if (!cmd || !word)
 		return ;
 	if (!cmd->cmd)
+	{
 		cmd->cmd = ft_strdup(word);
+		if (!cmd->cmd)
+			return ;
+	}
 	new_av = (char **)malloc(sizeof(char *) * (cmd->ac + 2));
 	if (!new_av)
 		return ;
-	i = 0;
-	while (i < cmd->ac)
-	{
+	i = -1;
+	while (++i < cmd->ac)
 		new_av[i] = cmd->av[i];
-		i++;
-	}
 	new_av[i] = ft_strdup(word);
+	if (!new_av[i])
+		return (free(new_av), (void)0);
 	new_av[i + 1] = NULL;
 	if (cmd->av)
 		free(cmd->av);
@@ -77,4 +80,31 @@ t_cmd_list	*handle_pipe(t_cmd_list *cmd)
 	cmd->is_pipe = true;
 	cmd->next = new_cmd;
 	return (new_cmd);
+}
+void	free_cmd_list(t_cmd_list *cmd_list)
+{
+	t_cmd_list	*tmp;
+	int			i;
+	
+	while (cmd_list)
+	{
+		tmp = cmd_list;
+		cmd_list = cmd_list->next;
+		if (tmp->cmd)
+			free(tmp->cmd);
+		if (tmp->av)
+		{
+			i = 0;
+			while (tmp->av[i])
+				free(tmp->av[i++]);
+			free(tmp->av);
+		}
+		if (tmp->input_file)
+			free(tmp->input_file);
+		if (tmp->output_file)
+			free(tmp->output_file);
+		if (tmp->delimiter)
+			free(tmp->delimiter);
+		free(tmp);
+	}
 }

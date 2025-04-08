@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 14:31:49 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/07 16:26:02 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/08 13:49:50 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ bool	handle_redir(t_cmd_list *cmd, t_token *token, t_data *data)
 	else if (type == TOKEN_HEREDOC)
 	{
 		cmd->heredoc = true;
+		if (cmd->delimiter)
+			free(cmd->delimiter);
 		cmd->delimiter = ft_strdup(filename);
 		return (cmd->delimiter != NULL);
 	}
@@ -83,7 +85,6 @@ bool	setup_redir(t_cmd_list *cmd)
 		cmd->fd_out = open(cmd->output_file, flags, 0644);
 		if (cmd->fd_out < 0)
 			return (false);
-		return (true);
 	}
 	return (true);
 }
