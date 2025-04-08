@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 14:31:49 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 13:11:08 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/08 13:42:59 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ bool	setup_redir(t_cmd_list *cmd)
 	{
 		cmd->fd_in = open(cmd->input_file, O_RDONLY);
 		if (cmd->fd_in < 0)
-			return (perror(cmd->input_file), false);
+			return (false);
 	}
 	if (cmd->output_file)
 	{
@@ -83,7 +83,7 @@ bool	setup_redir(t_cmd_list *cmd)
 			flags |= O_TRUNC;
 		cmd->fd_out = open(cmd->output_file, flags, 0644);
 		if (cmd->fd_out < 0)
-			return (perror(cmd->output_file), false);
+			return (false);
 	}
 	return (true);
 }

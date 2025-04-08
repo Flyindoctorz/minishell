@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:57:17 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 13:35:00 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/08 13:46:43 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,74 +31,56 @@ void	free_av_array(char **av, int index)
 	free(av);
 }
 
-int     count_cmd_args(t_token *tokens)
+void	skip_redir_token(t_token **current)
 {
-    int     count;
-    t_token *current;
-
-    count = 0;
-    current = tokens;
-    while (current)
-    {
-        if (current->toktype == TOKEN_WORD)
-            count++;
-        else if (is_redir_token(current->toktype) && current->next)
-            current = current->next;
-        current = current->next;
-    }
-    return (count);
+	if (is_redir_token((*current)->toktype) && (*current)->next)
+		*current = (*current)->next;
 }
 
-bool	prepare_command_io(t_cmd_list *cmd, t_data *data)
+char	**create_av_array(t_token *tokens, int ac, t_data *data)
 {
-	bool	success;
+	char	**av;
+	int		i;
+	t_token	*current;
 
-	if (!cmd)
-		return (false);
-	success = true;
-	if (cmd->heredoc && cmd->delimiter)
+	(void)data;
+	av = malloc(sizeof(char *) * (ac + 1));
+	if (!av)
+		return (NULL);
+	i = 0;
+	current = tokens;
+	while (current && i < ac)
 	{
-		success = handle_heredoc(cmd, cmd->delimiter, data);
-		if (!success)
+		if (current->toktype == TOKEN_WORD)
 		{
-			handle_error(MNSHL_ERR_MEMORY, "Failed to setup heredoc");
-			return (false);
+			av[i] = ft_strdup(current->value);
+			if (!av[i])
+				return (free_av_array(av, i), NULL);
+			i++;
 		}
+		else
+			skip_redir_token(&current);
+		current = current->next;
 	}
-	else
-	{
-		success = setup_redir(cmd);
-		if (!success)
-		{
-			handle_error(MNSHL_ERR_EXEC, "Failed to setup redirections");
-			return (false);
-		}
-	}
-	return (success);
+	av[i] = NULL;
+	return (av);
 }
 
-void	print_command_list(t_cmd_list *cmd_list)
+int	count_args(t_token *tokens)
 {
-	t_cmd_list	*curr;
-	int			cmd_num;
-	int			i;
+	int		count;
+	t_token	*current;
 
-	cmd_num = 1;
-	curr = cmd_list;
-	while (curr)
+	count = 0;
+	current = tokens;
+	while (current && current->toktype != TOKEN_EOF 
+		&& current->toktype != TOKEN_PIPE)
 	{
-		printf("Command %d: %s\n", cmd_num++, curr->cmd ? curr->cmd : "NULL");
-		printf("  Arguments: ");
-		i = 0;
-		while (curr->av && curr->av[i])
-			printf("%s ", curr->av[i++]);
-		printf("\n");
-		printf("  Input: %s\n", curr->input_file ? curr->input_file : "stdin");
-		printf("  Output: %s\n", curr->output_file ? curr->output_file : "stdout");
-		printf("  Append: %s\n", curr->append ? "true" : "false");
-		printf("  Heredoc: %s\n", curr->heredoc ? "true" : "false");
-		printf("  Delimiter: %s\n", curr->delimiter ? curr->delimiter : "NULL");
-		printf("  Pipe: %s\n", curr->is_pipe ? "true" : "false");
-		curr = curr->next;
+		if (current->toktype == TOKEN_WORD)
+			count++;
+		else if (is_redir_token(current->toktype) && current->next)
+			current = current->next;
+		current = current->next;
 	}
+	return (count);
 }
