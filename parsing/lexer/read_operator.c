@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_operator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:16:58 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 17:33:59 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:02:33 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ static t_token	*single_op_handler(t_lexer *lexer)
 	advance_lexer(lexer);
 	return (token);
 }
-
-static bool	check_op_syntax(t_lexer *lexer)
+bool	check_op_syntax(t_lexer *lexer)
 {
 	char	next;
 
@@ -79,6 +78,8 @@ static bool	check_op_syntax(t_lexer *lexer)
 	}
 	return (true);
 }
+
+
 
 t_token	*read_operator(t_lexer *lexer)
 {

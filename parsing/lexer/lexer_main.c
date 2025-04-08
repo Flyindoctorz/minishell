@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:28:21 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:27:53 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/08 15:05:28 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,15 @@ t_token	*tokenize_current(t_lexer *lexer)
 	if (is_expand_char(lexer->curr_char))
 		token = read_expand(lexer);
 	else if (is_operator(lexer->curr_char))
+	{
+		if (!check_op_syntax(lexer))
+		{
+			token = create_token(TOKEN_ERROR, "Syntax error");
+			token->position = start_pos;
+			return (token);
+		}
 		token = read_operator(lexer);
+	}
 	else if (is_quote(lexer->curr_char))
 		token = read_quotes(lexer);
 	else
@@ -54,11 +62,12 @@ t_token	*tokenize_current(t_lexer *lexer)
 	{
 		handle_error(MNSHL_ERR_MEMORY,
 			"process_next_token : token creation failed");
-		return (NULL);
+		token = create_token(TOKEN_ERROR, "Token creation failed");
+		token->position = start_pos;
 	}
 	return (token);
 }
-
+/*
 static t_lexer	*validate_input(char *input, t_data *data)
 {
 	t_lexer	*lexer;
@@ -76,43 +85,67 @@ static t_lexer	*validate_input(char *input, t_data *data)
 		return (NULL);
 	}
 	return (lexer);
+}*/
+
+bool skip_comment(t_lexer *lexer)
+{
+    if (lexer->curr_char == '#')
+    {
+        while (lexer->curr_char && lexer->curr_char != '\n')
+            advance_lexer(lexer);
+        return (true);
+    }
+    return (false);
 }
 
-static void	process_token_generation(t_lexer *lexer)
+t_token *process_token_error(t_lexer *lexer, t_token *token)
 {
-	t_token	*token;
-
-	while (lexer->curr_char)
-	{
-		if (lexer->curr_char == '#')
-		{
-			while (lexer->curr_char && lexer->curr_char != '\n')
-			{
-				advance_lexer(lexer);
-			}
-			continue ;
-		}
-		token = tokenize_current(lexer);
-		if (token)
-		{
-			add_token(lexer, token);
-		}
-	}
+    printf("Syntax error at position %d\n", token->position);
+    free_token_list(lexer->tokens);
+    free_token_list(token);
+    return (NULL);
 }
 
-t_token	*tokenize_input(char *input, t_data *data)
+static t_token *generate_tokens(t_lexer *lexer)
 {
-	t_lexer	*lexer;
-	t_token	*eof_token;
-	t_token	*tokens;
+    t_token *token;
+    t_token *eof_token;
 
-	lexer = validate_input(input, data);
-	if (!lexer)
-		return (NULL);
-	process_token_generation(lexer);
-	eof_token = create_token(TOKEN_EOF, NULL);
-	add_token(lexer, eof_token);
-	tokens = lexer->tokens;
-	free_lexer(lexer);
-	return (tokens);
+    while (lexer->curr_char)
+    {
+        if (skip_comment(lexer))
+            continue;
+
+        token = tokenize_current(lexer);
+        if (token)
+        {
+            if (token->toktype == TOKEN_ERROR)
+                return (process_token_error(lexer, token));
+            
+            add_token(lexer, token);
+        }
+    }
+
+    eof_token = create_token(TOKEN_EOF, NULL);
+    add_token(lexer, eof_token);
+
+    return (lexer->tokens);
+}
+
+t_token *tokenize_input(char *input, t_data *data)
+{
+    t_lexer *lexer;
+    t_token *tokens;
+
+    lexer = init_lexer(input, data);
+    if (!lexer)
+    {
+        handle_error(MNSHL_ERR_MEMORY, "tokenize_input : lexer creation failed");
+        return (NULL);
+    }
+
+    tokens = generate_tokens(lexer);
+
+    free_lexer(lexer);
+    return (tokens);
 }
