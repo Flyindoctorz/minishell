@@ -6,7 +6,7 @@
 #    By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/31 19:10:00 by lmokhtar          #+#    #+#              #
-#    Updated: 2025/04/08 14:26:03 by lmokhtar         ###   ########.fr        #
+#    Updated: 2025/04/08 17:31:48 by lmokhtar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -146,7 +146,7 @@ fclean: clean
 leak: all
 	@echo "$(BLUE)Running valgrind leak check...$(RESET)"
 	@valgrind --leak-check=full --show-below-main=no --show-leak-kinds=all \
-		--track-fds=yes --trace-children=yes ./$(NAME)
+		--track-fds=yes --trace-children=yes --suppressions=ignore.supp ./$(NAME)
 
 norm:
 	@echo "$(BLUE)Running norminette check...$(RESET)"

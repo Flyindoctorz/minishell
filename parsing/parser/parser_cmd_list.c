@@ -70,7 +70,7 @@ void	add_word_to_cmd(t_cmd_list *cmd, char *word)
 // Gère la création d'une nouvelle commande après un pipe
 t_cmd_list	*handle_pipe(t_cmd_list *cmd)
 {
-	t_cmd_list	*new_cmd;
+	t_cmd_list *new_cmd;
 
 	if (!cmd)
 		return (NULL);

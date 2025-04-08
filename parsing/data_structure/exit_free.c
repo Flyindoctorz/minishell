@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 12:42:14 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:27:31 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/08 17:05:03 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void	free_data(t_data *data)
 		ft_commandclear(&data->command);
 	if (data->env)
 		ft_envclear(&data->env);
+	if (data->envp)
+		free_env(data->envp);
 	if (data->parsing)
 		free(data->parsing);
 	if (data->input)
@@ -101,8 +103,8 @@ void	free_data(t_data *data)
 		close(data->pipe_fd[0]);
 	if (data->pipe_fd[1] != -1)
 		close(data->pipe_fd[1]);
-	free_env(data->envp);
-	free(data->cwd);
+	if (data->cwd)
+		free(data->cwd);
 	free(data);
 }
 
@@ -110,15 +112,17 @@ void	free_data(t_data *data)
 // {
 // 	t_cmd_list	*current;
 // 	t_cmd_list	*next;
+// 	int i;
 
+// 	i = 0;
 // 	if (!cmd || !*cmd)
 // 		return ;
 // 	current = *cmd;
 // 	while (current)
 // 	{
 // 		next = current->next;
-// 		if (current->arguments)
-// 			free_array(current->arguments);
+// 		if (current->av)
+// 			free_av_array(current->av, i);
 // 		if (current->redir)
 // 			ft_redirclear(current->redir);
 // 		free(current);

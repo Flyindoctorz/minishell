@@ -9,6 +9,10 @@
 		"wait.h": "c",
 		"unistd.h": "c",
 		"stdbool.h": "c",
-		"exec.h": "c"
+		"exec.h": "c",
+		"array": "cpp",
+		"string": "cpp",
+		"string_view": "cpp",
+		"span": "cpp"
 	}
 }

@@ -23,7 +23,7 @@ bool	setup_heredoc_redir(t_cmd_list *cmd, t_heredoc *heredoc)
 	if (cmd->delimiter)
 	{
 		free(cmd->delimiter);
-		cmd->delimiter = NULL; 
+		cmd->delimiter = NULL;
 	}
 	cmd->delimiter = ft_strdup(heredoc->delimiter);
 	if (!cmd->delimiter)

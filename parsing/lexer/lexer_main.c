@@ -86,66 +86,60 @@ static t_lexer	*validate_input(char *input, t_data *data)
 	}
 	return (lexer);
 }*/
-
-bool skip_comment(t_lexer *lexer)
+bool	skip_comment(t_lexer *lexer)
 {
-    if (lexer->curr_char == '#')
-    {
-        while (lexer->curr_char && lexer->curr_char != '\n')
-            advance_lexer(lexer);
-        return (true);
-    }
-    return (false);
+	if (lexer->curr_char == '#')
+	{
+		while (lexer->curr_char && lexer->curr_char != '\n')
+			advance_lexer(lexer);
+		return (true);
+	}
+	return (false);
 }
 
-t_token *process_token_error(t_lexer *lexer, t_token *token)
+t_token	*process_token_error(t_lexer *lexer, t_token *token)
 {
-    printf("Syntax error at position %d\n", token->position);
-    free_token_list(lexer->tokens);
-    free_token_list(token);
-    return (NULL);
+	printf("Syntax error at position %d\n", token->position);
+	free_token_list(lexer->tokens);
+	free_token_list(token);
+	return (NULL);
 }
 
-static t_token *generate_tokens(t_lexer *lexer)
+static t_token	*generate_tokens(t_lexer *lexer)
 {
-    t_token *token;
-    t_token *eof_token;
+	t_token	*token;
+	t_token	*eof_token;
 
-    while (lexer->curr_char)
-    {
-        if (skip_comment(lexer))
-            continue;
-
-        token = tokenize_current(lexer);
-        if (token)
-        {
-            if (token->toktype == TOKEN_ERROR)
-                return (process_token_error(lexer, token));
-            
-            add_token(lexer, token);
-        }
-    }
-
-    eof_token = create_token(TOKEN_EOF, NULL);
-    add_token(lexer, eof_token);
-
-    return (lexer->tokens);
+	while (lexer->curr_char)
+	{
+		if (skip_comment(lexer))
+			continue ;
+		token = tokenize_current(lexer);
+		if (token)
+		{
+			if (token->toktype == TOKEN_ERROR)
+				return (process_token_error(lexer, token));
+			add_token(lexer, token);
+		}
+	}
+	eof_token = create_token(TOKEN_EOF, NULL);
+	add_token(lexer, eof_token);
+	return (lexer->tokens);
 }
 
-t_token *tokenize_input(char *input, t_data *data)
+t_token	*tokenize_input(char *input, t_data *data)
 {
-    t_lexer *lexer;
-    t_token *tokens;
+	t_lexer	*lexer;
+	t_token	*tokens;
 
-    lexer = init_lexer(input, data);
-    if (!lexer)
-    {
-        handle_error(MNSHL_ERR_MEMORY, "tokenize_input : lexer creation failed");
-        return (NULL);
-    }
-
-    tokens = generate_tokens(lexer);
-
-    free_lexer(lexer);
-    return (tokens);
+	lexer = init_lexer(input, data);
+	if (!lexer)
+	{
+		handle_error(MNSHL_ERR_MEMORY,
+			"tokenize_input : lexer creation failed");
+		return (NULL);
+	}
+	tokens = generate_tokens(lexer);
+	free_lexer(lexer);
+	return (tokens);
 }
