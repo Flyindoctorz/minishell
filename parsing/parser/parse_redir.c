@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 14:31:49 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 13:03:09 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/08 13:11:08 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,12 @@ bool	handle_redir(t_cmd_list *cmd, t_token *token, t_data *data)
 	else if (type == TOKEN_REDIR_OUT)
 		return (set_output_file(cmd, filename, false));
 	else if (type == TOKEN_APPEND)
-	{
-		cmd->append = true;
-		return (set_output_file(cmd, filename));
-	}
+		return (set_output_file(cmd, filename, true));
 	else if (type == TOKEN_HEREDOC)
 	{
 		cmd->heredoc = true;
+		if (cmd->delimiter)
+			free(cmd->delimiter);
 		cmd->delimiter = ft_strdup(filename);
 		return (cmd->delimiter != NULL);
 	}
@@ -73,7 +72,7 @@ bool	setup_redir(t_cmd_list *cmd)
 	{
 		cmd->fd_in = open(cmd->input_file, O_RDONLY);
 		if (cmd->fd_in < 0)
-			return (false);
+			return (perror(cmd->input_file), false);
 	}
 	if (cmd->output_file)
 	{
@@ -84,7 +83,7 @@ bool	setup_redir(t_cmd_list *cmd)
 			flags |= O_TRUNC;
 		cmd->fd_out = open(cmd->output_file, flags, 0644);
 		if (cmd->fd_out < 0)
-			return (false);
+			return (perror(cmd->output_file), false);
 	}
 	return (true);
 }
