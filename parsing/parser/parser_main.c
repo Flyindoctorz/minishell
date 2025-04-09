@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:29:27 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 13:50:04 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/09 13:59:06 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ t_cmd_list	*parse_token(t_token *tokens, t_data *data)
 	curr_cmd = cmd_list;
 	while (curr_token && curr_token->toktype != TOKEN_EOF)
 	{
-		if (curr_token->toktype == TOKEN_WORD)
+		if (curr_token->toktype == TOKEN_WORD || curr_token->toktype == TOKEN_QUOTES
+			|| curr_token->toktype == TOKEN_QUOTES)
 			add_word_to_cmd(curr_cmd, curr_token->value);
 		else if (curr_token->toktype == TOKEN_PIPE)
 			curr_cmd = handle_pipe(curr_cmd);

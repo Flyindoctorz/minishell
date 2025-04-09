@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:17:52 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/08 17:14:14 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/09 14:11:01 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,12 @@ static int	process_input(t_data *data, char *input)
 	if (!*input)
 		return (1);
 	add_history(input);
+	printf("Entrée as token '%s'\n", input);
 	data->token = tokenize_input(input, data);
 	if (!data->token)
 		return (1);
 	data->command = parse_token(data->token, data);
+	printf("Entrée post token '%s'\n", input);
 	if (!data->command)
 	{
 		ft_tokenclear(&data->token);
@@ -91,6 +93,7 @@ static void	run_shell(t_data *data)
 	{
 		ft_signal();
 		input = readline("$>");
+		printf("Entrée brute de readline: '%s'\n", input);
 		if (!process_input(data, input))
 		{
 			free(input);
