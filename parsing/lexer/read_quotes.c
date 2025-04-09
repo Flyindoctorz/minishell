@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_quotes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:54:38 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/09 13:37:36 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/09 19:43:30 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,16 @@ static bool	validate_and_scan_quotes(t_lexer *lexer, char quote_type,
 	}
 	return (true);
 }
+
 // lis et tokenize le content sous quotes
 // handle erreurs et empty quotes
 t_token	*read_quotes(t_lexer *lexer)
 {
-	char quote_type;
-	int before_quote;
-	int inside_start_pos;
-	int len;
-	t_token *token;
+	char	quote_type;
+	int		before_quote;
+	int		inside_start_pos;
+	int		len;
+	t_token	*token;
 
 	if (!lexer || !is_quote(lexer->curr_char))
 	{

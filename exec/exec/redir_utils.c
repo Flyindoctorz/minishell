@@ -6,20 +6,23 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:39 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/08 15:53:24 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:22:35 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	open_input(t_heredoc *redir, t_data *minishell)
+void	open_input(t_token *redir, t_data *minishell)
 {
-	int	fd;
+	int			fd;
+	t_cmd_list	*cmd;
 
-	fd = open(redir->delimiter, O_RDONLY);
+	(void)redir;
+	cmd = minishell->command;
+	fd = open(cmd->input_file, O_RDONLY);
 	if (fd == -1)
 	{
-		perror(redir->delimiter);
+		perror(cmd->input_file);
 		ft_end(minishell);
 		exit(EXIT_FAILURE);
 	}
@@ -27,17 +30,19 @@ void	open_input(t_heredoc *redir, t_data *minishell)
 	close(fd);
 }
 
-void	open_output(t_heredoc *redir, t_data *minishell)
+void	open_output(t_token *redir, t_data *minishell)
 {
-	int	fd;
+	int			fd;
+	t_cmd_list	*cmd;
 
-	if (redir->type == TOKEN_REDIR_OUT)
-		fd = open(redir->delimiter, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (redir->type == TOKEN_APPEND)
-		fd = open(redir->delimiter, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	cmd = minishell->command;
+	if (redir->toktype == TOKEN_REDIR_OUT)
+		fd = open(cmd->output_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (redir->toktype == TOKEN_APPEND)
+		fd = open(cmd->output_file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		perror(redir->delimiter);
+		perror(cmd->output_file);
 		ft_end(minishell);
 		exit(EXIT_FAILURE);
 	}
@@ -82,15 +87,17 @@ void	open_heredoc(t_heredoc *redir, t_data *minishell)
 
 int	open_redirections(t_cmd_list *cmd, t_data *minishell)
 {
-	t_heredoc	*redir;
+	t_token		*redir;
+	t_heredoc	*tmp;
 
 	(void)minishell;
-	redir = cmd->redir;
+	tmp = cmd->redir;
+	redir = minishell->token;
 	while (redir != NULL)
 	{
-		if (redir->type == TOKEN_HEREDOC)
-			open_heredoc(redir, minishell);
-		else if (redir->type == TOKEN_REDIR_IN)
+		// if (tmp->type == TOKEN_HEREDOC)
+		// 	open_heredoc(tmp, minishell);
+		if (redir->toktype == TOKEN_REDIR_IN)
 			open_input(redir, minishell);
 		else
 			open_output(redir, minishell);

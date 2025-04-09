@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:43:10 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 14:03:51 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/09 19:43:00 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	add_word_to_cmd(t_cmd_list *cmd, char *word)
 // Gère la création d'une nouvelle commande après un pipe
 t_cmd_list	*handle_pipe(t_cmd_list *cmd)
 {
-	t_cmd_list *new_cmd;
+	t_cmd_list	*new_cmd;
 
 	if (!cmd)
 		return (NULL);

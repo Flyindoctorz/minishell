@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:57:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/07 15:02:47 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:55:55 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ char		*cmd_finder(char **cmd, char **env);
 void		error_msg(char *path, char **cmd, t_data *minishell);
 void		end_exec(char *path, char **cmd, char **env, t_data *minishell);
 
-void		open_input(t_heredoc *redir, t_data *minishell);
-void		open_output(t_heredoc *redir, t_data *minishell);
+void		open_input(t_token *redir, t_data *minishell);
+void		open_output(t_token *redir, t_data *minishell);
 void		open_heredoc(t_heredoc *redir, t_data *minishell);
 void		free_all_heredoc(t_cmd_list *cmd);
 int			open_redirections(t_cmd_list *cmd, t_data *minishell);
