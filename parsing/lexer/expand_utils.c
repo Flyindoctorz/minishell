@@ -6,19 +6,15 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:13:41 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/09 15:48:54 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:08:11 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-bool	is_expand_char(char *c)
+bool	is_expand_char(char c)
 {
-	int i = 0;
-	while (c[i++])
-		if(c[i] == '$')
-			return (true);
-	return (false);
+	return (c == '$');
 }
 
 // Calcule la longueur du nom de variable après le symbole $

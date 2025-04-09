@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:29:27 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/09 15:53:09 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:06:51 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,14 @@ t_cmd_list	*parse_token(t_token *tokens, t_data *data)
 	curr_cmd = cmd_list;
 	while (curr_token && curr_token->toktype != TOKEN_EOF)
 	{
-		if (curr_token->toktype == TOKEN_WORD || curr_token->toktype == TOKEN_QUOTES
+		if (curr_token->toktype == TOKEN_WORD
+			|| curr_token->toktype == TOKEN_QUOTES
 			|| curr_token->toktype == TOKEN_DQUOTES)
 			add_word_to_cmd(curr_cmd, curr_token->value);
 		else if (curr_token->toktype == TOKEN_PIPE)
 			curr_cmd = handle_pipe(curr_cmd);
-		// else if (is_redir_token(curr_token->toktype))
-		// 	handle_redir(curr_cmd, curr_token, data);
+		else if (is_redir_token(curr_token->toktype))
+			handle_redir(curr_cmd, curr_token, data);
 		curr_token = curr_token->next;
 	}
 	return (finalize_parsing(cmd_list, tokens, data));

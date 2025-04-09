@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:28:21 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/09 16:01:39 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/09 17:09:32 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_token	*tokenize_current(t_lexer *lexer)
 		return (NULL);
 	}
 	start_pos = lexer->pos;
-	if (is_expand_char(lexer->input))
+	if (is_expand_char(lexer->curr_char))
 		token = read_expand(lexer);
 	else if (is_operator(lexer->curr_char))
 	{
