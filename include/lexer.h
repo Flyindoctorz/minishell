@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:33:00 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 15:04:21 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/09 15:43:21 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int				get_quote_len(t_lexer *lexer, char quote);
 t_token			*create_quote_token(t_lexer *lexer, int len, int start_pos);
 
 // expand utils
-bool			is_expand_char(char c);
+bool			is_expand_char(char *c);
 int				get_var_name_len(t_lexer *lexer);
 t_token			*create_dollar_token(int start_pos);
 t_token			*create_expand_token(t_lexer *lexer, int start_pos);
