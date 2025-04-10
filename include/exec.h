@@ -43,7 +43,6 @@ void		handle_heredoc_signal(int sig);
 void		setup_heredoc_signals(void);
 void		restore_default_signals(void);
 
-
 int			ft_cd(t_data *minishell, char **arg);
 int			ft_echo(t_data *minishell, char **arg);
 int			ft_env(t_data *minishell, char **arg);

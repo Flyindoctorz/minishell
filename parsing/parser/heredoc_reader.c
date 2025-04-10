@@ -72,30 +72,27 @@ static bool	heredoc_reader_one(t_heredoc *heredoc, t_data *data, int pipefd[2])
 }
 /* Dans parsing/parser/heredoc_reader.c ou exec/utils/redir.c */
 
-bool heredoc_reader(t_heredoc *heredoc, t_data *data)
+bool	heredoc_reader(t_heredoc *heredoc, t_data *data)
 {
-    int pipefd[2];
-    bool res;
+	int		pipefd[2];
+	bool	res;
 
-    setup_heredoc_signals();
-    
-    if (!init_heredoc_pipe(pipefd))
-    {
-        restore_default_signals();
-        return (false);
-    }
-    
-    res = heredoc_reader_one(heredoc, data, pipefd);   
-    restore_default_signals();
-    
-    if (!res)
-    {
-        close(pipefd[0]);
-        close(pipefd[1]);
-        return (false);
-    }
-    prepare_heredoc_redir(heredoc, pipefd);
-    return (true);
+	setup_heredoc_signals();
+	if (!init_heredoc_pipe(pipefd))
+	{
+		restore_default_signals();
+		return (false);
+	}
+	res = heredoc_reader_one(heredoc, data, pipefd);
+	restore_default_signals();
+	if (!res)
+	{
+		close(pipefd[0]);
+		close(pipefd[1]);
+		return (false);
+	}
+	prepare_heredoc_redir(heredoc, pipefd);
+	return (true);
 }
 // bool	heredoc_reader(t_heredoc *heredoc, t_data *data)
 // {

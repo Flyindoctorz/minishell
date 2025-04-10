@@ -12,50 +12,48 @@
 
 #include "../../include/minishell.h"
 
-
-static bool heredoc_reader_one(t_heredoc *heredoc, t_data *data, int pipefd[2])
+static bool	heredoc_reader_one(t_heredoc *heredoc, t_data *data, int pipefd[2])
 {
-    char 	*line;
+	char	*line;
 	bool	keep_reading;
-	
-    keep_reading = true;
-    while (keep_reading)
-    {
-        line = readline("heredoc> ");
-        if (g_signal != 0)
-        {
+
+	keep_reading = true;
+	while (keep_reading)
+	{
+		line = readline("heredoc> ");
+		if (g_signal != 0)
+		{
 			if (heredoc->content)
 				free_tab(heredoc->content);
-            free(line);
+			free(line);
 			data->state = g_signal;
 			g_signal = 0;
-            return (false);
-        }
-        if (!line)
-        {
-            handle_heredoc_eof();
-            break;
-        }
-        if (ft_strcmp(line, heredoc->delimiter) == 0)
-        {
-            free(line);
-            break;
-        }
-        if (!process_heredoc_line(line, heredoc, data, pipefd))
-        {
-            free(line);
-            return (false);
-        }
-    }
-    
-    return (true);
+			return (false);
+		}
+		if (!line)
+		{
+			handle_heredoc_eof();
+			break ;
+		}
+		if (ft_strcmp(line, heredoc->delimiter) == 0)
+		{
+			free(line);
+			break ;
+		}
+		if (!process_heredoc_line(line, heredoc, data, pipefd))
+		{
+			free(line);
+			return (false);
+		}
+	}
+	return (true);
 }
 
 int	get_heredoc(t_heredoc *redir, t_data *minishell)
 {
 	int	pipefd[2];
-	
-	if(!init_heredoc_pipe(pipefd))
+
+	if (!init_heredoc_pipe(pipefd))
 		return (EXIT_FAILURE);
 	if (!heredoc_reader_one(redir, minishell, pipefd))
 	{
@@ -66,7 +64,6 @@ int	get_heredoc(t_heredoc *redir, t_data *minishell)
 	prepare_heredoc_redir(redir, pipefd);
 	return (EXIT_SUCCESS);
 }
-
 
 void	ft_rediraddback(t_heredoc **head, t_heredoc *new)
 {
