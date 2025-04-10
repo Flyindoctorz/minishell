@@ -3,26 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:39 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/10 17:45:10 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/10 18:24:37 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	open_input(t_token *redir, t_data *minishell)
+void	open_input(t_heredoc *redir, t_data *minishell)
 {
 	int			fd;
-	t_cmd_list	*cmd;
 
-	(void)redir;
-	cmd = minishell->command;
-	fd = open(cmd->input_file, O_RDONLY);
+	fd = open(redir->delimiter, O_RDONLY);
 	if (fd == -1)
 	{
-		perror(cmd->input_file);
+		perror(redir->delimiter);
 		ft_end(minishell);
 		exit(EXIT_FAILURE);
 	}
@@ -30,19 +27,17 @@ void	open_input(t_token *redir, t_data *minishell)
 	close(fd);
 }
 
-void	open_output(t_token *redir, t_data *minishell)
+void	open_output(t_heredoc *redir, t_data *minishell)
 {
 	int			fd;
-	t_cmd_list	*cmd;
 
-	cmd = minishell->command;
-	if (redir->toktype == TOKEN_REDIR_OUT)
-		fd = open(cmd->output_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (redir->toktype == TOKEN_APPEND)
-		fd = open(cmd->output_file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (redir->type == TOKEN_REDIR_OUT)
+		fd = open(redir->delimiter, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (redir->type == TOKEN_APPEND)
+		fd = open(redir->delimiter, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		perror(cmd->output_file);
+		perror(redir->delimiter);
 		ft_end(minishell);
 		exit(EXIT_FAILURE);
 	}
@@ -62,8 +57,8 @@ void	free_all_heredoc(t_cmd_list *cmd)
 
 void	open_heredoc(t_heredoc *redir, t_data *minishell)
 {
-	int			fd[2];
-	int			i;
+	int	fd[2];
+	int	i;
 
 	i = 0;
 	if (!redir || !minishell)
@@ -79,9 +74,9 @@ void	open_heredoc(t_heredoc *redir, t_data *minishell)
 		if (pipe(fd) == -1)
 		{
 			handle_error(MNSHL_ERR_PIPE, "open_heredoc pipe issues");
-			return;
+			return ;
 		}
-		while(redir->content && redir->content[i])
+		while (redir->content && redir->content[i])
 		{
 			ft_putendl_fd(redir->content[i], fd[1]);
 			i++;
@@ -96,25 +91,16 @@ int	open_redirections(t_cmd_list *cmd, t_data *minishell)
 {
 	t_heredoc	*redir;
 
-	if (!cmd)
-		return (EXIT_FAILURE);
-	if (cmd->fd_in != STDIN_FILENO && cmd->fd_in != -1)
-	{
-		dup2(cmd->fd_in, STDIN_FILENO);
-		close(cmd->fd_in);
-		cmd->fd_in = -1;
-	}
-	if (cmd->fd_out != STDOUT_FILENO && cmd->fd_out != -1)
-	{
-		dup2(cmd->fd_out, STDOUT_FILENO);
-		close(cmd->fd_out);
-		cmd->fd_out = -1;
-	}
+	(void)minishell;
 	redir = cmd->redir;
-	while (redir)
+	while (redir != NULL)
 	{
 		if (redir->type == TOKEN_HEREDOC)
 			open_heredoc(redir, minishell);
+		else if (redir->type == TOKEN_REDIR_IN)
+			open_input(redir, minishell);
+		else
+			open_output(redir, minishell);
 		redir = redir->next;
 	}
 	return (EXIT_SUCCESS);
