@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:39 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/10 15:53:42 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:45:10 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,28 @@ void	open_heredoc(t_heredoc *redir, t_data *minishell)
 {
 	int			fd[2];
 	int			i;
-	t_cmd_list	*cmd;
 
-	cmd = minishell->command;
 	i = 0;
-	(void)minishell;
-	if (pipe(fd) == -1)
+	if (!redir || !minishell)
+		return ;
+	if (redir->fd >= 0)
 	{
-		printf("pipe error :");
-		ft_end(minishell);
-		exit(-1);
+		dup2(redir->fd, STDIN_FILENO);
+		close(redir->fd);
+		redir->fd = -1;
 	}
-	while (redir->content && redir->content[i])
+	else if (redir->content)
 	{
-		ft_putendl_fd(redir->content[i], fd[1]);
-		i++;
+		if (pipe(fd) == -1)
+		{
+			handle_error(MNSHL_ERR_PIPE, "open_heredoc pipe issues");
+			return;
+		}
+		while(redir->content && redir->content[i])
+		{
+			ft_putendl_fd(redir->content[i], fd[1]);
+			i++;
+		}
 	}
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
