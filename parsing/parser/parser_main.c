@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:29:27 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/10 17:14:55 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/10 18:40:20 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,16 +104,20 @@ t_cmd_list	*parse_token(t_token *tokens, t_data *data)
 		else if (curr_token->toktype == TOKEN_PIPE)
 			curr_cmd = handle_pipe(curr_cmd);
 		else if (is_redir_token(curr_token->toktype))
+		{
 			handle_redir(curr_cmd, curr_token, data);
+			curr_token = curr_token->next;
+		}
 		else if (curr_token->toktype == TOKEN_HEREDOC)
 		{
 			if (!curr_cmd->cmd)
-			{	
+			{
 				curr_cmd->heredoc = true;
 				curr_cmd->delimiter = curr_token->next->value;
 			}
-		else
-			handle_heredoc(curr_cmd, curr_token->next->value, data);
+			else
+				handle_heredoc(curr_cmd, curr_token->next->value, data);
+			curr_token = curr_token->next;
 		}
 		else if (curr_token->toktype == TOKEN_EOF)
 			break ;
