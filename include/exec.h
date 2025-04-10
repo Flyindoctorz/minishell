@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:57:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/10 15:52:57 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:38:52 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ void		set_signal_child(void);
 int			sig_event(void);
 void		signal_handler(int sig);
 void		ft_signal(void);
+void		handle_heredoc_signal(int sig);
+void		setup_heredoc_signals(void);
+void		restore_default_signals(void);
+
 
 int			ft_cd(t_data *minishell, char **arg);
 int			ft_echo(t_data *minishell, char **arg);

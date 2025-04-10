@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:31:40 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 14:17:31 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:52:16 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ bool	process_heredoc_line(char *line, t_heredoc *heredoc, t_data *data,
 void	handle_heredoc_eof(void)
 {
 	ft_putstr_fd("minishell: warning: here-document", 2);
-	ft_putstr_fd("delimited by end-of-file", 2);
+	ft_putstr_fd("delimited by end-of-file\n", 2);
 }
 
 void	prepare_heredoc_redir(t_heredoc *heredoc, int pipefd[2])

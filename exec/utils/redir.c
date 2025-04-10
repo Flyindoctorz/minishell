@@ -3,42 +3,70 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:42:54 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/08 15:54:05 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:55:56 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+
+static bool heredoc_reader_one(t_heredoc *heredoc, t_data *data, int pipefd[2])
+{
+    char 	*line;
+	bool	keep_reading;
+	
+    keep_reading = true;
+    while (keep_reading)
+    {
+        line = readline("heredoc> ");
+        if (g_signal != 0)
+        {
+			if (heredoc->content)
+				free_tab(heredoc->content);
+            free(line);
+			data->state = g_signal;
+			g_signal = 0;
+            return (false);
+        }
+        if (!line)
+        {
+            handle_heredoc_eof();
+            break;
+        }
+        if (ft_strcmp(line, heredoc->delimiter) == 0)
+        {
+            free(line);
+            break;
+        }
+        if (!process_heredoc_line(line, heredoc, data, pipefd))
+        {
+            free(line);
+            return (false);
+        }
+    }
+    
+    return (true);
+}
+
 int	get_heredoc(t_heredoc *redir, t_data *minishell)
 {
-	char	*line;
-
-	while (1)
+	int	pipefd[2];
+	
+	if(!init_heredoc_pipe(pipefd))
+		return (EXIT_FAILURE);
+	if (!heredoc_reader_one(redir, minishell, pipefd))
 	{
-		line = readline("heredoc> ");
-		if (g_signal != 0)
-		{
-			free_tab(redir->content);
-			free(line);
-			minishell->state = g_signal;
-			g_signal = 0;
-			return (EXIT_FAILURE);
-		}
-		if (!line)
-		{
-			printf("minishell: warning: heredoc delimited by end-of-file \n");
-			break ;
-		}
-		if (ft_strcmp(line, redir->delimiter) == 0)
-			break ;
-		redir->content = add_argument(redir->content, expand(line, minishell));
-		free(line);
+		close(pipefd[0]);
+		close(pipefd[1]);
+		return (EXIT_FAILURE);
 	}
+	prepare_heredoc_redir(redir, pipefd);
 	return (EXIT_SUCCESS);
 }
+
 
 void	ft_rediraddback(t_heredoc **head, t_heredoc *new)
 {

@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:55:07 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:29:01 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/10 16:59:45 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ static bool	heredoc_reader_one(t_heredoc *heredoc, t_data *data, int pipefd[2])
 {
 	char	*line;
 	bool	keep_reading;
+	char	*expanded;
 
 	keep_reading = true;
+	expanded = NULL;
 	while (keep_reading)
 	{
 		line = readline("> ");
@@ -52,34 +54,68 @@ static bool	heredoc_reader_one(t_heredoc *heredoc, t_data *data, int pipefd[2])
 			free(line);
 			break ;
 		}
-		if (!process_heredoc_line(line, heredoc, data, pipefd))
+		if (heredoc->expand)
+			expanded = expand(line, data);
+		else
+			expanded = ft_strdup(line);
+		free(line);
+		if (!expanded)
+			return (false);
+		if (!write_content_to_pipe(pipefd[1], expanded) == false)
 		{
-			free(line);
+			free(expanded);
 			return (false);
 		}
+		free(expanded);
 	}
 	return (true);
 }
+/* Dans parsing/parser/heredoc_reader.c ou exec/utils/redir.c */
 
-bool	heredoc_reader(t_heredoc *heredoc, t_data *data)
+bool heredoc_reader(t_heredoc *heredoc, t_data *data)
 {
-	int		pipefd[2];
-	bool	res;
+    int pipefd[2];
+    bool res;
 
-	if (!heredoc || !data)
-		return (false);
-	if (!init_heredoc_pipe(pipefd))
-		return (false);
-	res = heredoc_reader_one(heredoc, data, pipefd);
-	if (!res)
-	{
-		close(pipefd[0]);
-		close(pipefd[1]);
-		return (false);
-	}
-	prepare_heredoc_redir(heredoc, pipefd);
-	return (true);
+    setup_heredoc_signals();
+    
+    if (!init_heredoc_pipe(pipefd))
+    {
+        restore_default_signals();
+        return (false);
+    }
+    
+    res = heredoc_reader_one(heredoc, data, pipefd);   
+    restore_default_signals();
+    
+    if (!res)
+    {
+        close(pipefd[0]);
+        close(pipefd[1]);
+        return (false);
+    }
+    prepare_heredoc_redir(heredoc, pipefd);
+    return (true);
 }
+// bool	heredoc_reader(t_heredoc *heredoc, t_data *data)
+// {
+// 	int		pipefd[2];
+// 	bool	res;
+
+// 	if (!heredoc || !data)
+// 		return (false);
+// 	if (!init_heredoc_pipe(pipefd))
+// 		return (false);
+// 	res = heredoc_reader_one(heredoc, data, pipefd);
+// 	if (!res)
+// 	{
+// 		close(pipefd[0]);
+// 		close(pipefd[1]);
+// 		return (false);
+// 	}
+// 	prepare_heredoc_redir(heredoc, pipefd);
+// 	return (true);
+// }
 
 void	free_heredoc(t_heredoc *heredoc)
 {
