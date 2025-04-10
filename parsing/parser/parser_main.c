@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:29:27 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/09 19:38:22 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/10 15:55:54 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,31 @@ bool	validate_syntax(t_token *tokens)
 t_cmd_list	*finalize_parsing(t_cmd_list *cmd_list, t_token *tokens,
 		t_data *data)
 {
-	if (!cmd_list)
-		return (NULL);
-	if (!process_all_heredocs(cmd_list, tokens, data))
+	t_cmd_list	*cmd;
+
+	(void)tokens;
+	(void)data;
+	if (!cmd_list || !cmd_list->av)
 	{
-		free_cmd_list(cmd_list);
+		ft_commandclear(&cmd_list);
 		return (NULL);
+	}
+	cmd = cmd_list;
+	while (cmd)
+	{
+		if (!setup_redir(cmd))
+		{
+			ft_putstr_fd("minishell: ", 2);
+			if (cmd->input_file)
+				perror(cmd->input_file);
+			else if (cmd->output_file)
+				perror(cmd->output_file);
+			else
+				perror("redirection");
+			ft_commandclear(&cmd_list);
+			return (NULL);
+		}
+		cmd = cmd->next;
 	}
 	return (cmd_list);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 14:31:49 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 13:49:50 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/10 15:52:37 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,41 @@ bool	handle_redir(t_cmd_list *cmd, t_token *token, t_data *data)
 {
 	t_token_type	type;
 	char			*filename;
+	t_heredoc		*new_redir;
 
 	if (!cmd || !token || !token->next || !token->next->value || !data)
 		return (false);
 	type = token->toktype;
 	filename = token->next->value;
 	if (type == TOKEN_REDIR_IN)
-		return (set_input_file(cmd, filename));
+	{
+		if (!set_input_file(cmd, filename))
+			return (false);
+	}
 	else if (type == TOKEN_REDIR_OUT)
-		return (set_output_file(cmd, filename, false));
+	{
+		if (!set_output_file(cmd, filename, false))
+			return (false);
+	}
 	else if (type == TOKEN_APPEND)
-		return (set_output_file(cmd, filename, true));
+	{
+		if (!set_output_file(cmd, filename, true))
+			return (false);
+	}
 	else if (type == TOKEN_HEREDOC)
 	{
 		cmd->heredoc = true;
 		if (cmd->delimiter)
 			free(cmd->delimiter);
 		cmd->delimiter = ft_strdup(filename);
-		return (cmd->delimiter != NULL);
+		if (!cmd->delimiter)
+			return (false);
 	}
-	return (false);
+	new_redir = ft_redirnew(ft_strdup(filename), type, data);
+	if (!new_redir)
+		return (false);
+	ft_rediraddback(&cmd->redir, new_redir);
+	return (true);
 }
 
 bool	setup_redir(t_cmd_list *cmd)

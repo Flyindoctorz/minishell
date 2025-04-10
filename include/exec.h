@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:57:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/09 18:55:55 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/10 15:52:57 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ char		*get_key(char *str);
 
 int			get_heredoc(t_heredoc *redir, t_data *minishell);
 void		ft_rediraddback(t_heredoc **head, t_heredoc *new);
-// t_heredoc						*ft_redirnew(char *str, t_token_type type,
-// t_data *minishell);
+t_heredoc	*ft_redirnew(char *str, t_token_type type, t_data *minishell);
 t_heredoc	*ft_redirlast(t_heredoc *head);
 void		ft_redirclear(t_heredoc *redir);
 

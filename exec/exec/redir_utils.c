@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:39 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/09 19:22:35 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/10 15:53:42 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,20 +87,27 @@ void	open_heredoc(t_heredoc *redir, t_data *minishell)
 
 int	open_redirections(t_cmd_list *cmd, t_data *minishell)
 {
-	t_token		*redir;
-	t_heredoc	*tmp;
+	t_heredoc	*redir;
 
-	(void)minishell;
-	tmp = cmd->redir;
-	redir = minishell->token;
-	while (redir != NULL)
+	if (!cmd)
+		return (EXIT_FAILURE);
+	if (cmd->fd_in != STDIN_FILENO && cmd->fd_in != -1)
 	{
-		// if (tmp->type == TOKEN_HEREDOC)
-		// 	open_heredoc(tmp, minishell);
-		if (redir->toktype == TOKEN_REDIR_IN)
-			open_input(redir, minishell);
-		else
-			open_output(redir, minishell);
+		dup2(cmd->fd_in, STDIN_FILENO);
+		close(cmd->fd_in);
+		cmd->fd_in = -1;
+	}
+	if (cmd->fd_out != STDOUT_FILENO && cmd->fd_out != -1)
+	{
+		dup2(cmd->fd_out, STDOUT_FILENO);
+		close(cmd->fd_out);
+		cmd->fd_out = -1;
+	}
+	redir = cmd->redir;
+	while (redir)
+	{
+		if (redir->type == TOKEN_HEREDOC)
+			open_heredoc(redir, minishell);
 		redir = redir->next;
 	}
 	return (EXIT_SUCCESS);
