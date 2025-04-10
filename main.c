@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:17:52 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/10 20:17:51 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/10 20:58:17 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static int	process_input(t_data *data, char *input)
 	data->token = tokenize_input(input, data);
 	if (!data->token)
 		return (1);
+	/////ajouter expanded input
 	data->command = parse_token(data->token, data);
 	if (!data->command)
 	{
