@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:29 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/08 17:49:34 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:41:18 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	execut_me(t_cmd_list *cmd, t_data *shell, int save[2], int fd[2])
 	(close(save[0]), close(save[1]));
 	(close(fd[0]), close(fd[1]));
 	open_redirections(cmd, shell);
-	if (cmd->av == NULL)
+	if (cmd->av == NULL || cmd->av[0] == NULL || cmd->av[0][0] == '\0')
 	{
 		free_all_heredoc(shell->command);
 		ft_end(shell);
