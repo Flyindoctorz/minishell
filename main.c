@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:17:52 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/10 17:21:00 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/10 20:17:51 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ static t_data	*init_shell(char **env)
 
 static int	process_input(t_data *data, char *input)
 {
+	char	*expanded_input;
+
+	expanded_input = NULL;
 	if (!input)
 		return (0);
 	if (g_signal != 0)
@@ -66,6 +69,17 @@ static int	process_input(t_data *data, char *input)
 	}
 	if (!*input)
 		return (1);
+	if (input[0] == '$' && input[1] && !ft_strchr(input, ' '))
+	{
+		expanded_input = expand(input, data);
+		if (expanded_input)
+		{
+			printf("%s\n", expanded_input);
+			free(expanded_input);
+			add_history(input);
+			return (1);
+		}
+	}
 	add_history(input);
 	data->token = tokenize_input(input, data);
 	if (!data->token)

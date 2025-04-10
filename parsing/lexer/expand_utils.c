@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:13:41 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/09 17:08:11 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/10 18:06:43 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,19 @@ t_token	*create_expand_token(t_lexer *lexer, int start_pos)
 	char	*var_name;
 	t_token	*token;
 
+	if (lexer->curr_char == '?')
+	{
+		token = create_token(TOKEN_EXPAND, "?");
+		if (!token)
+			return (NULL);
+		token->position = start_pos;
+		advance_lexer(lexer);
+		return (token);
+	}
 	var_len = get_var_name_len(lexer);
-	var_name = ft_substr(lexer->input, lexer->pos, var_len);
+	if (var_len == 0)
+		return (create_dollar_token(start_pos));
+	var_name = ft_substr(lexer->input, lexer->read_pos, var_len);
 	if (!var_name)
 	{
 		handle_error(MNSHL_ERR_MEMORY,

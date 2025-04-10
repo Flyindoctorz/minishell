@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:16:56 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/09 16:02:52 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/10 18:02:12 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_token	*read_expand(t_lexer *lexer)
 {
 	int	start_pos;
 
-	if (!lexer) /*|| lexer->curr_char != '$')*/
+	if (!lexer || lexer->curr_char != '$')
 	{
 		handle_error(MNSHL_ERR_ARGS, "read_expand : invalid input");
 		return (NULL);
