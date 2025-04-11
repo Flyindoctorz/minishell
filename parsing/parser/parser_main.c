@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:29:27 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/11 16:14:59 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/11 18:47:48 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,46 @@ bool	validate_syntax(t_token *tokens)
 	return (true);
 }
 
-bool	expand_command_args(t_cmd_list *cmd, t_data *data)
+// Helper to check if a string was originally in single quotes
+bool was_in_single_quotes(const char *arg, t_token *tokens)
 {
-	int		i;
-	char	*expanded;
-
-	if (!cmd || !cmd->av)
-		return (true);
-	i = 0;
-	while (cmd->av[i])
+	t_token *current = tokens;
+	
+	while (current)
 	{
-		if (ft_strchr(cmd->av[i], '$'))
-		{
-			expanded = expand(cmd->av[i], data);
-			if (expanded)
-			{
-				free(cmd->av[i]);
-				cmd->av[i] = expanded;
-			}
-		}
-		i++;
+		if (current->toktype == TOKEN_QUOTES && current->value && 
+			ft_strcmp(current->value, arg) == 0)
+			return true;
+		current = current->next;
 	}
-	return (true);
+	return false;
+}
+
+bool expand_command_args(t_cmd_list *cmd, t_data *data)
+{
+    int i;
+    char *expanded;
+    t_token *token = data->token; // Get the original token list
+
+    if (!cmd || !cmd->av)
+        return (true);
+    
+    i = 0;
+    while (cmd->av[i])
+    {
+        // Only expand if it contains $ AND wasn't originally in single quotes
+        if (ft_strchr(cmd->av[i], '$') && !was_in_single_quotes(cmd->av[i], token))
+        {
+            expanded = expand(cmd->av[i], data);
+            if (expanded)
+            {
+                free(cmd->av[i]);
+                cmd->av[i] = expanded;
+            }
+        }
+        i++;
+    }
+    return (true);
 }
 
 t_cmd_list	*finalize_parsing(t_cmd_list *cmd_list, t_token *tokens,

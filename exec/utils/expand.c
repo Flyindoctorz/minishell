@@ -3,23 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:33:09 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 14:33:43 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/11 18:48:04 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	change_quote(char quote, int i)
+int change_quote(char quote, int i)
 {
-	if (quote == '\'' && i == 0)
-		return (1);
-	else if (quote == '"' && i == 0)
-		return (2);
-	else
-		return (0);
+    if (i == 0) {  // Not in quotes
+        if (quote == '\'')
+            return (1);  // Enter single quotes
+        else if (quote == '"')
+            return (2);  // Enter double quotes
+    } 
+    else if ((i == 1 && quote == '\'') || (i == 2 && quote == '"')) {
+        return (0);  // Exit quotes only if matching quote type
+    }
+    return (i);  // Keep current quote state otherwise
 }
 
 int	get_value_len(char *key, t_env *env)
