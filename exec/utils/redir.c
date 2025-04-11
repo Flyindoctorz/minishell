@@ -34,8 +34,7 @@ int	get_heredoc(t_heredoc *redir, t_data *minishell)
 		}
 		if (ft_strcmp(line, redir->delimiter) == 0)
 			break ;
-		redir->content = add_argument(redir->content,
-				expand(line, minishell));
+		redir->content = add_argument(redir->content, expand(line, minishell));
 		free(line);
 	}
 	return (EXIT_SUCCESS);
