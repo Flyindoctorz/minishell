@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:34:07 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 14:33:48 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/10 19:54:13 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,29 @@ char	*expand(char *str, t_data *minishell)
 {
 	char	*expanded;
 	int		len;
+	char	*var_name;
+	char	*value;
 
+	if (!str || !minishell)
+		return (NULL);
+	if (str[0] == '$' && str[1] && !ft_strchr(str, ' '))
+	{
+		if (str[1] == '?')
+		{
+			expanded = ft_itoa(minishell->state);
+			if (!expanded)
+				ft_end(NULL);
+			return (expanded);
+		}
+		if (is_env_valid(str[1], 1))
+		{
+			var_name = str + 1;
+			value = get_value_env(str + 1, minishell->env);
+			if (value)
+				return (ft_strdup(value));
+		}
+		return (ft_strdup(""));
+	}
 	len = get_expanded_len(str, minishell);
 	expanded = malloc(len + 1);
 	if (!expanded)

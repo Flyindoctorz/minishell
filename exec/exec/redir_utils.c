@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:39 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/11 13:52:46 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:56:04 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	free_all_heredoc(t_cmd_list *cmd)
 
 void	open_heredoc(t_heredoc *redir, t_data *minishell)
 {
-	int			fd[2];
 	int			i;
+	int			pipe_fd[2];
 
 	i = 0;
 	if (!redir || !minishell)
@@ -71,20 +71,20 @@ void	open_heredoc(t_heredoc *redir, t_data *minishell)
 	}
 	else if (redir->content)
 	{
-		if (pipe(fd) == -1)
+		if (pipe(pipe_fd) == -1)
 		{
 			handle_error(MNSHL_ERR_PIPE, "open_heredoc pipe issues");
 			return;
 		}
 		while(redir->content && redir->content[i])
 		{
-			ft_putendl_fd(redir->content[i], fd[1]);
+			ft_putendl_fd(redir->content[i], pipe_fd[1]);
 			i++;
 		}
 	}
-	close(fd[1]);
-	dup2(fd[0], STDIN_FILENO);
-	close(fd[0]);
+	close(pipe_fd[1]);
+	dup2(pipe_fd[0], STDIN_FILENO);
+	close(pipe_fd[0]);
 }
 
 int	open_redirections(t_cmd_list *cmd, t_data *minishell)

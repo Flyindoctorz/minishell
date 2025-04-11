@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:42:54 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/10 16:55:56 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/11 14:56:22 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,49 @@
 
 static bool	heredoc_reader_one(t_heredoc *heredoc, t_data *data, int pipefd[2])
 {
-	char	*line;
-	bool	keep_reading;
-
-	keep_reading = true;
-	while (keep_reading)
-	{
-		line = readline("heredoc> ");
-		if (g_signal != 0)
-		{
-			if (heredoc->content)
-				free_tab(heredoc->content);
-			free(line);
-			data->state = g_signal;
-			g_signal = 0;
-			return (false);
-		}
-		if (!line)
-		{
-			handle_heredoc_eof();
-			break ;
-		}
-		if (ft_strcmp(line, heredoc->delimiter) == 0)
-		{
-			free(line);
-			break ;
-		}
-		if (!process_heredoc_line(line, heredoc, data, pipefd))
-		{
-			free(line);
-			return (false);
-		}
-	}
-	return (true);
+    char *line;
+    bool keep_reading = true;
+    
+    while (keep_reading)
+    {
+        line = readline("heredoc> ");
+        if (g_signal != 0)
+        {
+            if (heredoc->content)
+                free_tab(heredoc->content);
+            free(line);
+            data->state = g_signal;
+            g_signal = 0;
+            return (false);
+        }
+        if (!line)
+        {
+            printf("minishell: warning: heredoc delimited by end-of-file \n");
+            break;
+        }
+        if (ft_strcmp(line, heredoc->delimiter) == 0)
+        {
+            free(line);
+            break;
+        }
+        char *expanded = NULL;
+        if (heredoc->expand)
+            expanded = expand(line, data);
+        else
+            expanded = ft_strdup(line); 
+        free(line);
+        if (!expanded)
+            return (false);
+        if (write_content_to_pipe(pipefd[1], expanded) == false)
+        {
+            free(expanded);
+            return (false);
+        }
+        free(expanded);
+    } 
+    return (true);
 }
+
 
 int	get_heredoc(t_heredoc *redir, t_data *minishell)
 {
