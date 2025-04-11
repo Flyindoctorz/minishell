@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:13:41 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/11 14:41:17 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:20:56 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_token	*create_expand_token(t_lexer *lexer, int start_pos)
 
 	if (lexer->curr_char == '?')
 	{
-		token = create_token(TOKEN_WORD, "$?"); // Changed to TOKEN_WORD
+		token = create_token(TOKEN_WORD, "$?");
 		if (!token)
 			return (NULL);
 		token->position = start_pos;
@@ -73,7 +73,6 @@ t_token	*create_expand_token(t_lexer *lexer, int start_pos)
 	var_len = get_var_name_len(lexer);
 	if (var_len == 0)
 		return (create_dollar_token(start_pos));
-	// Get the variable name starting from the current position
 	var_name = ft_substr(lexer->input, lexer->pos, var_len);
 	if (!var_name)
 	{
@@ -81,7 +80,6 @@ t_token	*create_expand_token(t_lexer *lexer, int start_pos)
 			"create_expand_token : ft_substr failed");
 		return (NULL);
 	}
-	// Create the full variable name with $ prefix
 	full_var_name = ft_strjoin("$", var_name);
 	free(var_name);
 	if (!full_var_name)
@@ -90,7 +88,7 @@ t_token	*create_expand_token(t_lexer *lexer, int start_pos)
 			"create_expand_token : ft_strjoin failed");
 		return (NULL);
 	}
-	token = create_token(TOKEN_WORD, full_var_name); // Changed to TOKEN_WORD
+	token = create_token(TOKEN_WORD, full_var_name);
 	free(full_var_name);
 	if (!token)
 	{

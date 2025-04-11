@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:29 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/10 20:35:08 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/11 16:05:22 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,21 +79,8 @@ void	waiter(t_cmd_list *cmd, t_data *minishell)
 
 bool	exec(t_cmd_list *cmd, t_data *minishell)
 {
-	int		save[2];
-	char	*expanded;
+	int	save[2];
 
-	if (!cmd || !cmd->av || !cmd->av[0])
-		return(false);
-	if (cmd->av[0][0] == '$' && !cmd->next && !is_a_builtin(cmd->av))
-	{
-		expanded = expand(cmd->av[0], minishell);
-		if (expanded)
-		{
-			printf("%s\n", expanded);
-			free(expanded);
-			return (true);
-		}
-	}
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);

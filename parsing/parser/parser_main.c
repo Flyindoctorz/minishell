@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:29:27 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/11 14:40:34 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:14:59 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ bool	validate_syntax(t_token *tokens)
 	return (true);
 }
 
-// Add this function to expand variables in command arguments
 bool	expand_command_args(t_cmd_list *cmd, t_data *data)
 {
 	int		i;
@@ -63,7 +62,6 @@ bool	expand_command_args(t_cmd_list *cmd, t_data *data)
 	i = 0;
 	while (cmd->av[i])
 	{
-		// Check if this argument contains a $ that needs expansion
 		if (ft_strchr(cmd->av[i], '$'))
 		{
 			expanded = expand(cmd->av[i], data);
@@ -78,7 +76,6 @@ bool	expand_command_args(t_cmd_list *cmd, t_data *data)
 	return (true);
 }
 
-// Modify finalize_parsing to include variable expansion
 t_cmd_list	*finalize_parsing(t_cmd_list *cmd_list, t_token *tokens,
 		t_data *data)
 {
@@ -90,13 +87,10 @@ t_cmd_list	*finalize_parsing(t_cmd_list *cmd_list, t_token *tokens,
 		ft_commandclear(&cmd_list);
 		return (NULL);
 	}
-	// Process each command to expand variables
 	cmd = cmd_list;
 	while (cmd)
 	{
-		// Expand variables in command arguments
 		expand_command_args(cmd, data);
-		// Handle redirections
 		if (!setup_redir(cmd))
 		{
 			ft_putstr_fd("minishell: ", 2);
