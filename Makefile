@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+         #
+#    By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/31 19:10:00 by lmokhtar          #+#    #+#              #
-#    Updated: 2025/04/14 16:35:55 by lmokhtar         ###   ########.fr        #
+#    Updated: 2025/04/14 19:01:55 by cgelgon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ UTILS_FILES = command.c env.c env_utils.c expand.c expand2.c redir.c string.c st
 LEXER_FILES = expand_utils.c init_lexer.c lexer_main.c quotes_utils.c \
 	read_expand.c read_operator.c read_quotes.c read_word.c shrinker.c \
 	shrinker_three.c shrinker_two.c utils_lexer.c
-DATA_FILES = init_base.c exit_free.c init_environment.c
+DATA_FILES = init_base.c exit_free.c init_environment.c default_env_setup.c  
 READLINE_FILES = readline_main.c readline_prompter.c readline_prompt_utils.c readline_interface.c
 PARSER_FILES = parser_utils.c parser_main.c parse_redir.c parser_cmd_list.c cleaner.c heredoc_parser.c heredoc.c heredoc_reader.c heredoc_utils.c heredoc_utils_two.c\
 

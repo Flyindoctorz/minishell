@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:53:16 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/03 14:55:46 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/14 19:00:14 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ char	*init_cwd(void);
 // cleanup functions
 void	free_env(char **env);
 void	free_data(t_data *data);
+bool	create_default_env_entries(t_data *minishell);
 
 #endif
