@@ -36,14 +36,3 @@ minishell: out3: Permission denied
 $>echo eeee  >out3>/dev/stdout
 out3: Permission denied
 
-
-
-
-$>exit -1
-exit
-$>
-
-
-bash-5.1$ exit -1
-exit
-➜  minishlastv git:(main) ✗ 

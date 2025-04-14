@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:57:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 16:42:56 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/14 18:34:15 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,6 @@ void		get_env_value(char *str, char *expanded, int *i, t_data *minishell);
 void		if_expand(t_data *minishell, char *expanded, int *i);
 char		*while_expand(char *str, char *expanded, t_data *minishell);
 char		*expand(char *str, t_data *minishell);
+void		update_envp_array(t_data *minishell);
 
 #endif
