@@ -15,7 +15,7 @@
 int	ft_colon(t_data *minishell, char **arg)
 {
 	(void)arg;
-		
+
 	minishell->state = 0;
 	return (0);
 }

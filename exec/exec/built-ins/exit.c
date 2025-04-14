@@ -15,6 +15,7 @@
 void	exit_value(t_data *minishell, char *msg)
 {
 	int	exit_code;
+
 	minishell->state = 2;
 	printf("minishell: exit: %s: numeric argument required\n", msg);
 	exit_code = minishell->state;
@@ -47,7 +48,7 @@ bool	is_valid_exit(char *str)
 void	while_exit(char *str, char **arg, t_data *minishell)
 {
 	int	i;
-	int exit_code;
+	int	exit_code;
 
 	i = 0;
 	str = trim_spaces(str);

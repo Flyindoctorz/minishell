@@ -6,24 +6,26 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:33:09 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 14:28:45 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:04:32 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int change_quote(char quote, int i)
+int	change_quote(char quote, int i)
 {
-    if (i == 0) {  
-        if (quote == '\'')
-            return (1);  
-        else if (quote == '"')
-            return (2);  
-    } 
-    else if ((i == 1 && quote == '\'') || (i == 2 && quote == '"')) {
-        return (0);  
-    }
-    return (i);  
+	if (i == 0)
+	{
+		if (quote == '\'')
+			return (1);
+		else if (quote == '"')
+			return (2);
+	}
+	else if ((i == 1 && quote == '\'') || (i == 2 && quote == '"'))
+	{
+		return (0);
+	}
+	return (i);
 }
 
 int	get_value_len(char *key, t_env *env)
@@ -89,6 +91,11 @@ int	get_expanded_len(char *str, t_data *minishell)
 	len = 0;
 	i = 0;
 	quote_index = 0;
+
+	// Add extra space for quotes if needed
+	if (str[0] == '\'' && ft_strchr(str + 1, '$'))
+		len += 2;  // Add space for the opening and closing quotes
+
 	while (str[i])
 	{
 		if (str[i] == '\'' && quote_index != 2)
@@ -106,5 +113,7 @@ int	get_expanded_len(char *str, t_data *minishell)
 			}
 		}
 	}
-	return (len);
+
+	// Add a safety margin to prevent buffer overflows
+	return (len + 10);  // Add extra space to be safe
 }

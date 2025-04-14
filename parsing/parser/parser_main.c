@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:29:27 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/14 16:25:43 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:08:38 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,44 +52,46 @@ bool	validate_syntax(t_token *tokens)
 	return (true);
 }
 
-bool was_in_single_quotes(const char *arg, t_token *tokens)
+bool	was_in_single_quotes(const char *arg, t_token *tokens)
 {
-	t_token *current = tokens;
-	
+	t_token	*current;
+
+	current = tokens;
 	while (current)
 	{
-		if (current->toktype == TOKEN_QUOTES && current->value && 
-			ft_strcmp(current->value, arg) == 0)
-			return true;
+		if (current->toktype == TOKEN_QUOTES && current->value
+			&& ft_strcmp(current->value, arg) == 0)
+			return (true);
 		current = current->next;
 	}
-	return false;
+	return (false);
 }
 
-bool expand_command_args(t_cmd_list *cmd, t_data *data)
+bool	expand_command_args(t_cmd_list *cmd, t_data *data)
 {
-    int i;
-    char *expanded;
-    t_token *token = data->token;
+	int		i;
+	char	*expanded;
+	t_token	*token;
 
-    if (!cmd || !cmd->av)
-        return (true);
-    
-    i = 0;
-    while (cmd->av[i])
-    {
-        if (ft_strchr(cmd->av[i], '$') && !was_in_single_quotes(cmd->av[i], token))
-        {
-            expanded = expand(cmd->av[i], data);
-            if (expanded)
-            {
-                free(cmd->av[i]);
-                cmd->av[i] = expanded;
-            }
-        }
-        i++;
-    }
-    return (true);
+	token = data->token;
+	if (!cmd || !cmd->av)
+		return (true);
+	i = 0;
+	while (cmd->av[i])
+	{
+		if (ft_strchr(cmd->av[i], '$') && !was_in_single_quotes(cmd->av[i],
+				token))
+		{
+			expanded = expand(cmd->av[i], data);
+			if (expanded)
+			{
+				free(cmd->av[i]);
+				cmd->av[i] = expanded;
+			}
+		}
+		i++;
+	}
+	return (true);
 }
 
 t_cmd_list	*finalize_parsing(t_cmd_list *cmd_list, t_token *tokens,
@@ -139,7 +141,8 @@ t_cmd_list	*parse_token(t_token *tokens, t_data *data)
 	{
 		if (curr_token->toktype == TOKEN_WORD
 			|| curr_token->toktype == TOKEN_QUOTES
-			|| curr_token->toktype == TOKEN_DQUOTES)
+			|| curr_token->toktype == TOKEN_DQUOTES
+			|| curr_token->toktype == TOKEN_DOLLAR)
 			add_word_to_cmd(curr_cmd, curr_token->value);
 		else if (curr_token->toktype == TOKEN_PIPE)
 			curr_cmd = handle_pipe(curr_cmd);
