@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 19:02:03 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 21:51:36 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,13 @@ bool	export_rule(char *str)
 	int		i;
 	char	*equals_pos;
 
-	if (!str || !*str)
-		return (false);
+	i = 0;
 	equals_pos = ft_strchr(str, '=');
 	if (!ft_isalpha(str[0]) && str[0] != '_')
 		return (false);
-	i = 0;
 	while (str[i] && (equals_pos == NULL || &str[i] < equals_pos))
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
+		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '-')
 			return (false);
 		i++;
 	}
@@ -106,7 +104,8 @@ void	export_create(t_data *minishell, char *arg)
 
 int	ft_export(t_data *minishell, char **arg)
 {
-	int	i;
+	int		i;
+	char	*full_arg;
 
 	minishell->state = 0;
 	if (!arg[1])
@@ -117,14 +116,26 @@ int	ft_export(t_data *minishell, char **arg)
 	i = 1;
 	while (arg[i])
 	{
-		if (!export_rule(arg[i]))
+		full_arg = arg[i];
+		if (arg[i][ft_strlen(arg[i]) - 1] == '=' && arg[i + 1])
 		{
-			printf("bash: export: `%s': not a valid identifier\n", arg[i]);
+			full_arg = ft_strjoin3(arg[i], "", arg[i + 1]);
+			if (!full_arg)
+				return (1);
+			i++;
+		}
+		if (!export_rule(full_arg))
+		{
+			printf("bash: export: `%s': not a valid identifier\n", full_arg);
+			if (full_arg != arg[i - 1] && full_arg != arg[i])
+				free(full_arg);
 			i++;
 			minishell->state = 1;
 			continue ;
 		}
-		export_create(minishell, arg[i]);
+		export_create(minishell, full_arg);
+		if (full_arg != arg[i - 1] && full_arg != arg[i])
+			free(full_arg);
 		i++;
 	}
 	update_envp_array(minishell);
