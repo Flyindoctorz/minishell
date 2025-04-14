@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:57:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 16:00:51 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/14 16:42:56 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char		*trim_spaces(char *str);
 int			ft_exit(t_data *minishell, char **arg);
 void		ft_tabupdate(t_data *minishell);
 int			ft_colon(t_data *minishell, char **arg);
+int			ft_negate(t_data *minishell, char **arg);
 
 void		ft_commandaddback(t_cmd_list **head, t_cmd_list *new);
 t_cmd_list	*ft_commandnew(char **tab, t_heredoc *redir);
