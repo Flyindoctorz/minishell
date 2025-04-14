@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:39 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 17:56:25 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/14 18:15:43 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	open_output(t_heredoc *redir, t_data *minishell)
 	{
 		perror(redir->delimiter);
 		ft_end(minishell);
-		// exit(EXIT_FAILURE);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
@@ -50,7 +49,10 @@ void	free_all_heredoc(t_cmd_list *cmd)
 	while (cmd)
 	{
 		if (cmd->redir && cmd->redir->content)
+		{
 			free_tab(cmd->redir->content);
+			cmd->redir->content = NULL;
+		}
 		cmd = cmd->next;
 	}
 }

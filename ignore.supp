@@ -66,3 +66,14 @@
    fun:using_history
    ...
 }
+
+{
+   readline_internal_teardown_leak
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:xmalloc
+   fun:readline_internal_teardown
+   fun:readline
+   ...
+}

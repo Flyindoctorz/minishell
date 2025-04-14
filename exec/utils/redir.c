@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:42:54 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/11 15:45:23 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:08:12 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	get_heredoc(t_heredoc *redir, t_data *minishell)
 		line = readline("heredoc> ");
 		if (g_signal != 0)
 		{
-			free_tab(redir->content);
+			if (redir->content)
+				free_tab(redir->content);
+			if (redir->delimiter)
+				free(redir->delimiter);
 			free(line);
 			minishell->state = g_signal;
 			g_signal = 0;
@@ -89,6 +92,7 @@ void	ft_redirclear(t_heredoc *redir)
 	{
 		tmp = redir->next;
 		free(redir->delimiter);
+		free_tab(redir->content);
 		free(redir);
 		redir = tmp;
 	}
