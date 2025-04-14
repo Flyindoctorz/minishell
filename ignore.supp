@@ -6,3 +6,63 @@
    fun:readline
    ...
 }
+
+{
+   readline_history_leak
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:add_history
+   ...
+}
+
+{
+   readline_alloc_history_entry
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:alloc_history_entry
+   ...
+}
+
+{
+   readline_general_leak
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   obj:*/libreadline.so*
+   ...
+}
+
+{
+   readline_history_expansion
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   fun:history_expand
+   ...
+}
+
+{
+   readline_rl_initialize
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   fun:rl_initialize
+   ...
+}
+
+{
+   readline_using_history
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   fun:using_history
+   ...
+}

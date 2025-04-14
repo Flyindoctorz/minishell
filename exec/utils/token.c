@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:44:05 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 16:25:15 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:39:34 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ void	ft_tokenclear(t_token **token)
 	while (*token)
 	{
 		tmp = (*token)->next;
-		if ((*token)->toktype != TOKEN_PIPE)
-			free((*token)->value);
+		free((*token)->value);
 		free((*token));
 		(*token) = tmp;
 	}

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+         #
+#    By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/31 19:10:00 by lmokhtar          #+#    #+#              #
-#    Updated: 2025/04/14 16:01:37 by cgelgon          ###   ########.fr        #
+#    Updated: 2025/04/14 16:35:55 by lmokhtar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -145,8 +145,10 @@ fclean: clean
 # Vérification des fuites de mémoire
 leak: all
 	@echo "$(BLUE)Running valgrind leak check...$(RESET)"
-	@valgrind --leak-check=full --show-below-main=no --show-leak-kinds=all \
-		--track-fds=yes --trace-children=yes --suppressions=ignore.supp ./$(NAME)
+	@valgrind --leak-check=full --show-reachable=no \
+		--errors-for-leak-kinds=definite \
+		--suppressions=ignore.supp \
+		--track-fds=yes --trace-children=yes ./$(NAME)
 
 norm:
 	@echo "$(BLUE)Running norminette check...$(RESET)"
