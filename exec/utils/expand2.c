@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:34:07 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 18:03:40 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:52:50 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	if_expand(t_data *minishell, char *expanded, int *i)
 	ft_strncat(expanded, st, ft_strlen(st));
 	free(st);
 }
-
 char	*while_expand(char *str, char *expanded, t_data *minishell)
 {
 	char	*expanded_var;
@@ -72,7 +71,11 @@ char	*while_expand(char *str, char *expanded, t_data *minishell)
 		end_quote = 1;
 		while (str[end_quote] && str[end_quote] != '\'')
 			end_quote++;
-		inner_content = ft_substr(str, 1, end_quote > 1 ? end_quote - 1 : 0);
+		inner_content = NULL;
+		if (end_quote > 1)
+			inner_content = ft_substr(str, 1, end_quote - 1);
+		else
+			inner_content = ft_substr(str, 1, 0);
 		if (!inner_content)
 			return (expanded);
 		expanded_var = expand(inner_content, minishell);
@@ -84,7 +87,9 @@ char	*while_expand(char *str, char *expanded, t_data *minishell)
 			if (str[end_quote] == '\'')
 				ft_strncat(expanded, "'", 1);
 			free(expanded_var);
-			i = end_quote + (str[end_quote] == '\'' ? 1 : 0);
+			i = end_quote;
+			if (str[end_quote] == '\'')
+				i = end_quote + 1;
 			while (str[i])
 				ft_strncat(expanded, str + i++, 1);
 			return (expanded);
@@ -109,37 +114,42 @@ char	*while_expand(char *str, char *expanded, t_data *minishell)
 
 char	*expand(char *str, t_data *minishell)
 {
-    if (str && str[0] == '$' && str[1] == '\0')
-        return ft_strdup("$");
-    if (str[0] == '\'' && ft_strchr(str, '$'))
-    {
-        char *result;
-        char *expanded_content;
-        int end_pos = 1;
-        while (str[end_pos] && str[end_pos] != '\'')
-            end_pos++;
-        char *inner_content = ft_substr(str, 1, end_pos - 1);
-        if (!inner_content)
-            return NULL;
-        char *temp = malloc(ft_strlen(inner_content) * 4 + 10);
-        if (!temp)
-        {
-            free(inner_content);
-            return NULL;
-        }
-        ft_memset(temp, 0, ft_strlen(inner_content) * 4 + 10);
-        expanded_content = while_expand(inner_content, temp, minishell);
-        free(inner_content);
-        result = ft_strjoin3("'", expanded_content, "'");
-        free(temp);
-        return result;
-    }
-    char *expanded;
-    int len = get_expanded_len(str, minishell);
-    expanded = malloc(len + 10);
-    if (!expanded)
-        return NULL;
-    ft_memset(expanded, 0, len + 10);
-    expanded = while_expand(str, expanded, minishell);
-    return expanded;
+		char *result;
+		char *expanded_content;
+	int		end_pos;
+	char	*inner_content;
+	char	*temp;
+	char	*expanded;
+	int		len;
+
+	if (str && str[0] == '$' && str[1] == '\0')
+		return (ft_strdup("$"));
+	if (str[0] == '\'' && ft_strchr(str, '$'))
+	{
+		end_pos = 1;
+		while (str[end_pos] && str[end_pos] != '\'')
+			end_pos++;
+		inner_content = ft_substr(str, 1, end_pos - 1);
+		if (!inner_content)
+			return (NULL);
+		temp = malloc(ft_strlen(inner_content) * 4 + 10);
+		if (!temp)
+		{
+			free(inner_content);
+			return (NULL);
+		}
+		ft_memset(temp, 0, ft_strlen(inner_content) * 4 + 10);
+		expanded_content = while_expand(inner_content, temp, minishell);
+		free(inner_content);
+		result = ft_strjoin3("'", expanded_content, "'");
+		free(temp);
+		return (result);
+	}
+	len = get_expanded_len(str, minishell);
+	expanded = malloc(len + 10);
+	if (!expanded)
+		return (NULL);
+	ft_memset(expanded, 0, len + 10);
+	expanded = while_expand(str, expanded, minishell);
+	return (expanded);
 }

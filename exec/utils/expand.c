@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:33:09 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 17:04:32 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:47:58 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,8 @@ int	get_expanded_len(char *str, t_data *minishell)
 	i = 0;
 	quote_index = 0;
 
-	// Add extra space for quotes if needed
 	if (str[0] == '\'' && ft_strchr(str + 1, '$'))
-		len += 2;  // Add space for the opening and closing quotes
+		len += 2;  
 
 	while (str[i])
 	{
@@ -113,7 +112,5 @@ int	get_expanded_len(char *str, t_data *minishell)
 			}
 		}
 	}
-
-	// Add a safety margin to prevent buffer overflows
-	return (len + 10);  // Add extra space to be safe
+	return (len + 10);
 }

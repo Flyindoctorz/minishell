@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colon.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:54:00 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/14 16:00:41 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/14 18:48:10 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	ft_colon(t_data *minishell, char **arg)
 {
 	(void)arg;
-
 	minishell->state = 0;
 	return (0);
 }

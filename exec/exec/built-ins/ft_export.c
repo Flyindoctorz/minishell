@@ -6,72 +6,74 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 18:39:56 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 19:02:03 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-// Add this to exec/utils/export.c
-void update_envp_array(t_data *minishell)
+void	update_envp_array(t_data *minishell)
 {
-    t_env *current;
-    int count = 0;
-    int i = 0;
-    
-    if (minishell->envp)
-        free_env(minishell->envp);
-        
-    // Count valid environment variables
-    current = minishell->env;
-    while (current)
-    {
-        if (current->key)
-            count++;
-        current = current->next;
-    }
-    
-    minishell->envp = malloc(sizeof(char *) * (count + 1));
-    if (!minishell->envp)
-        return;
-        
-    current = minishell->env;
-    i = 0;
-    while (current)
-    {
-        if (current->key) {
-            if (current->value)
-                minishell->envp[i] = ft_strjoin3(current->key, "=", current->value);
-            else
-                minishell->envp[i] = ft_strdup(current->key);
-            
-            if (!minishell->envp[i])
-            {
-                free_env(minishell->envp);
-                minishell->envp = NULL;
-                return;
-            }
-            i++;
-        }
-        current = current->next;
-    }
-    minishell->envp[i] = NULL;
+	t_env	*current;
+	int		count;
+	int		i;
+
+	count = 0;
+	i = 0;
+	if (minishell->envp)
+		free_env(minishell->envp);
+	current = minishell->env;
+	while (current)
+	{
+		if (current->key)
+			count++;
+		current = current->next;
+	}
+	minishell->envp = malloc(sizeof(char *) * (count + 1));
+	if (!minishell->envp)
+		return ;
+	current = minishell->env;
+	i = 0;
+	while (current)
+	{
+		if (current->key)
+		{
+			if (current->value)
+				minishell->envp[i] = ft_strjoin3(current->key, "=",
+						current->value);
+			else
+				minishell->envp[i] = ft_strdup(current->key);
+			if (!minishell->envp[i])
+			{
+				free_env(minishell->envp);
+				minishell->envp = NULL;
+				return ;
+			}
+			i++;
+		}
+		current = current->next;
+	}
+	minishell->envp[i] = NULL;
 }
 
-int	export_rule(char *str)
+bool	export_rule(char *str)
 {
-	int	i;
+	int		i;
+	char	*equals_pos;
 
+	if (!str || !*str)
+		return (false);
+	equals_pos = ft_strchr(str, '=');
+	if (!ft_isalpha(str[0]) && str[0] != '_')
+		return (false);
 	i = 0;
-	if (str[0] != '_' && ft_isalpha(str[0]) != 1)
-		return (0);
-	while (str[i] && str[i] != '=')
+	while (str[i] && (equals_pos == NULL || &str[i] < equals_pos))
 	{
-		if (str[i] != '_' && ft_isalpha(str[i]) != 1 && ft_isnum(str[i]) != 1)
-			return (0);
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (false);
 		i++;
 	}
-	return (1);
+	return (true);
 }
 
 void	export_create(t_data *minishell, char *arg)
