@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:01 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 15:08:02 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:25:13 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,32 @@ bool	is_valid_exit(char *str)
 
 void	while_exit(char *str, char **arg, t_data *minishell)
 {
-	int	i;
 	int	exit_code;
 
-	i = 0;
 	str = trim_spaces(str);
 	if (!is_valid_exit(str))
 		exit_value(minishell, str);
-	while (ft_isnum(str[i]) && !arg[2])
+	if (arg[2])
+		return; 
+	minishell->state = ft_atoi(str);
+	if ((str[0] == '0' && str[1] == '\0') || 
+		((str[0] == '+' || str[0] == '-') && str[1] == '0' && str[2] == '\0'))
 	{
-		minishell->state = ft_atoi(str);
-		if (minishell->state == 0)
-			exit_value(minishell, str);
-		exit_code = minishell->state % 256;
-		ft_end(minishell);
-		exit(exit_code);
+		exit_code = 0;
 	}
-	i++;
+	else if (minishell->state == 0)
+	{
+		exit_value(minishell, str); 
+		return;
+	}
+	else
+	{
+		exit_code = minishell->state % 256;
+		if (exit_code < 0)
+			exit_code += 256; 
+	}
+	ft_end(minishell);
+	exit(exit_code);
 }
 
 int	ft_exit(t_data *minishell, char **arg)
