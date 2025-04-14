@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:25 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 15:30:37 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/14 16:28:15 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	exec_builtins(t_data *minishell, char **arg)
 		return (ft_pwd(minishell, arg));
 	if (ft_strcmp("unset", arg[0]) == 0)
 		return (ft_unset(minishell, arg));
+	if (ft_strcmp(":", arg[0]) == 0)
+		return (ft_colon(minishell, arg));
 	else
 		return (0);
 }
@@ -71,6 +73,8 @@ bool	is_a_builtin(char **arg)
 	if (ft_strcmp("pwd", arg[0]) == 0)
 		return (1);
 	if (ft_strcmp("unset", arg[0]) == 0)
+		return (1);
+	if (ft_strcmp(":", arg[0]) == 0)
 		return (1);
 	return (0);
 }
