@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:29:27 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/11 18:47:48 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:25:43 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ bool	validate_syntax(t_token *tokens)
 	return (true);
 }
 
-// Helper to check if a string was originally in single quotes
 bool was_in_single_quotes(const char *arg, t_token *tokens)
 {
 	t_token *current = tokens;
@@ -71,7 +70,7 @@ bool expand_command_args(t_cmd_list *cmd, t_data *data)
 {
     int i;
     char *expanded;
-    t_token *token = data->token; // Get the original token list
+    t_token *token = data->token;
 
     if (!cmd || !cmd->av)
         return (true);
@@ -79,7 +78,6 @@ bool expand_command_args(t_cmd_list *cmd, t_data *data)
     i = 0;
     while (cmd->av[i])
     {
-        // Only expand if it contains $ AND wasn't originally in single quotes
         if (ft_strchr(cmd->av[i], '$') && !was_in_single_quotes(cmd->av[i], token))
         {
             expanded = expand(cmd->av[i], data);
@@ -163,8 +161,6 @@ t_cmd_list	*parse_token(t_token *tokens, t_data *data)
 		}
 		else if (curr_token->toktype == TOKEN_EOF)
 			break ;
-		else
-			return (NULL);
 		curr_token = curr_token->next;
 	}
 	return (finalize_parsing(cmd_list, tokens, data));
