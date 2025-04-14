@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:39 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/11 16:31:22 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:01:57 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ void	free_all_heredoc(t_cmd_list *cmd)
 	while (cmd)
 	{
 		if (cmd->redir && cmd->redir->content)
+		{
 			free_tab(cmd->redir->content);
+			cmd->redir->content = NULL;
+		}
 		cmd = cmd->next;
 	}
 }

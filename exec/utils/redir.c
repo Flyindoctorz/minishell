@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:42:54 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/11 15:45:23 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:41:13 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	ft_redirclear(t_heredoc *redir)
 	{
 		tmp = redir->next;
 		free(redir->delimiter);
+		free_tab(redir->content);
 		free(redir);
 		redir = tmp;
 	}
