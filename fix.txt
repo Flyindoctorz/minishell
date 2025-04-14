@@ -1,0 +1,49 @@
+gerer env - i./	 en dehors et dans le shell, doit renvoyer cmd not found
+gerer unset aaa dans un shell sans env
+
+minishell
+
+$>export a=ls
+$>export b=" -la"
+bash: export: ` -la': not a valid identifier
+$>export b=" -la"
+
+bash
+
+bash-5.1$ export a=ls
+bash-5.1$ export b=" -la"
+bash-5.1$ 
+
+
+apres un export, les commandes ne s'executent plus
+
+$>export aaa
+$>
+$>ls
+$>
+
+bash-5.1$ export aaa
+bash-5.1$ 
+bash-5.1$ 
+bash-5.1$ ls
+exec  fix.txt  ignore.supp  include  libft  main.c  Makefile  minishell  obj  out  parsing
+bash-5.1$ 
+
+
+
+$>echo eeee  >out3
+minishell: out3: Permission denied
+$>echo eeee  >out3>/dev/stdout
+out3: Permission denied
+
+
+
+
+$>exit -1
+exit
+$>
+
+
+bash-5.1$ exit -1
+exit
+➜  minishlastv git:(main) ✗ 

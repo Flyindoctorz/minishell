@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:17:52 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 16:49:56 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:45:44 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	*data;
 	int		exit_status;
-
 	(void)ac;
 	(void)av;
 	if (!isatty(0))
