@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:33:09 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/11 18:48:04 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:28:45 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int change_quote(char quote, int i)
 {
-    if (i == 0) {  // Not in quotes
+    if (i == 0) {  
         if (quote == '\'')
-            return (1);  // Enter single quotes
+            return (1);  
         else if (quote == '"')
-            return (2);  // Enter double quotes
+            return (2);  
     } 
     else if ((i == 1 && quote == '\'') || (i == 2 && quote == '"')) {
-        return (0);  // Exit quotes only if matching quote type
+        return (0);  
     }
-    return (i);  // Keep current quote state otherwise
+    return (i);  
 }
 
 int	get_value_len(char *key, t_env *env)

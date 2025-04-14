@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:18 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/08 17:50:10 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:44:08 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ void	ft_tabupdate(t_data *minishell)
 	env = minishell->env;
 	tmp = env;
 	i = 1;
+	if (minishell->envp)
+    {
+        free_env(minishell->envp);
+        minishell->envp = NULL;
+    }
 	while (tmp)
 	{
 		tmp = tmp->next;

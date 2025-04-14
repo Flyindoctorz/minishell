@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:34:07 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/11 15:57:55 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:50:51 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ void	get_env_value(char *str, char *expanded, int *i, t_data *minishell)
 	char	*value;
 	int		start;
 
+	// Add this check for end of string
+	if (str[*i + 1] == '\0')
+	{
+		ft_strncat(expanded, str + (*i)++, 1);  // Add $ as literal
+		return;
+	}
 	if (str[*i + 1] == '?')
 	{
 		if_expand(minishell, expanded, i);
