@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:17:52 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 15:19:34 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 13:22:57 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,12 @@ static int	process_input(t_data *data, char *input)
 {
 	if (!input)
 		return (0);
-	
+	if (g_signal != 0)
+	{
+		data->state = g_signal;
+		g_signal = 0;
+		return (1);
+	}
 	if (!*input)
 		return (1);
 	add_history(input);
@@ -72,8 +77,6 @@ static int	process_input(t_data *data, char *input)
 		return (1);
 	}
 	exec(data->command, data);
-	g_signal = 0; // Reset signal after command execution
-	
 	ft_tokenclear(&data->token);
 	ft_commandclear(&data->command);
 	free((data->token = 0, data->command = 0, NULL));

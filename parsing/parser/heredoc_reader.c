@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_reader.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+           */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:55:07 by cgelgon           #+#    #+#             */
 /*   Updated: 2025/04/10 16:59:45 by cgelgon          ###   ########.fr       */
