@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:37:46 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 14:00:19 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 16:36:52 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void		prepare_heredoc_redir(t_heredoc *heredoc, int pipefd[2]);
 bool		should_expand_heredoc(char *delimiter);
 void		*save_and_set_signals(void);
 void		restore_signals(void *old_handler);
+bool		heredoc_reader_one(t_heredoc *heredoc, t_data *data, int pipefd[2]);
 
 // Variables expansion
 char		*expand(char *str, t_data *data);
