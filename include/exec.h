@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:57:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 16:21:48 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:25:39 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void		update_envp_array(t_data *minishell);
 char		*create_env_string(t_env *env);
 void		setup_heredoc_signals(void);
 void		restore_default_signals(void);
+bool		exec_cleanup(t_data *minishell, int save[2]);
 
 void		set_signal_child(void);
 int			sig_event(void);

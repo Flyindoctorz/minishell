@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:25 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 16:42:42 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 16:24:23 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ bool	is_a_builtin(char **arg)
 	if (ft_strcmp(":", arg[0]) == 0)
 		return (1);
 	if (ft_strcmp("!", arg[0]) == 0)
-		return (1);		
+		return (1);
 	return (0);
 }
