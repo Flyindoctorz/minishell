@@ -6,7 +6,7 @@
 #    By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/31 19:10:00 by lmokhtar          #+#    #+#              #
-#    Updated: 2025/04/15 18:40:38 by cgelgon          ###   ########.fr        #
+#    Updated: 2025/04/15 19:02:30 by cgelgon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,11 +40,11 @@ READLINE_DIR = parsing/readline
 PARSER_DIR = parsing/parser
 
 # Structure des sources
-SRC_FILES = main.c main_utils.c
-EXEC_FILES = exec.c exec_builtins.c pipex.c signals.c redir_utils.c heredoc_signals.c
+SRC_FILES = main.c
+EXEC_FILES = exec.c builtins.c pipex.c signals.c redir_utils.c heredoc_signals.c
 BUILTINS_FILES = cd.c echo.c ft_env.c exit.c exit2.c ft_export.c ft_export2.c pwd.c ft_unset.c colon.c
-UTILS_FILES = command.c env.c env_utils.c expand.c expand2.c redir.c string.c string2.c \
-	string3.c string4.c tab.c token.c unset.c export.c
+UTILS_FILES = command.c env.c env_utils.c expand.c expand2.c redir.c lia.c lid.c \
+	lib.c lic.c tab.c token.c unset.c export.c
 LEXER_FILES = expand_utils.c expand_utils2.c init_lexer.c lexer_main.c lexer_main2.c quotes_utils.c quotes_utils2.c\
 	read_expand.c read_operator.c read_quotes.c read_word.c shrinker.c \
 	shrinker_three.c shrinker_two.c utils_lexer.c

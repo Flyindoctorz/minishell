@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:39 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 19:06:39 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:36:32 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	open_heredoc(t_heredoc *redir, t_data *minishell)
 	close(fd[0]);
 }
 
-int	open_redirections(t_cmd_list *cmd, t_data *minishell)
+int	exec_redir(t_cmd_list *cmd, t_data *minishell)
 {
 	t_heredoc	*redir;
 

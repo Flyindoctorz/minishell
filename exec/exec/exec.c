@@ -6,13 +6,13 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:29 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 18:56:36 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 19:02:40 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	execut_me(t_cmd_list *cmd, t_data *shell, int save[2], int fd[2])
+void	exec2(t_cmd_list *cmd, t_data *shell, int save[2], int fd[2])
 {
 	int	status;
 
@@ -21,7 +21,7 @@ void	execut_me(t_cmd_list *cmd, t_data *shell, int save[2], int fd[2])
 		dup2(fd[1], STDOUT_FILENO);
 	(close(save[0]), close(save[1]));
 	(close(fd[0]), close(fd[1]));
-	open_redirections(cmd, shell);
+	exec_redir(cmd, shell);
 	if (cmd->av == NULL || cmd->av[0] == NULL || cmd->av[0][0] == '\0')
 	{
 		free_all_heredoc(shell->command);
@@ -35,10 +35,10 @@ void	execut_me(t_cmd_list *cmd, t_data *shell, int save[2], int fd[2])
 		exit(status);
 	}
 	ft_tabupdate(shell);
-	excute(cmd->av, shell->envp, shell);
+	exec_path(cmd->av, shell->envp, shell);
 }
 
-int	all_cmd(t_data *minishell, int save[2], t_cmd_list *cmd)
+int	cmd_ext(t_data *minishell, int save[2], t_cmd_list *cmd)
 {
 	int	fd[2];
 
@@ -48,7 +48,7 @@ int	all_cmd(t_data *minishell, int save[2], t_cmd_list *cmd)
 	if (cmd->pid == -1)
 		return (close(fd[0]), close(fd[1]), -1);
 	if (cmd->pid == 0)
-		execut_me(cmd, minishell, save, fd);
+		exec2(cmd, minishell, save, fd);
 	dup2(fd[0], STDIN_FILENO);
 	(close(fd[0]), close(fd[1]));
 	return (1);
@@ -98,7 +98,7 @@ bool	exec(t_cmd_list *cmd, t_data *minishell)
 	save[STDOUT_FILENO] = dup(STDOUT_FILENO);
 	while (cmd)
 	{
-		all_cmd(minishell, save, cmd);
+		cmd_ext(minishell, save, cmd);
 		cmd = cmd->next;
 	}
 	return (exec_cleanup(minishell, save));
