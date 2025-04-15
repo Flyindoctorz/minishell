@@ -6,17 +6,35 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 12:14:04 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 14:37:38 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:33:19 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "structure.h"
 #include "minishell.h"
 
-static const char	*error_messages[] = {[MNSHL_SUCCESS] = "Success",
-		[MNSHL_ERR_MEMORY] = ERR_MSG_MEMORY, [MNSHL_ERR_ARGS] = ERR_MSG_ARGS,
-		[MNSHL_ERR_ENV] = ERR_MSG_ENV, [MNSHL_ERR_CWD] = ERR_MSG_CWD,
-		[MNSHL_ERR_PIPE] = ERR_MSG_PIPE, [MNSHL_ERR_FORK] = ERR_MSG_FORK,
-		[MNSHL_ERR_EXEC] = ERR_MSG_EXEC, [MNSHL_ERR_SYNTAX] = ERR_MSG_SYNTAX};
+const char	*error_messages(t_error_num code)
+{
+	static const char	*messages[MNSHL_ERR_MAX];
+	static bool			initialized;
+
+	if (!initialized)
+	{
+		messages[MNSHL_SUCCESS] = "Success";
+		messages[MNSHL_ERR_MEMORY] = ERR_MSG_MEMORY;
+		messages[MNSHL_ERR_ARGS] = ERR_MSG_ARGS;
+		messages[MNSHL_ERR_ENV] = ERR_MSG_ENV;
+		messages[MNSHL_ERR_CWD] = ERR_MSG_CWD;
+		messages[MNSHL_ERR_PIPE] = ERR_MSG_PIPE;
+		messages[MNSHL_ERR_FORK] = ERR_MSG_FORK;
+		messages[MNSHL_ERR_EXEC] = ERR_MSG_EXEC;
+		messages[MNSHL_ERR_SYNTAX] = ERR_MSG_SYNTAX;
+		initialized = true;
+	}
+	if (code >= 0 && code < MNSHL_ERR_MAX && messages[code])
+		return (messages[code]);
+	return ("Unknown error");
+}
 
 void	handle_error(t_error_num code, const char *custom_message)
 {
@@ -24,7 +42,7 @@ void	handle_error(t_error_num code, const char *custom_message)
 
 	if (code >= 0 && code < MNSHL_ERR_MAX)
 	{
-		error_msg = error_messages[code];
+		error_msg = error_messages(code);
 	}
 	if (custom_message)
 		printf("Erreur : %s\n", custom_message);

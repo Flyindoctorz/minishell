@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   if_empty_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 17:02:52 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/15 17:01:11 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:53:50 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,14 @@ char	*create_env_entry(char *key, char *value)
 
 static void	free_env_entries(char **entries, int count)
 {
-	for (int i = 0; i < count; i++)
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
 		free(entries[i]);
+		i++;
+	}
 	free(entries);
 }
 
