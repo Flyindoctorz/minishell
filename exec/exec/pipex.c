@@ -6,13 +6,13 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:33 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/08 17:49:52 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:36:13 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*cmd_finder(char **cmd, char **env)
+char	*cmd_find(char **cmd, char **env)
 {
 	int		i;
 	char	*tmp;
@@ -36,7 +36,7 @@ char	*cmd_finder(char **cmd, char **env)
 	return (free_tab(env), free(slash), NULL);
 }
 
-void	error_msg(char *path, char **cmd, t_data *minishell)
+void	message_err(char *path, char **cmd, t_data *minishell)
 {
 	(void)minishell;
 	if (ft_strchr(cmd[0], '/') != 0)
@@ -61,13 +61,13 @@ void	error_msg(char *path, char **cmd, t_data *minishell)
 void	end_exec(char *path, char **cmd, char **env, t_data *minishell)
 {
 	if (!path)
-		error_msg(path, cmd, minishell);
+		message_err(path, cmd, minishell);
 	free_all_heredoc(minishell->command);
 	execve(path, cmd, env);
-	error_msg(path, cmd, minishell);
+	message_err(path, cmd, minishell);
 }
 
-void	excute(char **cmd, char **env, t_data *minishell)
+void	exec_path(char **cmd, char **env, t_data *minishell)
 {
 	int		i;
 	char	*path;
@@ -87,8 +87,8 @@ void	excute(char **cmd, char **env, t_data *minishell)
 		if (env[i])
 			tmp_path = ft_split(&env[i][5], ':');
 		if (!tmp_path)
-			error_msg(path, cmd, minishell);
-		path = cmd_finder(cmd, tmp_path);
+			message_err(path, cmd, minishell);
+		path = cmd_find(cmd, tmp_path);
 	}
 	end_exec(path, cmd, env, minishell);
 	exit(0);

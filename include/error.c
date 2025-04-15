@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 12:14:04 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/15 17:33:19 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 18:34:54 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ const char	*error_messages(t_error_num code)
 
 void	handle_error(t_error_num code, const char *custom_message)
 {
-	const char	*error_msg = "Unknown error";
+	const char	*message_err = "Unknown error";
 
 	if (code >= 0 && code < MNSHL_ERR_MAX)
 	{
-		error_msg = error_messages(code);
+		message_err = error_messages(code);
 	}
 	if (custom_message)
 		printf("Erreur : %s\n", custom_message);
 	else
-		printf("Erreur : %s\n", error_msg);
+		printf("Erreur : %s\n", message_err);
 }
 
 bool	print_test(char *test_name, bool test_result)

@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:57:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 16:25:39 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:36:32 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,25 @@
 
 # include "structure.h"
 
-int			exec_builtins(t_data *minishell, char **arg);
+int			builtins_true(t_data *minishell, char **arg);
 int			builtins(t_data *minishell, t_cmd_list *cmd);
 bool		is_a_builtin(char **arg);
-void		execut_me(t_cmd_list *cmd, t_data *shell, int save[2], int fd[2]);
-int			all_cmd(t_data *minishell, int save[2], t_cmd_list *cmd);
+void		exec2(t_cmd_list *cmd, t_data *shell, int save[2], int fd[2]);
+int			cmd_ext(t_data *minishell, int save[2], t_cmd_list *cmd);
 void		check_signal_exec(t_data *minishell);
 void		waiter(t_cmd_list *cmd, t_data *minishell);
 bool		exec(t_cmd_list *cmd, t_data *minishell);
 
-void		excute(char **cmd, char **env, t_data *minishell);
-char		*cmd_finder(char **cmd, char **env);
-void		error_msg(char *path, char **cmd, t_data *minishell);
+void		exec_path(char **cmd, char **env, t_data *minishell);
+char		*cmd_find(char **cmd, char **env);
+void		message_err(char *path, char **cmd, t_data *minishell);
 void		end_exec(char *path, char **cmd, char **env, t_data *minishell);
 
 void		open_input(t_heredoc *redir, t_data *minishell);
 void		open_output(t_heredoc *redir, t_data *minishell);
 void		open_heredoc(t_heredoc *redir, t_data *minishell);
 void		free_all_heredoc(t_cmd_list *cmd);
-int			open_redirections(t_cmd_list *cmd, t_data *minishell);
+int			exec_redir(t_cmd_list *cmd, t_data *minishell);
 char		*process_quoted_expansion(char *str, char *expanded,
 				t_data *minishell);
 char		*append_expanded_content(char *expanded_var, char *expanded,

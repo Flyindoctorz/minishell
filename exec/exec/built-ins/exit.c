@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:01 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 16:09:53 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:35:20 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	exit_value(t_data *minishell, char *msg)
 	exit(exit_code);
 }
 
-int	too_many(t_data *minishell)
+int	error_arg(t_data *minishell)
 {
 	printf("minishell: exit: too many arguments\n");
 	minishell->state = 1;
@@ -86,6 +86,6 @@ int	ft_exit(t_data *minishell, char **arg)
 	}
 	while_exit(arg[1], arg, minishell);
 	if (arg[2])
-		return (too_many(minishell));
+		return (error_arg(minishell));
 	return (minishell->state);
 }

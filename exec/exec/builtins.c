@@ -6,13 +6,13 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:25 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 16:24:23 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:36:32 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	exec_builtins(t_data *minishell, char **arg)
+int	builtins_true(t_data *minishell, char **arg)
 {
 	if (ft_strcmp("cd", arg[0]) == 0)
 		return (ft_cd(minishell, arg));
@@ -41,7 +41,7 @@ int	builtins(t_data *minishell, t_cmd_list *cmd)
 
 	save[STDIN_FILENO] = dup(STDIN_FILENO);
 	save[STDOUT_FILENO] = dup(STDOUT_FILENO);
-	open_redirections(cmd, minishell);
+	exec_redir(cmd, minishell);
 	if (ft_strcmp("exit", cmd->av[0]) == 0)
 	{
 		dup2(save[STDIN_FILENO], STDIN_FILENO);
@@ -50,7 +50,7 @@ int	builtins(t_data *minishell, t_cmd_list *cmd)
 		free_all_heredoc(minishell->command);
 		return (ft_exit(minishell, cmd->av));
 	}
-	status = exec_builtins(minishell, cmd->av);
+	status = builtins_true(minishell, cmd->av);
 	dup2(save[STDIN_FILENO], STDIN_FILENO);
 	dup2(save[STDOUT_FILENO], STDOUT_FILENO);
 	(close(save[0]), close(save[1]));
