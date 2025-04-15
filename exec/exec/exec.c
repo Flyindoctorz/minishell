@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:29 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 15:42:18 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:25:57 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ bool	exec(t_cmd_list *cmd, t_data *minishell)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
 	if (!cmd->next && is_a_builtin(cmd->av))
-		return (builtins(minishell, cmd), 1);
+	{
+		builtins(minishell, cmd);
+		return (1);
+	}
 	save[STDIN_FILENO] = dup(STDIN_FILENO);
 	save[STDOUT_FILENO] = dup(STDOUT_FILENO);
 	while (cmd)
@@ -98,12 +101,5 @@ bool	exec(t_cmd_list *cmd, t_data *minishell)
 		all_cmd(minishell, save, cmd);
 		cmd = cmd->next;
 	}
-	cmd = minishell->command;
-	waiter(cmd, minishell);
-	free_all_heredoc(minishell->command);
-	dup2(save[STDIN_FILENO], STDIN_FILENO);
-	dup2(save[STDOUT_FILENO], STDOUT_FILENO);
-	(close(save[0]), close(save[1]));
-	check_signal_exec(minishell);
-	return (0);
+	return (exec_cleanup(minishell, save));
 }

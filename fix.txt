@@ -25,8 +25,13 @@ minishell: exit: too many arguments
 exit 9223372036854775808 e
 exit
 bash: exit: 9223372036854775808: numeric argument required
-        (+ doit quitter le minishell) // GOOD
+        (+ doit quitter le minishell)
 
+### Tips
+        (C'est le meme comportement que)
+$>exit 2b 2
+exit
+minishell: exit: 2b: numeric argument required
 
 ## Redirections et Heredoc
 

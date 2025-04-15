@@ -6,55 +6,11 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 21:51:36 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:19:31 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
-void	update_envp_array(t_data *minishell)
-{
-	t_env	*current;
-	int		count;
-	int		i;
-
-	count = 0;
-	i = 0;
-	if (minishell->envp)
-		free_env(minishell->envp);
-	current = minishell->env;
-	while (current)
-	{
-		if (current->key)
-			count++;
-		current = current->next;
-	}
-	minishell->envp = malloc(sizeof(char *) * (count + 1));
-	if (!minishell->envp)
-		return ;
-	current = minishell->env;
-	i = 0;
-	while (current)
-	{
-		if (current->key)
-		{
-			if (current->value)
-				minishell->envp[i] = ft_strjoin3(current->key, "=",
-						current->value);
-			else
-				minishell->envp[i] = ft_strdup(current->key);
-			if (!minishell->envp[i])
-			{
-				free_env(minishell->envp);
-				minishell->envp = NULL;
-				return ;
-			}
-			i++;
-		}
-		current = current->next;
-	}
-	minishell->envp[i] = NULL;
-}
 
 bool	export_rule(char *str)
 {
@@ -102,10 +58,39 @@ void	export_create(t_data *minishell, char *arg)
 	}
 }
 
+static void	handle_joined_args(char **arg, int *i, char **full_arg)
+{
+	if (arg[*i][ft_strlen(arg[*i]) - 1] == '=' && arg[*i + 1])
+	{
+		*full_arg = ft_strjoin3(arg[*i], "", arg[*i + 1]);
+		if (*full_arg)
+			(*i)++;
+	}
+	else
+		*full_arg = arg[*i];
+}
+
+static void	process_export_arg(t_data *minishell, char **arg, int *i)
+{
+	char	*full_arg;
+
+	full_arg = NULL;
+	handle_joined_args(arg, i, &full_arg);
+	if (!export_rule(full_arg))
+	{
+		printf("bash: export: `%s': not a valid identifier\n", full_arg);
+		minishell->state = 1;
+	}
+	else
+		export_create(minishell, full_arg);
+	if (full_arg != arg[*i] && full_arg != arg[*i - 1])
+		free(full_arg);
+	(*i)++;
+}
+
 int	ft_export(t_data *minishell, char **arg)
 {
-	int		i;
-	char	*full_arg;
+	int	i;
 
 	minishell->state = 0;
 	if (!arg[1])
@@ -115,29 +100,7 @@ int	ft_export(t_data *minishell, char **arg)
 	}
 	i = 1;
 	while (arg[i])
-	{
-		full_arg = arg[i];
-		if (arg[i][ft_strlen(arg[i]) - 1] == '=' && arg[i + 1])
-		{
-			full_arg = ft_strjoin3(arg[i], "", arg[i + 1]);
-			if (!full_arg)
-				return (1);
-			i++;
-		}
-		if (!export_rule(full_arg))
-		{
-			printf("bash: export: `%s': not a valid identifier\n", full_arg);
-			if (full_arg != arg[i - 1] && full_arg != arg[i])
-				free(full_arg);
-			i++;
-			minishell->state = 1;
-			continue ;
-		}
-		export_create(minishell, full_arg);
-		if (full_arg != arg[i - 1] && full_arg != arg[i])
-			free(full_arg);
-		i++;
-	}
+		process_export_arg(minishell, arg, &i);
 	update_envp_array(minishell);
 	return (minishell->state);
 }

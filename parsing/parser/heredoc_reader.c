@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_reader.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:55:07 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/10 16:59:45 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 16:38:32 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,45 +32,6 @@ t_heredoc	*init_heredoc(char *delimiter, bool expand)
 	heredoc->fd = -1;
 	return (heredoc);
 }
-
-static bool	heredoc_reader_one(t_heredoc *heredoc, t_data *data, int pipefd[2])
-{
-	char	*line;
-	bool	keep_reading;
-	char	*expanded;
-
-	keep_reading = true;
-	expanded = NULL;
-	while (keep_reading)
-	{
-		line = readline("> ");
-		if (!line)
-		{
-			handle_heredoc_eof();
-			break ;
-		}
-		if (ft_strcmp(line, heredoc->delimiter) == 0)
-		{
-			free(line);
-			break ;
-		}
-		if (heredoc->expand)
-			expanded = expand(line, data);
-		else
-			expanded = ft_strdup(line);
-		free(line);
-		if (!expanded)
-			return (false);
-		if (!write_content_to_pipe(pipefd[1], expanded) == false)
-		{
-			free(expanded);
-			return (false);
-		}
-		free(expanded);
-	}
-	return (true);
-}
-/* Dans parsing/parser/heredoc_reader.c ou exec/utils/redir.c */
 
 bool	heredoc_reader(t_heredoc *heredoc, t_data *data)
 {

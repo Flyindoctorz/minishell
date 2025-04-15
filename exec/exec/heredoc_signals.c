@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_signals.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 13:44:58 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/15 14:12:39 by cgelgon          ###   ########.fr       */
+/*   Created: 2025/04/15 16:21:14 by lmokhtar          #+#    #+#             */
+/*   Updated: 2025/04/15 16:25:30 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	handle_heredoc_signal(int sig)
-{
-	if (sig == SIGINT)
-	{
-		g_signal = sig;
-		rl_done = 1;
-		write(STDOUT_FILENO, "\n", 1);
-	}
-}
 
 void	setup_heredoc_signals(void)
 {
@@ -30,4 +20,23 @@ void	setup_heredoc_signals(void)
 	sa.sa_handler = handle_heredoc_signal;
 	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	restore_default_signals(void)
+{
+	ft_signal();
+}
+
+bool	exec_cleanup(t_data *minishell, int save[2])
+{
+	t_cmd_list	*cmd;
+
+	cmd = minishell->command;
+	waiter(cmd, minishell);
+	free_all_heredoc(minishell->command);
+	dup2(save[STDIN_FILENO], STDIN_FILENO);
+	dup2(save[STDOUT_FILENO], STDOUT_FILENO);
+	(close(save[0]), close(save[1]));
+	check_signal_exec(minishell);
+	return (0);
 }

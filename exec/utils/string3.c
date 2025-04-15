@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:43:36 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 14:34:02 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 16:09:47 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,33 @@ char	**ft_split(char const *s, char c)
 	}
 	split[words] = NULL;
 	return (split);
+}
+
+bool	is_in_int_range(char *str)
+{
+	long long	value;
+	int			sign;
+	int			i;
+
+	value = 0;
+	sign = 1;
+	i = 0;
+	if (str[i] == '-')
+	{
+		sign = -1;
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (ft_isnum(str[i]))
+	{
+		if (value > INT_MAX / 10)
+			return (false);
+		value = value * 10 + (str[i] - '0');
+		if ((sign == 1 && value > INT_MAX) || (sign == -1 && value
+				* sign < INT_MIN))
+			return (false);
+		i++;
+	}
+	return (true);
 }

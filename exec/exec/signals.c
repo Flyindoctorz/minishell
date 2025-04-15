@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:45 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 13:45:19 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 16:21:53 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,12 @@ void	ft_signal(void)
 	signal(SIGTSTP, SIG_IGN);
 }
 
-void	restore_default_signals(void)
+void	handle_heredoc_signal(int sig)
 {
-	ft_signal();
+	if (sig == SIGINT)
+	{
+		g_signal = sig;
+		rl_done = 1;
+		write(STDOUT_FILENO, "\n", 1);
+	}
 }

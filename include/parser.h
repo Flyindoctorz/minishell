@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:37:46 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/15 14:21:56 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 16:36:52 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,11 @@
 # include "structure.h"
 
 // Fonctions principales du parser
+t_cmd_list	*parse_token(t_token *tokens, t_data *data);
 bool		validate_syntax(t_token *tokens);
 bool		validate_syntax_part2(t_token *curr, bool *had_word);
-bool		setup_cmd_redir(t_cmd_list *cmd);
-bool		expand_command_args(t_cmd_list *cmd, t_data *data);
-bool	was_in_single_quotes(const char *arg, t_token *tokens);
 t_cmd_list	*finalize_parsing(t_cmd_list *cmd_list, t_token *tokens,
 				t_data *data);
-void process_word_token(t_cmd_list *curr_cmd, t_token *curr_token);
-void process_redir_token(t_cmd_list *curr_cmd, t_token **curr_token,
-				t_data *data);
-t_cmd_list *parse_token(t_token *tokens, t_data *data);
-
 
 // Gestion des commandes
 t_cmd_list	*init_cmd_list(void);
@@ -62,6 +55,7 @@ void		prepare_heredoc_redir(t_heredoc *heredoc, int pipefd[2]);
 bool		should_expand_heredoc(char *delimiter);
 void		*save_and_set_signals(void);
 void		restore_signals(void *old_handler);
+bool		heredoc_reader_one(t_heredoc *heredoc, t_data *data, int pipefd[2]);
 
 // Variables expansion
 char		*expand(char *str, t_data *data);

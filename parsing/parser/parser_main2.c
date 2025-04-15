@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_expand_in_quotes.c                          :+:      :+:    :+:   */
+/*   parser_main2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 13:52:58 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/15 13:53:23 by cgelgon          ###   ########.fr       */
+/*   Created: 2025/04/15 16:32:20 by lmokhtar          #+#    #+#             */
+/*   Updated: 2025/04/15 16:32:57 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,44 @@ bool	expand_command_args(t_cmd_list *cmd, t_data *data)
 		i++;
 	}
 	return (true);
+}
+
+static bool	check_and_handle_redir_errors(t_cmd_list *cmd,
+		t_cmd_list **cmd_list)
+{
+	if (!setup_redir(cmd))
+	{
+		ft_putstr_fd("minishell: ", 2);
+		if (cmd->input_file)
+			perror(cmd->input_file);
+		else if (cmd->output_file)
+			perror(cmd->output_file);
+		else
+			perror("redirection");
+		ft_commandclear(cmd_list);
+		return (false);
+	}
+	return (true);
+}
+
+t_cmd_list	*finalize_parsing(t_cmd_list *cmd_list, t_token *tokens,
+		t_data *data)
+{
+	t_cmd_list	*cmd;
+
+	(void)tokens;
+	if (!cmd_list || !cmd_list->av)
+	{
+		ft_commandclear(&cmd_list);
+		return (NULL);
+	}
+	cmd = cmd_list;
+	while (cmd)
+	{
+		expand_command_args(cmd, data);
+		if (!check_and_handle_redir_errors(cmd, &cmd_list))
+			return (NULL);
+		cmd = cmd->next;
+	}
+	return (cmd_list);
 }

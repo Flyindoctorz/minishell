@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:01 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 14:30:11 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 16:09:53 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ bool	is_valid_exit(char *str)
 {
 	int	i;
 
-	str = trim_spaces(str);
 	i = 0;
+	str = trim_spaces(str);
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	if (!ft_isnum(str[i]))
@@ -51,21 +51,25 @@ bool	is_valid_exit(char *str)
 	return (is_in_int_range(str));
 }
 
-void while_exit(char *str, char **arg, t_data *minishell)
+void	while_exit(char *str, char **arg, t_data *minishell)
 {
+	int	exit_code;
+
 	str = trim_spaces(str);
 	if (!is_valid_exit(str))
 	{
 		printf("minishell: exit: %s: numeric argument required\n", str);
 		minishell->state = 2;
+		exit_code = minishell->state;
 		ft_end(minishell);
-		exit(minishell->state);
+		exit(exit_code);
 	}
 	if (arg[2])
 		return ;
 	minishell->state = ft_atoi(str);
+	exit_code = minishell->state % 256;
 	ft_end(minishell);
-	exit(minishell->state % 256);
+	exit(exit_code);
 }
 
 int	ft_exit(t_data *minishell, char **arg)

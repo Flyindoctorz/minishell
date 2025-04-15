@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:34:07 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 18:52:50 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:54:14 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,100 +56,73 @@ void	if_expand(t_data *minishell, char *expanded, int *i)
 	ft_strncat(expanded, st, ft_strlen(st));
 	free(st);
 }
+
 char	*while_expand(char *str, char *expanded, t_data *minishell)
 {
-	char	*expanded_var;
-	int		i;
-	int		quote_index;
-	int		end_quote;
-	char	*inner_content;
+	int	i;
+	int	quote_index;
 
 	i = 0;
 	quote_index = 0;
 	if (str[0] == '\'' && ft_strchr(str + 1, '$'))
-	{
-		end_quote = 1;
-		while (str[end_quote] && str[end_quote] != '\'')
-			end_quote++;
-		inner_content = NULL;
-		if (end_quote > 1)
-			inner_content = ft_substr(str, 1, end_quote - 1);
-		else
-			inner_content = ft_substr(str, 1, 0);
-		if (!inner_content)
-			return (expanded);
-		expanded_var = expand(inner_content, minishell);
-		free(inner_content);
-		if (expanded_var)
-		{
-			ft_strncat(expanded, "'", 1);
-			ft_strncat(expanded, expanded_var, ft_strlen(expanded_var));
-			if (str[end_quote] == '\'')
-				ft_strncat(expanded, "'", 1);
-			free(expanded_var);
-			i = end_quote;
-			if (str[end_quote] == '\'')
-				i = end_quote + 1;
-			while (str[i])
-				ft_strncat(expanded, str + i++, 1);
-			return (expanded);
-		}
-	}
+		return (process_quoted_expansion(str, expanded, minishell));
 	while (str[i])
 	{
 		if (str[i] == '\'' && quote_index != 2)
 			quote_index = change_quote(str[i++], quote_index);
 		else if (str[i] == '"' && quote_index != 1)
 			quote_index = change_quote(str[i++], quote_index);
+		else if (str[i] == '$' && quote_index != 1)
+			get_env_value(str, expanded, &i, minishell);
 		else
-		{
-			if (str[i] == '$' && quote_index != 1)
-				get_env_value(str, expanded, &i, minishell);
-			else
-				ft_strncat(expanded, str + i++, 1);
-		}
+			ft_strncat(expanded, str + i++, 1);
 	}
 	return (expanded);
 }
 
-char	*expand(char *str, t_data *minishell)
+char	*process_single_quote_expansion(char *str, t_data *minishell)
 {
-		char *result;
-		char *expanded_content;
 	int		end_pos;
 	char	*inner_content;
 	char	*temp;
+	char	*expanded_content;
+	char	*result;
+
+	end_pos = 1;
+	while (str[end_pos] && str[end_pos] != '\'')
+		end_pos++;
+	inner_content = ft_substr(str, 1, end_pos - 1);
+	if (!inner_content)
+		return (NULL);
+	temp = malloc(ft_strlen(inner_content) * 4 + 10);
+	if (!temp)
+	{
+		free(inner_content);
+		return (NULL);
+	}
+	ft_memset(temp, 0, ft_strlen(inner_content) * 4 + 10);
+	expanded_content = while_expand(inner_content, temp, minishell);
+	free(inner_content);
+	result = ft_strjoin3("'", expanded_content, "'");
+	free(temp);
+	return (result);
+}
+
+char	*expand(char *str, t_data *minishell)
+{
 	char	*expanded;
+	char	*special_case;
 	int		len;
 
-	if (str && str[0] == '$' && str[1] == '\0')
-		return (ft_strdup("$"));
+	special_case = handle_special_expand_cases(str);
+	if (special_case)
+		return (special_case);
 	if (str[0] == '\'' && ft_strchr(str, '$'))
-	{
-		end_pos = 1;
-		while (str[end_pos] && str[end_pos] != '\'')
-			end_pos++;
-		inner_content = ft_substr(str, 1, end_pos - 1);
-		if (!inner_content)
-			return (NULL);
-		temp = malloc(ft_strlen(inner_content) * 4 + 10);
-		if (!temp)
-		{
-			free(inner_content);
-			return (NULL);
-		}
-		ft_memset(temp, 0, ft_strlen(inner_content) * 4 + 10);
-		expanded_content = while_expand(inner_content, temp, minishell);
-		free(inner_content);
-		result = ft_strjoin3("'", expanded_content, "'");
-		free(temp);
-		return (result);
-	}
+		return (process_single_quote_expansion(str, minishell));
 	len = get_expanded_len(str, minishell);
 	expanded = malloc(len + 10);
 	if (!expanded)
 		return (NULL);
 	ft_memset(expanded, 0, len + 10);
-	expanded = while_expand(str, expanded, minishell);
-	return (expanded);
+	return (while_expand(str, expanded, minishell));
 }

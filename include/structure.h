@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 17:19:20 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/07 16:46:32 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:26:21 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ typedef enum e_token_type
 	TOKEN_ERROR
 }						t_token_type;
 
-struct s_data;
-struct s_lexer;
-struct s_token;
-struct s_cmd_list;
-struct s_env;
-struct s_heredoc;
-struct s_parsing;
-struct s_expand;
+struct	s_data;
+struct	s_lexer;
+struct	s_token;
+struct	s_cmd_list;
+struct	s_env;
+struct	s_heredoc;
+struct	s_parsing;
+struct	s_expand;
 
 typedef struct s_env
 {

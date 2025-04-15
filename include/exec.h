@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:57:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 13:01:39 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 16:25:39 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,21 @@ void		open_output(t_heredoc *redir, t_data *minishell);
 void		open_heredoc(t_heredoc *redir, t_data *minishell);
 void		free_all_heredoc(t_cmd_list *cmd);
 int			open_redirections(t_cmd_list *cmd, t_data *minishell);
+char		*process_quoted_expansion(char *str, char *expanded,
+				t_data *minishell);
+char		*append_expanded_content(char *expanded_var, char *expanded,
+				char *str, int end_quote);
+char		*handle_special_expand_cases(char *str);
+int			get_expanded_len(char *str, t_data *minishell);
+int			process_char(char *str, int *i, int *quote_index,
+				t_data *minishell);
+bool		is_in_int_range(char *str);
+void		fill_envp_array(t_data *minishell);
+void		update_envp_array(t_data *minishell);
+char		*create_env_string(t_env *env);
+void		setup_heredoc_signals(void);
+void		restore_default_signals(void);
+bool		exec_cleanup(t_data *minishell, int save[2]);
 
 void		set_signal_child(void);
 int			sig_event(void);
@@ -122,7 +137,7 @@ char		*while_expand(char *str, char *expanded, t_data *minishell);
 char		*expand(char *str, t_data *minishell);
 void		update_envp_array(t_data *minishell);
 
-bool 		is_in_int_range(char *str);
+bool		is_in_int_range(char *str);
 bool		is_valid_exit(char *str);
 
 #endif

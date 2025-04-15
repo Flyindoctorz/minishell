@@ -6,11 +6,25 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:42:54 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 18:08:12 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:50:26 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static int	hrd_lin(char *line, t_heredoc *redir, t_data *minishell)
+{
+	if (!line)
+	{
+		printf("minihell: warning: heredoc delimited by end-of-file \n");
+		return (1);
+	}
+	if (ft_strcmp(line, redir->delimiter) == 0)
+		return (1);
+	redir->content = add_argument(redir->content, expand(line, minishell));
+	free(line);
+	return (0);
+}
 
 int	get_heredoc(t_heredoc *redir, t_data *minishell)
 {
@@ -21,24 +35,15 @@ int	get_heredoc(t_heredoc *redir, t_data *minishell)
 		line = readline("heredoc> ");
 		if (g_signal != 0)
 		{
+			free(line);
 			if (redir->content)
 				free_tab(redir->content);
-			if (redir->delimiter)
-				free(redir->delimiter);
-			free(line);
 			minishell->state = g_signal;
 			g_signal = 0;
 			return (EXIT_FAILURE);
 		}
-		if (!line)
-		{
-			printf("minihell: warning: heredoc delimited by end-of-file \n");
+		if (hrd_lin(line, redir, minishell))
 			break ;
-		}
-		if (ft_strcmp(line, redir->delimiter) == 0)
-			break ;
-		redir->content = add_argument(redir->content, expand(line, minishell));
-		free(line);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -82,18 +87,4 @@ t_heredoc	*ft_redirlast(t_heredoc *head)
 	while (head->next)
 		head = head->next;
 	return (head);
-}
-
-void	ft_redirclear(t_heredoc *redir)
-{
-	t_heredoc	*tmp;
-
-	while (redir)
-	{
-		tmp = redir->next;
-		free(redir->delimiter);
-		free_tab(redir->content);
-		free(redir);
-		redir = tmp;
-	}
 }
