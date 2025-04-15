@@ -6,7 +6,7 @@
 #    By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/31 19:10:00 by lmokhtar          #+#    #+#              #
-#    Updated: 2025/04/15 16:34:49 by lmokhtar         ###   ########.fr        #
+#    Updated: 2025/04/15 17:04:59 by lmokhtar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ EXEC_FILES = exec.c exec_builtins.c pipex.c signals.c redir_utils.c heredoc_sign
 BUILTINS_FILES = cd.c echo.c ft_env.c exit.c exit2.c ft_export.c ft_export2.c pwd.c ft_unset.c colon.c
 UTILS_FILES = command.c env.c env_utils.c expand.c expand2.c redir.c string.c string2.c \
 	string3.c string4.c tab.c token.c unset.c export.c
-LEXER_FILES = expand_utils.c init_lexer.c lexer_main.c quotes_utils.c \
+LEXER_FILES = expand_utils.c init_lexer.c lexer_main.c quotes_utils.c quotes_utils2.c\
 	read_expand.c read_operator.c read_quotes.c read_word.c shrinker.c \
 	shrinker_three.c shrinker_two.c utils_lexer.c
 DATA_FILES = init_base.c exit_free.c init_environment.c default_env_setup.c  

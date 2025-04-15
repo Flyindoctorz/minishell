@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:33:00 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/15 16:53:54 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:04:34 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ int				get_var_name_len(t_lexer *lexer);
 t_token			*create_dollar_token(int start_pos);
 t_token			*create_expand_token(t_lexer *lexer, int start_pos);
 void			advance_var_position(t_lexer *lexer, int var_len);
+bool			find_closing_quote(t_lexer *lexer, char quote);
+void			restore_lexer_state(t_lexer *lexer, int saved_state[3]);
+void			save_lexer_state(t_lexer *lexer, int saved_state[3]);
 
 // shrinker functions
 t_token			*shrink_redir_tokens(t_token *tokens);

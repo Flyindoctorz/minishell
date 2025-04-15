@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:20:05 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/07 13:34:13 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:05:12 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,32 +32,17 @@ t_token_type	get_quote_type(char c)
 // s'il ne trouve pas = false = erreur
 bool	check_quote_end(t_lexer *lexer, char quote)
 {
-	int		saved_pos;
-	int		saved_read_pos;
-	char	saved_char;
+	int		saved_state[3];
+	bool	result;
 
 	if (!lexer)
 		return (false);
-	saved_pos = lexer->pos;
-	saved_read_pos = lexer->read_pos;
-	saved_char = lexer->curr_char;
-	advance_lexer(lexer);
-	while (lexer->curr_char != '\0')
-	{
-		if (lexer->curr_char == quote)
-		{
-			lexer->pos = saved_pos;
-			lexer->read_pos = saved_read_pos;
-			lexer->curr_char = saved_char;
-			return (true);
-		}
-		advance_lexer(lexer);
-	}
-	lexer->pos = saved_pos;
-	lexer->read_pos = saved_read_pos;
-	lexer->curr_char = saved_char;
-	handle_error(MNSHL_ERR_SYNTAX, ERR_MSG_QUOTE_SYNTAX);
-	return (false);
+	save_lexer_state(lexer, saved_state);
+	result = find_closing_quote(lexer, quote);
+	restore_lexer_state(lexer, saved_state);
+	if (!result)
+		handle_error(MNSHL_ERR_SYNTAX, ERR_MSG_QUOTE_SYNTAX);
+	return (result);
 }
 
 // parcours tout les charac pour trouver la fin de la quote sa len
