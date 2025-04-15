@@ -12,8 +12,6 @@
 
 #include "../../include/minishell.h"
 
-#include "../../include/minishell.h"
-
 static bool	create_default_env_entries_cleanup(t_env **env_entries, int index)
 {
 	while (index > 0)

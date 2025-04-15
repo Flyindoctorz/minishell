@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_parser.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:45:52 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/08 14:26:54 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:09:29 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 bool	is_heredoc_token(t_token *token)
 {
-	if (!token || token->toktype != TOKEN_HEREDOC)
+	if (!token)
 		return (false);
-	return (true);
+	return (token->toktype == TOKEN_HEREDOC);
 }
 
 bool	is_valid_heredoc_delimiter(char *delimiter)

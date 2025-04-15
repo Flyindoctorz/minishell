@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 17:19:20 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 17:53:34 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 18:26:28 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,10 @@ typedef struct s_parsing
 
 typedef struct s_quote_scan
 {
-	int			before_quote;
-	int			inside_start_pos;
-	int			len;
-	char		quote_type;
-}				t_quote_scan;
+	int					before_quote;
+	int					inside_start_pos;
+	int					len;
+	char				quote_type;
+}						t_quote_scan;
 
 #endif

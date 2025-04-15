@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:37:46 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/15 16:36:52 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:25:10 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ t_cmd_list	*parse_token(t_token *tokens, t_data *data);
 bool		validate_syntax(t_token *tokens);
 bool		validate_syntax_part2(t_token *curr, bool *had_word);
 t_cmd_list	*finalize_parsing(t_cmd_list *cmd_list, t_token *tokens,
+				t_data *data);
+
+// Gestion des tokens
+void		process_token_word(t_cmd_list *curr_cmd, t_token *curr_token);
+t_token		*process_redir(t_cmd_list *curr_cmd, t_token *curr_token,
+				t_data *data);
+t_token		*process_heredoc_token(t_cmd_list *curr_cmd, t_token *curr_token,
 				t_data *data);
 
 // Gestion des commandes
