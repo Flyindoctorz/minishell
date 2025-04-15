@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:29 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/11 16:05:22 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:16:19 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,20 @@
 void	execut_me(t_cmd_list *cmd, t_data *shell, int save[2], int fd[2])
 {
 	int	status;
+	int	redir_status;
 
 	set_signal_child();
 	if (cmd->next)
 		dup2(fd[1], STDOUT_FILENO);
 	(close(save[0]), close(save[1]));
 	(close(fd[0]), close(fd[1]));
-	open_redirections(cmd, shell);
+	redir_status = open_redirections(cmd, shell);
+	if (redir_status != EXIT_SUCCESS || g_signal == SIGINT)
+	{
+		free_all_heredoc(shell->command);
+		ft_end(shell);
+		exit(130);
+	}
 	if (cmd->av == NULL || cmd->av[0] == NULL || cmd->av[0][0] == '\0')
 	{
 		free_all_heredoc(shell->command);
@@ -81,6 +88,10 @@ bool	exec(t_cmd_list *cmd, t_data *minishell)
 {
 	int	save[2];
 
+	if (minishell->state == 130 || g_signal == SIGINT)
+	{
+		return (false);
+	}
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:54:33 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/10 15:46:46 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 15:18:04 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ bool	handle_heredoc(t_cmd_list *cmd, char *delimiter, t_data *data)
 	bool		expand;
 	bool		success;
 	void		*old_sigint;
+	int			saved_signal;
 
+	saved_signal = g_signal;
 	if (!cmd || !delimiter || !data)
 		return (false);
 	expand = should_expand_heredoc(delimiter);
@@ -86,7 +88,14 @@ bool	handle_heredoc(t_cmd_list *cmd, char *delimiter, t_data *data)
 	old_sigint = save_and_set_signals();
 	success = read_heredoc_content(heredoc, data);
 	restore_signals(old_sigint);
-	if (!success)
+	if (g_signal == SIGINT || saved_signal == SIGINT)
+	{
+		g_signal = SIGINT;
+		data->state = 130;
+		free_heredoc(heredoc);
+		return (false);
+	}
+	if (!success || g_signal == SIGINT)
 	{
 		free_heredoc(heredoc);
 		return (false);
