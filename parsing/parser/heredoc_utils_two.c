@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:32:37 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/15 16:38:22 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:45:20 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static bool	process_line(char *line, t_heredoc *heredoc, t_data *data,
 
 bool	heredoc_reader_one(t_heredoc *heredoc, t_data *data, int pipefd[2])
 {
-	char *line;
-	bool keep_reading;
+	char	*line;
+	bool	keep_reading;
 
 	keep_reading = true;
 	while (keep_reading)

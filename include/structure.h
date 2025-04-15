@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 17:19:20 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 16:26:21 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:51:57 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ struct	s_env;
 struct	s_heredoc;
 struct	s_parsing;
 struct	s_expand;
+struct	s_quote_scan;
 
 typedef struct s_env
 {
@@ -146,5 +147,13 @@ typedef struct s_parsing
 	int					state;
 	int					error_code;
 }						t_parsing;
+
+typedef struct s_quote_scan
+{
+	int			before_quote;
+	int			inside_start_pos;
+	int			len;
+	char		quote_type;
+}				t_quote_scan;
 
 #endif

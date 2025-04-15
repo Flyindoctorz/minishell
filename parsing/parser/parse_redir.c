@@ -6,34 +6,34 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 14:31:49 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/10 15:52:37 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:45:13 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-bool	set_input_file(t_cmd_list *cmd, char *filename)
+static bool	process_input_redirection(t_cmd_list *cmd, char *filename)
 {
-	if (!cmd || !filename)
-		return (false);
-	if (cmd->input_file)
-		free(cmd->input_file);
-	cmd->input_file = ft_strdup(filename);
-	if (!cmd->input_file)
-		return (false);
-	return (true);
+	return (set_input_file(cmd, filename));
 }
 
-bool	set_output_file(t_cmd_list *cmd, char *filename, bool append)
+static bool	process_output_redirection(t_cmd_list *cmd, char *filename,
+		t_token_type type)
 {
-	if (!cmd || !filename)
+	bool	append;
+
+	append = (type == TOKEN_APPEND);
+	return (set_output_file(cmd, filename, append));
+}
+
+static bool	process_heredoc(t_cmd_list *cmd, char *filename)
+{
+	cmd->heredoc = true;
+	if (cmd->delimiter)
+		free(cmd->delimiter);
+	cmd->delimiter = ft_strdup(filename);
+	if (!cmd->delimiter)
 		return (false);
-	if (cmd->output_file)
-		free(cmd->output_file);
-	cmd->output_file = ft_strdup(filename);
-	if (!cmd->output_file)
-		return (false);
-	cmd->append = append;
 	return (true);
 }
 
@@ -47,30 +47,13 @@ bool	handle_redir(t_cmd_list *cmd, t_token *token, t_data *data)
 		return (false);
 	type = token->toktype;
 	filename = token->next->value;
-	if (type == TOKEN_REDIR_IN)
-	{
-		if (!set_input_file(cmd, filename))
-			return (false);
-	}
-	else if (type == TOKEN_REDIR_OUT)
-	{
-		if (!set_output_file(cmd, filename, false))
-			return (false);
-	}
-	else if (type == TOKEN_APPEND)
-	{
-		if (!set_output_file(cmd, filename, true))
-			return (false);
-	}
-	else if (type == TOKEN_HEREDOC)
-	{
-		cmd->heredoc = true;
-		if (cmd->delimiter)
-			free(cmd->delimiter);
-		cmd->delimiter = ft_strdup(filename);
-		if (!cmd->delimiter)
-			return (false);
-	}
+	if (type == TOKEN_REDIR_IN && !process_input_redirection(cmd, filename))
+		return (false);
+	else if ((type == TOKEN_REDIR_OUT || type == TOKEN_APPEND)
+		&& !process_output_redirection(cmd, filename, type))
+		return (false);
+	else if (type == TOKEN_HEREDOC && !process_heredoc(cmd, filename))
+		return (false);
 	new_redir = ft_redirnew(ft_strdup(filename), type, data);
 	if (!new_redir)
 		return (false);
