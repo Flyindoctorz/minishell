@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:29 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/11 16:05:22 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:42:18 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ bool	exec(t_cmd_list *cmd, t_data *minishell)
 {
 	int	save[2];
 
+	if (minishell->state == 130 || g_signal == SIGINT)
+	{
+		g_signal = 0;
+		return (false);
+	}
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
