@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:01 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 13:41:19 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 14:30:11 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ bool	is_valid_exit(char *str)
 	return (is_in_int_range(str));
 }
 
-void	while_exit(char *str, char **arg, t_data *minishell)
+void while_exit(char *str, char **arg, t_data *minishell)
 {
 	str = trim_spaces(str);
 	if (!is_valid_exit(str))
