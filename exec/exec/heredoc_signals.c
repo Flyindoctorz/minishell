@@ -1,46 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   heredoc_signals.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/27 02:23:45 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 13:45:19 by cgelgon          ###   ########.fr       */
+/*   Created: 2025/04/15 13:44:58 by cgelgon           #+#    #+#             */
+/*   Updated: 2025/04/15 14:12:39 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	set_signal_child(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-}
-
-int	sig_event(void)
-{
-	return (EXIT_SUCCESS);
-}
-
-void	signal_handler(int sig)
+void	handle_heredoc_signal(int sig)
 {
 	if (sig == SIGINT)
 	{
+		g_signal = sig;
 		rl_done = 1;
-		g_signal = sig + 128;
+		write(STDOUT_FILENO, "\n", 1);
 	}
 }
 
-void	ft_signal(void)
+void	setup_heredoc_signals(void)
 {
-	rl_event_hook = sig_event;
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
-}
+	struct sigaction	sa;
 
-void	restore_default_signals(void)
-{
-	ft_signal();
+	ft_memset(&sa, 0, sizeof(sa));
+	sa.sa_handler = handle_heredoc_signal;
+	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
 }

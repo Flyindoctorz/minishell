@@ -6,7 +6,7 @@
 #    By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/31 19:10:00 by lmokhtar          #+#    #+#              #
-#    Updated: 2025/04/14 19:01:55 by cgelgon          ###   ########.fr        #
+#    Updated: 2025/04/15 14:24:12 by cgelgon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ PARSER_DIR = parsing/parser
 
 # Structure des sources
 SRC_FILES = main.c
-EXEC_FILES = exec.c exec_builtins.c pipex.c signals.c redir_utils.c
+EXEC_FILES = exec.c exec_builtins.c pipex.c signals.c heredoc_signals.c redir_utils.c
 BUILTINS_FILES = cd.c echo.c ft_env.c exit.c exit2.c ft_export.c pwd.c ft_unset.c colon.c
 UTILS_FILES = command.c env.c env_utils.c expand.c expand2.c redir.c string.c string2.c \
 	string3.c string4.c tab.c token.c unset.c export.c
@@ -50,7 +50,8 @@ LEXER_FILES = expand_utils.c init_lexer.c lexer_main.c quotes_utils.c \
 	shrinker_three.c shrinker_two.c utils_lexer.c
 DATA_FILES = init_base.c exit_free.c init_environment.c default_env_setup.c  
 READLINE_FILES = readline_main.c readline_prompter.c readline_prompt_utils.c readline_interface.c
-PARSER_FILES = parser_utils.c parser_main.c parse_redir.c parser_cmd_list.c cleaner.c heredoc_parser.c heredoc.c heredoc_reader.c heredoc_utils.c heredoc_utils_two.c\
+PARSER_FILES = parser_utils.c parser_main.c parser_finalize.c parse_redir.c parser_cmd_list.c cleaner.c heredoc_parser.c \
+	heredoc.c heredoc_reader.c heredoc_utils.c heredoc_utils_two.c parser_expand_in_quotes.c  parser_validate_syntax.c
 
 # Préfixage des chemins complets
 SRCS = $(addprefix $(ROOT_DIR)/, $(SRC_FILES))
