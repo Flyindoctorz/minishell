@@ -59,8 +59,8 @@ static t_data	*validate_args(int ac, char **av)
 
 t_data	*init_data(int ac, char **av, char **envp)
 {
-	t_data	*data;
-	int		status;
+	t_data *data;
+	int status;
 
 	data = validate_args(ac, av);
 	if (!data)

@@ -46,14 +46,14 @@ typedef enum e_token_type
 	TOKEN_ERROR
 }						t_token_type;
 
-struct	s_data;
-struct	s_lexer;
-struct	s_token;
-struct	s_cmd_list;
-struct	s_env;
-struct	s_heredoc;
-struct	s_parsing;
-struct	s_expand;
+struct s_data;
+struct s_lexer;
+struct s_token;
+struct s_cmd_list;
+struct s_env;
+struct s_heredoc;
+struct s_parsing;
+struct s_expand;
 
 typedef struct s_env
 {

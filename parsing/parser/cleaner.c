@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cleaner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:44:22 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/14 16:24:22 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:59:39 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* Free a single command structure */
 void	free_command(t_cmd_list *cmd)
 {
 	int	i;
@@ -23,8 +22,9 @@ void	free_command(t_cmd_list *cmd)
 		free(cmd->cmd);
 	if (cmd->av)
 	{
-		for (i = 0; i < cmd->ac; i++)
-			free(cmd->av[i]);
+		i = 0;
+		while (i < cmd->ac)
+			free(cmd->av[i++]);
 		free(cmd->av);
 	}
 	if (cmd->input_file)

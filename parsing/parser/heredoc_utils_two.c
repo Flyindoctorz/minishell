@@ -61,8 +61,8 @@ static bool	process_line(char *line, t_heredoc *heredoc, t_data *data,
 
 bool	heredoc_reader_one(t_heredoc *heredoc, t_data *data, int pipefd[2])
 {
-	char *line;
-	bool keep_reading;
+	char	*line;
+	bool	keep_reading;
 
 	keep_reading = true;
 	while (keep_reading)
