@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:29:27 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/14 17:08:38 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:33:13 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,78 +52,34 @@ bool	validate_syntax(t_token *tokens)
 	return (true);
 }
 
-bool	was_in_single_quotes(const char *arg, t_token *tokens)
+static void	process_token_word(t_cmd_list *curr_cmd, t_token *curr_token)
 {
-	t_token	*current;
-
-	current = tokens;
-	while (current)
-	{
-		if (current->toktype == TOKEN_QUOTES && current->value
-			&& ft_strcmp(current->value, arg) == 0)
-			return (true);
-		current = current->next;
-	}
-	return (false);
+	if (curr_token->toktype == TOKEN_WORD || curr_token->toktype == TOKEN_QUOTES
+		|| curr_token->toktype == TOKEN_DQUOTES
+		|| curr_token->toktype == TOKEN_DOLLAR)
+		add_word_to_cmd(curr_cmd, curr_token->value);
 }
 
-bool	expand_command_args(t_cmd_list *cmd, t_data *data)
+static t_token	*process_redir_heredoc(t_cmd_list *curr_cmd,
+		t_token *curr_token, t_data *data)
 {
-	int		i;
-	char	*expanded;
-	t_token	*token;
-
-	token = data->token;
-	if (!cmd || !cmd->av)
-		return (true);
-	i = 0;
-	while (cmd->av[i])
+	if (is_redir_token(curr_token->toktype))
 	{
-		if (ft_strchr(cmd->av[i], '$') && !was_in_single_quotes(cmd->av[i],
-				token))
+		handle_redir(curr_cmd, curr_token, data);
+		curr_token = curr_token->next;
+	}
+	else if (curr_token->toktype == TOKEN_HEREDOC)
+	{
+		if (!curr_cmd->cmd)
 		{
-			expanded = expand(cmd->av[i], data);
-			if (expanded)
-			{
-				free(cmd->av[i]);
-				cmd->av[i] = expanded;
-			}
+			curr_cmd->heredoc = true;
+			curr_cmd->delimiter = curr_token->next->value;
 		}
-		i++;
+		else
+			handle_heredoc(curr_cmd, curr_token->next->value, data);
+		curr_token = curr_token->next;
 	}
-	return (true);
-}
-
-t_cmd_list	*finalize_parsing(t_cmd_list *cmd_list, t_token *tokens,
-		t_data *data)
-{
-	t_cmd_list	*cmd;
-
-	(void)tokens;
-	if (!cmd_list || !cmd_list->av)
-	{
-		ft_commandclear(&cmd_list);
-		return (NULL);
-	}
-	cmd = cmd_list;
-	while (cmd)
-	{
-		expand_command_args(cmd, data);
-		if (!setup_redir(cmd))
-		{
-			ft_putstr_fd("minishell: ", 2);
-			if (cmd->input_file)
-				perror(cmd->input_file);
-			else if (cmd->output_file)
-				perror(cmd->output_file);
-			else
-				perror("redirection");
-			ft_commandclear(&cmd_list);
-			return (NULL);
-		}
-		cmd = cmd->next;
-	}
-	return (cmd_list);
+	return (curr_token);
 }
 
 t_cmd_list	*parse_token(t_token *tokens, t_data *data)
@@ -139,30 +95,13 @@ t_cmd_list	*parse_token(t_token *tokens, t_data *data)
 	curr_cmd = cmd_list;
 	while (curr_token && curr_token->toktype != TOKEN_EOF)
 	{
-		if (curr_token->toktype == TOKEN_WORD
-			|| curr_token->toktype == TOKEN_QUOTES
-			|| curr_token->toktype == TOKEN_DQUOTES
-			|| curr_token->toktype == TOKEN_DOLLAR)
-			add_word_to_cmd(curr_cmd, curr_token->value);
-		else if (curr_token->toktype == TOKEN_PIPE)
+		process_token_word(curr_cmd, curr_token);
+		if (curr_token->toktype == TOKEN_PIPE)
 			curr_cmd = handle_pipe(curr_cmd);
-		else if (is_redir_token(curr_token->toktype))
-		{
-			handle_redir(curr_cmd, curr_token, data);
-			curr_token = curr_token->next;
-		}
-		else if (curr_token->toktype == TOKEN_HEREDOC)
-		{
-			if (!curr_cmd->cmd)
-			{
-				curr_cmd->heredoc = true;
-				curr_cmd->delimiter = curr_token->next->value;
-			}
-			else
-				handle_heredoc(curr_cmd, curr_token->next->value, data);
-			curr_token = curr_token->next;
-		}
-		else if (curr_token->toktype == TOKEN_EOF)
+		else if (is_redir_token(curr_token->toktype)
+			|| curr_token->toktype == TOKEN_HEREDOC)
+			curr_token = process_redir_heredoc(curr_cmd, curr_token, data);
+		if (curr_token->toktype == TOKEN_EOF)
 			break ;
 		curr_token = curr_token->next;
 	}
