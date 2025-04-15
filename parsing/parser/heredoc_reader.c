@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_reader.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:55:07 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/15 16:38:32 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:35:08 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ bool	heredoc_reader(t_heredoc *heredoc, t_data *data)
 	}
 	res = heredoc_reader_one(heredoc, data, pipefd);
 	restore_default_signals();
+	if (g_signal == SIGINT)
+	{
+		close(pipefd[0]);
+		close(pipefd[1]);
+		return (false);
+	}
 	if (!res)
 	{
 		close(pipefd[0]);

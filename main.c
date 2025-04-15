@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:17:52 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 16:27:04 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:37:43 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,35 +52,6 @@ static t_data	*init_shell(char **env)
 		return (NULL);
 	}
 	return (data);
-}
-
-static int	process_input(t_data *data, char *input)
-{
-	if (!input)
-		return (0);
-	if (g_signal != 0)
-	{
-		data->state = g_signal;
-		g_signal = 0;
-		return (1);
-	}
-	if (!*input)
-		return (1);
-	add_history(input);
-	data->token = tokenize_input(input, data);
-	if (!data->token)
-		return (1);
-	data->command = parse_token(data->token, data);
-	if (!data->command)
-	{
-		ft_tokenclear(&data->token);
-		return (1);
-	}
-	exec(data->command, data);
-	ft_tokenclear(&data->token);
-	ft_commandclear(&data->command);
-	free((data->token = 0, data->command = 0, NULL));
-	return (1);
 }
 
 static void	run_shell(t_data *data)
