@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:18 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 18:49:52 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:20:27 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,25 @@ int	ft_unset(t_data *minishell, char **arg)
 	return (minishell->state);
 }
 
+static void	allocate_envp(t_data *minishell, int count)
+{
+	minishell->envp = malloc(sizeof(char *) * (count + 1));
+	if (!minishell->envp)
+		return ;
+}
+
+char	*create_env_string(t_env *env)
+{
+	if (env->value)
+		return (ft_strjoin3(env->key, "=", env->value));
+	else
+		return (ft_strdup(env->key));
+}
+
 void	ft_tabupdate(t_data *minishell)
 {
 	t_env	*env;
 	int		count;
-	int		i;
 
 	count = 0;
 	if (minishell->envp)
@@ -64,28 +78,8 @@ void	ft_tabupdate(t_data *minishell)
 			count++;
 		env = env->next;
 	}
-	minishell->envp = malloc(sizeof(char *) * (count + 1));
+	allocate_envp(minishell, count);
 	if (!minishell->envp)
 		return ;
-	env = minishell->env;
-	i = 0;
-	while (env)
-	{
-		if (env->key)
-		{
-			if (env->value)
-				minishell->envp[i] = ft_strjoin3(env->key, "=", env->value);
-			else
-				minishell->envp[i] = ft_strdup(env->key);
-			if (!minishell->envp[i])
-			{
-				free_env(minishell->envp);
-				minishell->envp = NULL;
-				return ;
-			}
-			i++;
-		}
-		env = env->next;
-	}
-	minishell->envp[i] = NULL;
+	fill_envp_array(minishell);
 }

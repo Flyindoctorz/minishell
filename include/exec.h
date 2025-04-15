@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:57:04 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 15:56:36 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:21:48 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ char		*handle_special_expand_cases(char *str);
 int			get_expanded_len(char *str, t_data *minishell);
 int			process_char(char *str, int *i, int *quote_index,
 				t_data *minishell);
+bool		is_in_int_range(char *str);
+void		fill_envp_array(t_data *minishell);
+void		update_envp_array(t_data *minishell);
+char		*create_env_string(t_env *env);
+void		setup_heredoc_signals(void);
+void		restore_default_signals(void);
 
 void		set_signal_child(void);
 int			sig_event(void);

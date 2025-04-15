@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:41:01 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 18:57:54 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 16:07:56 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool	init_env(char **env, t_data *minishell)
 
 	i = 0;
 	if (!env || !env[0])
-		return(create_default_env_entries(minishell));
+		return (create_default_env_entries(minishell));
 	while (env[i])
 	{
 		env_t = ft_envnew(get_key(env[i]), get_value(env[i]));

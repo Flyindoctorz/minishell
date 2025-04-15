@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:43:51 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 14:34:05 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 16:12:33 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,27 @@ void	ft_putendl_fd(char *s, int fd)
 	ft_putstr_fd("\n", fd);
 }
 
-// size_t	ft_strlcpy(char *dst, char *src, size_t size)
-// {
-// 	size_t	i;
+void	fill_envp_array(t_data *minishell)
+{
+	t_env	*env;
+	int		i;
 
-// 	i = 0;
-// 	if (size != 0)
-// 	{
-// 		while (src[i] && i < size - 1)
-// 		{
-// 			dst[i] = src[i];
-// 			i++;
-// 		}
-// 		dst[i] = 0;
-// 	}
-// 	while (src[i])
-// 		i++;
-// 	return (i);
-// }
+	env = minishell->env;
+	i = 0;
+	while (env)
+	{
+		if (env->key)
+		{
+			minishell->envp[i] = create_env_string(env);
+			if (!minishell->envp[i])
+			{
+				free_env(minishell->envp);
+				minishell->envp = NULL;
+				return ;
+			}
+			i++;
+		}
+		env = env->next;
+	}
+	minishell->envp[i] = NULL;
+}

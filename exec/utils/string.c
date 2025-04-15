@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:43:22 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/15 15:58:26 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:08:11 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	ft_redirclear(t_heredoc *redir)
 		redir = tmp;
 	}
 }
+
 char	*process_quoted_expansion(char *str, char *expanded, t_data *minishell)
 {
 	int		end_quote;
@@ -78,8 +79,10 @@ char	*process_quoted_expansion(char *str, char *expanded, t_data *minishell)
 	end_quote = 1;
 	while (str[end_quote] && str[end_quote] != '\'')
 		end_quote++;
-	inner_content = (end_quote > 1) ? ft_substr(str, 1, end_quote
-			- 1) : ft_substr(str, 1, 0);
+	if (end_quote > 1)
+		inner_content = ft_substr(str, 1, end_quote - 1);
+	else
+		inner_content = ft_substr(str, 1, 0);
 	if (!inner_content)
 		return (expanded);
 	expanded_var = expand(inner_content, minishell);
@@ -99,9 +102,14 @@ char	*append_expanded_content(char *expanded_var, char *expanded, char *str,
 	if (str[end_quote] == '\'')
 		ft_strncat(expanded, "'", 1);
 	free(expanded_var);
-	i = (str[end_quote] == '\'') ? end_quote + 1 : end_quote;
+	i = end_quote;
+	if (str[end_quote] == '\'')
+		i = end_quote + 1;
 	while (str[i])
-		ft_strncat(expanded, str + i++, 1);
+	{
+		ft_strncat(expanded, str + i, 1);
+		i++;
+	}
 	return (expanded);
 }
 

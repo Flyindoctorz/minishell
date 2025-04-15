@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+         #
+#    By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/31 19:10:00 by lmokhtar          #+#    #+#              #
-#    Updated: 2025/04/14 19:01:55 by cgelgon          ###   ########.fr        #
+#    Updated: 2025/04/15 16:23:24 by lmokhtar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,8 @@ PARSER_DIR = parsing/parser
 
 # Structure des sources
 SRC_FILES = main.c
-EXEC_FILES = exec.c exec_builtins.c pipex.c signals.c redir_utils.c
-BUILTINS_FILES = cd.c echo.c ft_env.c exit.c exit2.c ft_export.c pwd.c ft_unset.c colon.c
+EXEC_FILES = exec.c exec_builtins.c pipex.c signals.c redir_utils.c heredoc_signals.c
+BUILTINS_FILES = cd.c echo.c ft_env.c exit.c exit2.c ft_export.c ft_export2.c pwd.c ft_unset.c colon.c
 UTILS_FILES = command.c env.c env_utils.c expand.c expand2.c redir.c string.c string2.c \
 	string3.c string4.c tab.c token.c unset.c export.c
 LEXER_FILES = expand_utils.c init_lexer.c lexer_main.c quotes_utils.c \
