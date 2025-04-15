@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:01 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 18:25:13 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 13:03:07 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,49 +30,67 @@ int	too_many(t_data *minishell)
 	return (1);
 }
 
-bool	is_valid_exit(char *str)
+bool is_in_int_range(char *str)
 {
-	int	i;
-
-	i = 0;
-	str = trim_spaces(str);
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (ft_isnum(str[i]))
-		i++;
-	while (ft_isspace(str[i]))
-		i++;
-	return (!str[i]);
+    long long value = 0;
+    int sign = 1;
+    int i = 0;
+    
+    if (str[i] == '-') {
+        sign = -1;
+        i++;
+    } else if (str[i] == '+') {
+        i++;
+    }
+    while (ft_isnum(str[i])) {
+        if (value > INT_MAX / 10)
+            return false;
+            
+        value = value * 10 + (str[i] - '0');
+        if ((sign == 1 && value > INT_MAX) || 
+            (sign == -1 && value * sign < INT_MIN))
+            return false;
+            
+        i++;
+    }
+    
+    return true;
+}
+bool is_valid_exit(char *str)
+{
+    int i = 0;
+    
+    str = trim_spaces(str);
+    
+    if (str[i] == '-' || str[i] == '+')
+        i++;
+    if (!ft_isnum(str[i]))
+        return false;
+    while (ft_isnum(str[i]))
+        i++;
+    while (str[i]) {
+        if (!ft_isspace(str[i]))
+            return false;
+        i++;
+    }
+    return is_in_int_range(str);
 }
 
-void	while_exit(char *str, char **arg, t_data *minishell)
+void while_exit(char *str, char **arg, t_data *minishell)
 {
-	int	exit_code;
-
-	str = trim_spaces(str);
-	if (!is_valid_exit(str))
-		exit_value(minishell, str);
-	if (arg[2])
-		return; 
-	minishell->state = ft_atoi(str);
-	if ((str[0] == '0' && str[1] == '\0') || 
-		((str[0] == '+' || str[0] == '-') && str[1] == '0' && str[2] == '\0'))
-	{
-		exit_code = 0;
-	}
-	else if (minishell->state == 0)
-	{
-		exit_value(minishell, str); 
-		return;
-	}
-	else
-	{
-		exit_code = minishell->state % 256;
-		if (exit_code < 0)
-			exit_code += 256; 
-	}
-	ft_end(minishell);
-	exit(exit_code);
+    str = trim_spaces(str);   
+    if (!is_valid_exit(str))
+    {
+        printf("minishell: exit: %s: numeric argument required\n", str);
+        minishell->state = 2;
+        ft_end(minishell);
+        exit(minishell->state);
+    }
+    if (arg[2])
+        return;
+    minishell->state = ft_atoi(str);
+    ft_end(minishell);
+    exit(minishell->state % 256);
 }
 
 int	ft_exit(t_data *minishell, char **arg)

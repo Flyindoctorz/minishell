@@ -1,5 +1,5 @@
-gerer env - i./	 en dehors et dans le shell, doit renvoyer cmd not found
-gerer unset aaa dans un shell sans env
+gerer env - i./	dans le shell, doit renvoyer cmd not found // good
+gerer unset aaa dans un shell sans env // good
 
 minishell
 
@@ -11,5 +11,86 @@ bash
 
 bash-5.1$ export a=ls
 bash-5.1$ export b=" -la"
-bash-5.1$ 
+bash-5.1$  // GOOD
 
+# Built In
+## Exit
+### VOUS
+exit 9223372036854775808 e
+exit
+minishell: exit: too many arguments
+        (+ ne quitte pas le minishell)
+
+### Doit faire
+exit 9223372036854775808 e
+exit
+bash: exit: 9223372036854775808: numeric argument required
+        (+ doit quitter le minishell)
+
+### Tips
+        (C'est le meme comportement que)
+$>exit 2b 2
+exit
+minishell: exit: 2b: numeric argument required
+
+## Redirections et Heredoc
+
+$>a < b
+minishell: b: No such file or directory
+==36426== Warning: invalid file descriptor -1 in syscall close()
+
+        Close deux fois ou close un faux fd (mais ne segfault pas)
+
+## Heredoc
+$>cat << "e"
+ou
+$>cat << 'e'
+Erreur : Syntax error : missing file after redirection
+        (doit marcher et rentrer ouvrir un heredoc avec delimiteur e)
+
+### CTRL+C dans Heredoc
+CTRL + C dans le heredoc: doit quitter le heredoc proprement pour etre de nouveau en entrée, sans lancer de commandes.
+Exemple: https://i.imgur.com/NG0elyj.png
+        Bon comportement:
+
+bash-5.2$ cat << e
+> ^C
+bash-5.2$ 
+
+## Redirection '<'
+### Vous
+$> <unfichierquinexistepas
+$> <unfichierquiexiste
+$>
+        (Rien ne se passe)
+
+### Doit faire
+bash-5.2$ <unfichierquinexistepas
+bash: unfichierquinexistepas: No such file or directory
+
+bash-5.2$ touch unfichierquiexiste
+bash-5.2$ <unfichierquiexiste 
+bash-5.2$ 
+
+## Redirection '>' (et quotes)
+## Vous
+$>echo a > "new"
+Erreur : Syntax error : missing file after redirection
+$>echo a > 'new'
+Erreur : Syntax error : missing file after redirection
+
+## Doit faire
+bash-5.2$ echo a > "new"
+bash-5.2$ echo a > 'new'
+bash-5.2$ 
+
+(la commande marche,
+et le résultat de la commande est stocké dans un nouveau fichier du nom de new)
+
+## Tips
+Faire le parsing des quotes et la tokenisation AVANT les redirections.
+(C'est la meme erreur que la premiere de Heredoc plus haut)
+
+# cat < b > a
+https://i.imgur.com/qOPZb1v.png
+(Ça fait le bon comportement, juste ça ne ferme pas les fds.)
