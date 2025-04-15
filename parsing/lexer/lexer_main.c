@@ -6,67 +6,12 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:28:21 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/09 19:44:19 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:08:45 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_token	*apply_shrink(t_token *tokens)
-{
-	t_token	*shrinked;
-
-	if (!tokens)
-		return (NULL);
-	shrinked = shrink_redir_tokens(tokens);
-	if (!shrinked)
-	{
-		free_token_list(tokens);
-		return (NULL);
-	}
-	if (shrinked != tokens)
-		free_token_list(tokens);
-	return (shrinked);
-}
-
-// evite les white space et utilise le read adequat
-// renvoie le token current
-t_token	*tokenize_current(t_lexer *lexer)
-{
-	t_token	*token;
-	int		start_pos;
-
-	if (is_whitespace(lexer->curr_char))
-	{
-		advance_lexer(lexer);
-		return (NULL);
-	}
-	start_pos = lexer->pos;
-	if (is_expand_char(lexer->curr_char))
-		token = read_expand(lexer);
-	else if (is_operator(lexer->curr_char))
-	{
-		if (!check_op_syntax(lexer))
-		{
-			token = create_token(TOKEN_ERROR, "Syntax error");
-			token->position = start_pos;
-			return (token);
-		}
-		token = read_operator(lexer);
-	}
-	else if (is_quote(lexer->curr_char))
-		token = read_quotes(lexer);
-	else
-		token = read_word(lexer);
-	if (!token)
-	{
-		handle_error(MNSHL_ERR_MEMORY,
-			"process_next_token : token creation failed");
-		token = create_token(TOKEN_ERROR, "Token creation failed");
-		token->position = start_pos;
-	}
-	return (token);
-}
 /*
 static t_lexer	*validate_input(char *input, t_data *data)
 {

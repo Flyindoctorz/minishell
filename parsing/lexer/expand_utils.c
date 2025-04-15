@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:13:41 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/11 16:20:56 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:10:38 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,54 +50,6 @@ t_token	*create_dollar_token(int start_pos)
 		return (NULL);
 	}
 	token->position = start_pos;
-	return (token);
-}
-
-// Crée un token d'expansion pour une variable ($VAR)
-t_token	*create_expand_token(t_lexer *lexer, int start_pos)
-{
-	int		var_len;
-	char	*var_name;
-	char	*full_var_name;
-	t_token	*token;
-
-	if (lexer->curr_char == '?')
-	{
-		token = create_token(TOKEN_WORD, "$?");
-		if (!token)
-			return (NULL);
-		token->position = start_pos;
-		advance_lexer(lexer);
-		return (token);
-	}
-	var_len = get_var_name_len(lexer);
-	if (var_len == 0)
-		return (create_dollar_token(start_pos));
-	var_name = ft_substr(lexer->input, lexer->pos, var_len);
-	if (!var_name)
-	{
-		handle_error(MNSHL_ERR_MEMORY,
-			"create_expand_token : ft_substr failed");
-		return (NULL);
-	}
-	full_var_name = ft_strjoin("$", var_name);
-	free(var_name);
-	if (!full_var_name)
-	{
-		handle_error(MNSHL_ERR_MEMORY,
-			"create_expand_token : ft_strjoin failed");
-		return (NULL);
-	}
-	token = create_token(TOKEN_WORD, full_var_name);
-	free(full_var_name);
-	if (!token)
-	{
-		handle_error(MNSHL_ERR_MEMORY,
-			"create_expand_token : token creation failed");
-		return (NULL);
-	}
-	token->position = start_pos;
-	advance_var_position(lexer, var_len);
 	return (token);
 }
 
