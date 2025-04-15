@@ -6,7 +6,7 @@
 /*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:33:09 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/14 18:47:58 by lmokhtar         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:57:56 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,37 +80,4 @@ int	get_env_size(char *str, int *i, t_data *minishell)
 	len = get_value_len(str + start, minishell->env);
 	str[*i] = c;
 	return (len);
-}
-
-int	get_expanded_len(char *str, t_data *minishell)
-{
-	int	len;
-	int	i;
-	int	quote_index;
-
-	len = 0;
-	i = 0;
-	quote_index = 0;
-
-	if (str[0] == '\'' && ft_strchr(str + 1, '$'))
-		len += 2;  
-
-	while (str[i])
-	{
-		if (str[i] == '\'' && quote_index != 2)
-			quote_index = change_quote(str[i++], quote_index);
-		else if (str[i] == '"' && quote_index != 1)
-			quote_index = change_quote(str[i++], quote_index);
-		else
-		{
-			if (str[i] == '$' && quote_index != 1)
-				len += get_env_size(str, &i, minishell);
-			else
-			{
-				i++;
-				len++;
-			}
-		}
-	}
-	return (len + 10);
 }

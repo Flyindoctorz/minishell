@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmokhtar <lmokhtar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:43:28 by lmokhtar          #+#    #+#             */
-/*   Updated: 2025/04/03 14:33:56 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 15:57:30 by lmokhtar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,22 @@ void	ft_putstr_fd(char *str, int fd)
 		write(fd, &str[i++], 1);
 }
 
-// int	ft_strchr(char *str, char c)
-// {
-// 	int	i;
+int	process_char(char *str, int *i, int *quote_index, t_data *minishell)
+{
+	int	len;
 
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == c)
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
+	if (str[*i] == '$' && *quote_index != 1)
+	{
+		len = get_env_size(str, i, minishell);
+		return (len);
+	}
+	(*i)++;
+	return (1);
+}
+
+char	*handle_special_expand_cases(char *str)
+{
+	if (str && str[0] == '$' && str[1] == '\0')
+		return (ft_strdup("$"));
+	return (NULL);
+}
