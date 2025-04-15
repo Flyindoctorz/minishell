@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 12:32:42 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/14 17:33:36 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:08:44 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static t_data	*validate_args(int ac, char **av)
 
 t_data	*init_data(int ac, char **av, char **envp)
 {
-	t_data *data;
-	int status;
+	t_data	*data;
+	int		status;
 
 	data = validate_args(ac, av);
 	if (!data)

@@ -6,7 +6,7 @@
 /*   By: cgelgon <cgelgon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 17:02:52 by cgelgon           #+#    #+#             */
-/*   Updated: 2025/04/15 16:59:11 by cgelgon          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:09:37 by cgelgon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ char	*create_env_entry(char *key, char *value)
 
 static void	free_env_entries(char **entries, int count)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < count)
+	while (i < count)
 	{
 		free(entries[i]);
 		i++;
